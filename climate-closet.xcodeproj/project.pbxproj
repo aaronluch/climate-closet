@@ -12,6 +12,7 @@
 		024730722CB589F300A6C86B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024730712CB589F300A6C86B /* Assets.xcassets */; };
 		024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024730742CB589F300A6C86B /* Preview Assets.xcassets */; };
 		028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028D3F8C2CB58B2800F8B4FA /* clothing.swift */; };
+		0721EBC42CB595DE008E9BA5 /* clothingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBC32CB595DE008E9BA5 /* clothingStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		0247307A2CB589F300A6C86B /* climate-closetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		024730842CB589F300A6C86B /* climate-closetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
+		0721EBC32CB595DE008E9BA5 /* clothingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = clothingStore.swift; path = "../../../Climate Closet/climate-closet/climate-closet/clothingStore.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			children = (
 				0247306D2CB589F300A6C86B /* climate_closetApp.swift */,
 				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
+				0721EBC32CB595DE008E9BA5 /* clothingStore.swift */,
 				0247306F2CB589F300A6C86B /* ContentView.swift */,
 				024730712CB589F300A6C86B /* Assets.xcassets */,
 				024730732CB589F300A6C86B /* Preview Content */,
@@ -238,6 +241,7 @@
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
 				0247306E2CB589F300A6C86B /* climate_closetApp.swift in Sources */,
 				028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */,
+				0721EBC42CB595DE008E9BA5 /* clothingStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
