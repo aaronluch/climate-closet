@@ -13,9 +13,13 @@
 		024730722CB589F300A6C86B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024730712CB589F300A6C86B /* Assets.xcassets */; };
 		024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024730742CB589F300A6C86B /* Preview Assets.xcassets */; };
 		028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028D3F8C2CB58B2800F8B4FA /* clothing.swift */; };
+<<<<<<< HEAD
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
 		02AB3A742CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */; };
+=======
+		0721EBC62CB59685008E9BA5 /* clothingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBC52CB59685008E9BA5 /* clothingStore.swift */; };
+>>>>>>> f8d56dc41706ee4789416aee458a4a1520c901c8
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,11 +47,15 @@
 		024730712CB589F300A6C86B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		024730742CB589F300A6C86B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		02AB3A622CB5A11200C92A0E /* climate-closetTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetTesting.swift; sourceTree = "<group>"; };
 		02AB3A6F2CB5A12300C92A0E /* climate-closetUITesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITesting.swift; sourceTree = "<group>"; };
 		02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITestingLaunchTests.swift; sourceTree = "<group>"; };
+=======
+		0721EBC52CB59685008E9BA5 /* clothingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clothingStore.swift; sourceTree = "<group>"; };
+>>>>>>> f8d56dc41706ee4789416aee458a4a1520c901c8
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				0247306D2CB589F300A6C86B /* climate_closetApp.swift */,
+				0721EBC52CB59685008E9BA5 /* clothingStore.swift */,
 				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
 				0247306F2CB589F300A6C86B /* ContentView.swift */,
 				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
@@ -266,7 +275,11 @@
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
 				0247306E2CB589F300A6C86B /* climate_closetApp.swift in Sources */,
 				028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */,
+<<<<<<< HEAD
 				023DA7E12CB5983F004F3975 /* clothingStore.swift in Sources */,
+=======
+				0721EBC62CB59685008E9BA5 /* clothingStore.swift in Sources */,
+>>>>>>> f8d56dc41706ee4789416aee458a4a1520c901c8
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
