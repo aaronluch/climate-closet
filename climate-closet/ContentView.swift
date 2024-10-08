@@ -1,20 +1,32 @@
-//
 //  ContentView.swift
 //  climate-closet
-//
-//  Created by Aaron Luciano on 10/8/24.
-//
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
+        TabView {
+            HomeView() //
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+            FeedView()
+                .tabItem {
+                    Label("Feed", systemImage: "list.bullet")
+                }
+            CameraView()
+                .tabItem {
+                    Label("Camera", systemImage: "camera")
+                }
+            WeatherView()
+                .tabItem {
+                    Label("Weather", systemImage: "cloud.sun")
+                }
+            ProfileView()
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
+            }
         .padding()
     }
 }
