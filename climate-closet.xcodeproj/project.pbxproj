@@ -21,6 +21,7 @@
 		0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD52CB72616008E9BA5 /* HomeView.swift */; };
 		0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD72CB7261C008E9BA5 /* ProfileView.swift */; };
 		0721EBDA2CB72621008E9BA5 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD92CB72621008E9BA5 /* WeatherView.swift */; };
+		0721EBDC2CB7F388008E9BA5 /* ClothingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		0721EBD52CB72616008E9BA5 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0721EBD72CB7261C008E9BA5 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0721EBD92CB72621008E9BA5 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				0721EBD32CB7260E008E9BA5 /* FeedView.swift */,
 				0721EBD92CB72621008E9BA5 /* WeatherView.swift */,
 				0721EBD52CB72616008E9BA5 /* HomeView.swift */,
+				0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */,
 				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
 				0721EBD12CB72603008E9BA5 /* CameraView.swift */,
 				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
@@ -278,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0721EBDC2CB7F388008E9BA5 /* ClothingListView.swift in Sources */,
 				0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */,
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
 				0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */,

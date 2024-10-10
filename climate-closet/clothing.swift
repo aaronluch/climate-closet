@@ -1,4 +1,6 @@
-class Clothing {
+import SwiftUI
+
+class Clothing: Identifiable {
     var name: String
     var owned: Bool
     var category: Category
