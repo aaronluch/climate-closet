@@ -30,7 +30,9 @@ struct ClothingListView: View {
                     .padding(.top)
                 ) {
                     ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
-                        ClothingListRow(clothing: clothing)
+                        NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
+                            ClothingListRow(clothing: clothing)
+                        }
                     }
                 }
             }
