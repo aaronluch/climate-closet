@@ -8,7 +8,7 @@ class Clothing: Identifiable {
     var maxTemp: String
     var imageUrl: String
     
-    enum Category {
+    enum Category: CaseIterable {
         case top, bottom, outerwear, accessory, footwear, other
     }
     

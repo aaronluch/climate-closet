@@ -3,39 +3,39 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         NavigationView {
-                    VStack(spacing: 20) {
-                        NavigationLink(destination: ClothingListView().environmentObject(ClothesStore())) {
-                            Text("Wardrobe")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-
-//                        NavigationLink(destination: SavedOutfitsView()) {
-//                            Text("Saved Outfits")
-//                                .frame(maxWidth: .infinity)
-//                                .padding()
-//                                .background(Color.green)
-//                                .foregroundColor(.white)
-//                                .cornerRadius(10)
-//                        }
-
-//                        NavigationLink(destination: YourOutfitsView()) {
-//                            Text("Your Outfits")
-//                                .frame(maxWidth: .infinity)
-//                                .padding()
-//                                .background(Color.purple)
-//                                .foregroundColor(.white)
-//                                .cornerRadius(10)
-//                        }
-
-                        Spacer()
-                    }
-                    .padding()
-                    .navigationTitle("Home")
+            VStack(spacing: 20) {
+                NavigationLink(destination: ClothingListView().environmentObject(ClothesStore())) {
+                    Text("Wardrobe")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
+
+//                NavigationLink(destination: SavedOutfitsView()) {
+//                    Text("Saved Outfits")
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color.green)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                }
+//
+//                NavigationLink(destination: YourOutfitsView()) {
+//                    Text("Your Outfits")
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color.purple)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                }
+
+                Spacer()
+            }
+            .padding()
+            .navigationTitle("Home")
+        }
     }
 }
 

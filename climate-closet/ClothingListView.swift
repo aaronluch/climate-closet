@@ -23,16 +23,30 @@ struct ClothingListView: View {
     @EnvironmentObject var clothesStore: ClothesStore
     
     var body: some View {
-        VStack() {
-            NavigationStack {
-                List(clothesStore.allClothes.indices) { index in
-                    NavigationLink(
-                        destination: ClothingInfoView(clothing: clothesStore.allClothes[index])) {
-                            ClothingListRow(clothing: clothesStore.allClothes[index])
-                        }
+        List {
+            ForEach(Clothing.Category.allCases, id: \.self) { category in
+                Section(header: Text(categoryTitle(category))
+                    .font(.headline)
+                    .padding(.top)
+                ) {
+                    ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
+                        ClothingListRow(clothing: clothing)
+                    }
                 }
             }
         }
+        .navigationTitle("Wardrobe")
+    }
+}
+
+private func categoryTitle(_ category: Clothing.Category) -> String {
+    switch category {
+    case .top: return "Tops"
+    case .bottom: return "Bottoms"
+    case .outerwear: return "Outerwear"
+    case .accessory: return "Accessories"
+    case .footwear: return "Footwear"
+    case .other: return "Other"
     }
 }
 
