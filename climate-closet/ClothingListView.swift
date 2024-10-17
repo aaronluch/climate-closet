@@ -72,23 +72,54 @@ struct ClothingInfoView: View {
 
 struct ClothingListView: View {
     @EnvironmentObject var clothesStore: ClothesStore
+    @State private var expandedCategories: [Clothing.Category: Bool] = [:]  // track expanded/collapsed state for each category
     
     var body: some View {
         ScrollView {
             VStack {
                 ForEach(Clothing.Category.allCases, id: \.self) { category in
-                    Section(header: Text(categoryTitle(category))
-                        .font(.headline)
-                        .padding(.top)
-                        .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 25)
-                    ) {
-                        ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
-                            NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
-                                ClothingListRow(clothing: clothing)
-                                Text(clothing.name).foregroundColor(.primary)
+                    VStack {
+                        // header for each collapsible section
+                        // toggle Button for collapsing/expanding
+                        Button(action: {
+                            withAnimation{
+                                // sets the expanded/collapsed state for the category
+                                expandedCategories[category]?.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Text(categoryTitle(category))
+                                    .font(.title2)
+                                    .fontWeight(expandedCategories[category] == true ? .bold : .regular)
+                                    .padding(.top)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal, 25)
                                 Spacer()
-                                Spacer()
-                            }.padding()
+                                // chevron (arrow for open or closed)
+                                Image(systemName: expandedCategories[category] == true ? "chevron.up" : "chevron.down")
+                                    .fontWeight(expandedCategories[category] == true ? .bold : .regular)
+                                    .padding(.trailing, 25)
+                            }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        // conditionally show the clothing items if the section is expanded
+                        if expandedCategories[category] == true {
+                            ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
+                                NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
+                                    HStack {
+                                        ClothingListRow(clothing: clothing)
+                                        Text(clothing.name)
+                                            .foregroundColor(.primary)
+                                        Spacer()
+                                    }
+                                }
+                                .padding()
+                                .background(Color.gray.opacity(0.08))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                                .padding(.bottom, 10)
+                            }
                         }
                     }
                 }
@@ -96,9 +127,18 @@ struct ClothingListView: View {
             .navigationTitle("Wardrobe")
             .padding(.top, 10)
         }
+        .onAppear {
+            // initialize the expanded state for all categories as collapsed
+            for category in Clothing.Category.allCases {
+                if expandedCategories[category] == nil {
+                    expandedCategories[category] = false
+                }
+            }
+        }
     }
 }
 
+// category title helper function
 private func categoryTitle(_ category: Clothing.Category) -> String {
     switch category {
     case .top: return "Tops"
