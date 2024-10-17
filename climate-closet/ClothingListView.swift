@@ -8,7 +8,7 @@ struct ClothingListRow: View {
             clothing.imageUrl
                 .resizable()
                 .aspectRatio(1/1, contentMode: .fit)
-                .frame(width: 30)
+                .frame(width: 30, height: 30)
                 .clipped()
             Spacer()
         }
@@ -31,35 +31,27 @@ struct ClothingListView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack {
                 ForEach(Clothing.Category.allCases, id: \.self) { category in
                     Section(header: Text(categoryTitle(category))
                         .font(.headline)
                         .padding(.top)
+                        .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 15)
                     ) {
-                        let clothesForCategory = clothesStore.allClothes.filter { $0.category == category }
-                        let rows = clothesForCategory.chunked(into: 3)
-                        
-                        ForEach(rows, id: \.self) { row in
-                            HStack {
-                                ForEach(row, id: \.id) { clothing in
-                                    NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
-                                        ClothingListRow(clothing: clothing)
-                                            .frame(width: 100, height: 100)
-                                    }
-                                }
-                            }
-                            Spacer()
+                        ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
+                            NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
+                                ClothingListRow(clothing: clothing)
+                                Text(clothing.name).foregroundColor(.black)
+                            }.padding()
                         }
                     }
                 }
             }
+            .navigationTitle("Wardrobe")
+            .padding(.top, 10)
         }
-        .navigationTitle("Wardrobe")
     }
 }
-
-
 
 private func categoryTitle(_ category: Clothing.Category) -> String {
     switch category {
