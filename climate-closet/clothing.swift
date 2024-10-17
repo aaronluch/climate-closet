@@ -6,14 +6,14 @@ class Clothing: Identifiable {
     var category: Category
     var minTemp: String
     var maxTemp: String
-    var imageUrl: String
+    var imageUrl: Image
     
     enum Category: CaseIterable {
         case top, bottom, outerwear, accessory, footwear, other
     }
     
     init(name: String = "", owned: Bool = true, category: Category = .other, minTemp: String = "", 
-    maxTemp: String = "", imageUrl: String = "") {
+    maxTemp: String = "", imageUrl: Image) {
         self.name = name
         self.owned = owned
         self.category = category
