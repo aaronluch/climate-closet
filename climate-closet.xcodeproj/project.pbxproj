@@ -302,11 +302,7 @@
 				028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */,
 				07BBBD0A2CC158AF0069D3F2 /* outfit.swift in Sources */,
 				0721EBD22CB72603008E9BA5 /* CameraView.swift in Sources */,
-<<<<<<< HEAD
 				07BBBD082CC150820069D3F2 /* ImagePicker.swift in Sources */,
-=======
-				02A013D92CC150B9009B2F9D /* ImagePicker.swift in Sources */,
->>>>>>> 680b6124de9588a1a82d33be500765c8a37bd1a6
 				0721EBDA2CB72621008E9BA5 /* WeatherView.swift in Sources */,
 				0721EBD42CB7260E008E9BA5 /* FeedView.swift in Sources */,
 				023DA7E12CB5983F004F3975 /* clothingStore.swift in Sources */,
