@@ -47,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0237E5792CC44F09002D1928 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		023DA7E02CB5983F004F3975 /* clothingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothingStore.swift; sourceTree = "<group>"; };
 		0247306A2CB589F300A6C86B /* climate-closet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "climate-closet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0247306D2CB589F300A6C86B /* climate_closetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetApp.swift; sourceTree = "<group>"; };
@@ -54,7 +55,6 @@
 		024730712CB589F300A6C86B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		024730742CB589F300A6C86B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
-		02A013D82CC150B9009B2F9D /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		02AB3A622CB5A11200C92A0E /* climate-closetTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetTesting.swift; sourceTree = "<group>"; };
 		02AB3A6F2CB5A12300C92A0E /* climate-closetUITesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +98,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0237E57C2CC452D1002D1928 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0721EBD52CB72616008E9BA5 /* HomeView.swift */,
+				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
+				0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */,
+				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
+				07BBBD092CC158AF0069D3F2 /* outfit.swift */,
+				07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		0237E57D2CC45307002D1928 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				07BBBD072CC150820069D3F2 /* ImagePicker.swift */,
+				0721EBD12CB72603008E9BA5 /* CameraView.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		0237E57E2CC45349002D1928 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		0237E57F2CC45358002D1928 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				0721EBD32CB7260E008E9BA5 /* FeedView.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		024730612CB589F200A6C86B = {
 			isa = PBXGroup;
 			children = (
@@ -121,22 +159,16 @@
 		0247306C2CB589F300A6C86B /* climate-closet */ = {
 			isa = PBXGroup;
 			children = (
+				0237E5792CC44F09002D1928 /* Info.plist */,
 				024730712CB589F300A6C86B /* Assets.xcassets */,
-				0721EBD12CB72603008E9BA5 /* CameraView.swift */,
-				0247306D2CB589F300A6C86B /* climate_closetApp.swift */,
-				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
-				0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */,
-				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
-				0247306F2CB589F300A6C86B /* ContentView.swift */,
-				0721EBD32CB7260E008E9BA5 /* FeedView.swift */,
-				0721EBD52CB72616008E9BA5 /* HomeView.swift */,
-				07BBBD072CC150820069D3F2 /* ImagePicker.swift */,
-				02A013D82CC150B9009B2F9D /* ImagePicker.swift */,
-				07BBBD092CC158AF0069D3F2 /* outfit.swift */,
-				07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */,
-				024730732CB589F300A6C86B /* Preview Content */,
-				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
+				0237E57C2CC452D1002D1928 /* Home */,
+				0237E57F2CC45358002D1928 /* Feed */,
+				0237E57D2CC45307002D1928 /* Camera */,
 				3DF60F772CC401350068C50E /* Weather */,
+				0237E57E2CC45349002D1928 /* Profile */,
+				0247306D2CB589F300A6C86B /* climate_closetApp.swift */,
+				0247306F2CB589F300A6C86B /* ContentView.swift */,
+				024730732CB589F300A6C86B /* Preview Content */,
 			);
 			path = "climate-closet";
 			sourceTree = "<group>";
@@ -486,6 +518,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"climate-closet/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "climate-closet/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -514,6 +547,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"climate-closet/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "climate-closet/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
