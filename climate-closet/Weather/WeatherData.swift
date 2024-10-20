@@ -42,21 +42,17 @@ func fetchWeather(latitude: Double, longitude: Double, completion: @escaping (We
     URLSession.shared.dataTask(with: url) { data, response, error in
         if let data = data {
             do {
-                // Decode the received JSON data into the WeatherData struct
                 let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
                 DispatchQueue.main.async {
-                    // Call the completion handler with the decoded weather data
                     completion(weatherData)
                 }
             } catch {
-                // Handle any decoding errors
                 print("Error decoding weather data: \(error)")
                 completion(nil)
             }
         } else {
-            // Handle any errors or missing data
             print("No data or error: \(error?.localizedDescription ?? "Unknown error")")
             completion(nil)
         }
-    }.resume()  // Start the data task
+    }.resume() 
 }

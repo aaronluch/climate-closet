@@ -13,6 +13,8 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
 
+                // not implemented yet, same button scheme
+                // and nav link idea when added
 //                NavigationLink(destination: SavedOutfitsView()) {
 //                    Text("Saved Outfits")
 //                        .frame(maxWidth: .infinity)

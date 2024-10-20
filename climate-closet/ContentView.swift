@@ -1,5 +1,6 @@
 //  ContentView.swift
 //  climate-closet
+//  Aaron Luciano, Aman Chase, Amy Tully, Bella Cordero
 
 import SwiftUI
 

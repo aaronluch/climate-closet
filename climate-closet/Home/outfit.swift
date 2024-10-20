@@ -1,5 +1,5 @@
 import SwiftUI
-
+// WIP
 class Outfit: Identifiable {
     var name: String
     var clothes: [Clothing]
