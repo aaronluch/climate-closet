@@ -16,6 +16,7 @@
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
 		02AB3A742CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */; };
+		02C829CC2CCA8D7100C765BC /* OutfitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C829CB2CCA8D7100C765BC /* OutfitsView.swift */; };
 		0721EBD22CB72603008E9BA5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD12CB72603008E9BA5 /* CameraView.swift */; };
 		0721EBD42CB7260E008E9BA5 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD32CB7260E008E9BA5 /* FeedView.swift */; };
 		0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD52CB72616008E9BA5 /* HomeView.swift */; };
@@ -60,6 +61,7 @@
 		02AB3A6F2CB5A12300C92A0E /* climate-closetUITesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITesting.swift; sourceTree = "<group>"; };
 		02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITestingLaunchTests.swift; sourceTree = "<group>"; };
+		02C829CB2CCA8D7100C765BC /* OutfitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitsView.swift; sourceTree = "<group>"; };
 		0721EBD12CB72603008E9BA5 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0721EBD32CB7260E008E9BA5 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		0721EBD52CB72616008E9BA5 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				0721EBD52CB72616008E9BA5 /* HomeView.swift */,
 				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
 				0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */,
+				02C829CB2CCA8D7100C765BC /* OutfitsView.swift */,
 				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
 				07BBBD092CC158AF0069D3F2 /* outfit.swift */,
 				07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */,
@@ -343,6 +346,7 @@
 				07BBBD0C2CC2BE780069D3F2 /* outfitStore.swift in Sources */,
 				0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */,
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
+				02C829CC2CCA8D7100C765BC /* OutfitsView.swift in Sources */,
 				0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */,
 				0247306E2CB589F300A6C86B /* climate_closetApp.swift in Sources */,
 				3DF60F7A2CC401350068C50E /* WeatherView.swift in Sources */,

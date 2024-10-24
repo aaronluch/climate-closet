@@ -15,14 +15,14 @@ struct HomeView: View {
 
                 // not implemented yet, same button scheme
                 // and nav link idea when added
-//                NavigationLink(destination: SavedOutfitsView()) {
-//                    Text("Saved Outfits")
-//                        .frame(maxWidth: .infinity)
-//                        .padding()
-//                        .background(Color.green)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(10)
-//                }
+                NavigationLink(destination: OutfitsView()) {
+                    Text("Your Outfits")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
 //
 //                NavigationLink(destination: YourOutfitsView()) {
 //                    Text("Your Outfits")
