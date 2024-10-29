@@ -1,10 +1,3 @@
-//
-//  OutfitPlanningView.swift
-//  climate-closet
-//
-//  Created by Isabella Cordero on 10/29/24.
-//
-
 
 import SwiftUI
 
@@ -27,7 +20,6 @@ struct OutfitPlanningView: View {
                 .padding()
 
             Button(action: {
-                // Add action for saving or processing outfit selection
             }) {
                 Text("Save Outfit")
                     .font(.headline)

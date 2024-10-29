@@ -8,21 +8,18 @@ struct WeatherView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // Centered Weather Title
                 Text("Weather")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
-                    .frame(maxWidth: .infinity, alignment: .center) // Center the title
+                    .frame(maxWidth: .infinity, alignment: .center) 
                     .foregroundColor(.black)
 
                 if let weather = weatherData {
-                    // Calculate rounded temperature in Fahrenheit
                     let tempFahrenheit = Int((weather.main.temp * 9/5) + 32)
                     let currentTemp = "\(tempFahrenheit)°F"
                     let description = weather.weather.first?.description.capitalized ?? ""
                     
-                    // Display the temperature and description
                     HStack {
                         Image(systemName: "cloud.sun")
                             .resizable()
@@ -36,26 +33,26 @@ struct WeatherView: View {
                     }
                     .font(.headline)
                     .padding()
-                    .frame(maxWidth: .infinity) // Ensures the HStack occupies the maximum width
+                    .frame(maxWidth: .infinity)
                     .border(Color.black, width: 2)
-                    .background(Color.white) // Match background color
-                    .cornerRadius(3) // Match corner radius
+                    .background(Color.white)
+                    .cornerRadius(3)
 
-                    // "Plan Tomorrow's Outfit" Navigation Link
+                    
                     NavigationLink(destination: OutfitPlanningView()) {
                         Text("Plan Tomorrow's Outfit")
                             .font(.headline)
                             .padding()
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 15)
-                            .background(Color.white) // Match background with the current weather display
+                            .background(Color.white)
                             .foregroundColor(.black)
                             .border(Color.black, width: 2)
                             .cornerRadius(3)
                     }
                     .padding()
 
-                    // Display 24-hour weather breakdown
+                    
                     VStack {
                         Text("24-Hour Weather Breakdown")
                             .font(.headline)
@@ -79,7 +76,7 @@ struct WeatherView: View {
                 }
             }
             .navigationTitle("")
-            .navigationBarHidden(true) // Hide default navigation bar title
+            .navigationBarHidden(true)
         }
     }
 }
