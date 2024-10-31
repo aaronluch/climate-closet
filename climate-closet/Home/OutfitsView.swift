@@ -20,7 +20,7 @@ struct OutfitInfoView: View {
                     Text(categoryTitle(category))
                         .font(.title2)
                         .fontWeight(.bold)
-                        //.padding(.top)
+                    //.padding(.top)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 25)
                 }
@@ -37,9 +37,9 @@ struct OutfitInfoView: View {
                     }
                 }
             }
-            }
         }
     }
+}
 
 
 struct OutfitsView: View {
@@ -54,9 +54,6 @@ struct OutfitsView: View {
         .navigationTitle("Outfits")
     }
 }
-
-
-
 
 private func categoryTitle(_ category: Clothing.Category) -> String {
     switch category {

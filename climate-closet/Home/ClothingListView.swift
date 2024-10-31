@@ -72,71 +72,82 @@ struct ClothingInfoView: View {
 
 struct ClothingListView: View {
     @EnvironmentObject var clothesStore: ClothesStore
-    @State private var expandedCategories: [Clothing.Category: Bool] = [:]  // track expanded/collapsed state for each category
+    @State private var expandedCategories: [Clothing.Category: Bool] = [:]
     
     var body: some View {
         ScrollView {
             VStack {
                 ForEach(Clothing.Category.allCases, id: \.self) { category in
-                    VStack {
-                        // header for each collapsible section
-                        // toggle Button for collapsing/expanding
-                        Button(action: {
-                            withAnimation{
-                                // sets the expanded/collapsed state for the category
-                                expandedCategories[category]?.toggle()
-                            }
-                        }) {
-                            HStack {
-                                Text(categoryTitle(category))
-                                    .font(.title2)
-                                    .fontWeight(expandedCategories[category] == true ? .bold : .regular)
-                                    .padding(.top)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal, 25)
-                                Spacer()
-                                // chevron (arrow for open or closed)
-                                Image(systemName: expandedCategories[category] == true ? "chevron.up" : "chevron.down")
-                                    .fontWeight(expandedCategories[category] == true ? .bold : .regular)
-                                    .padding(.trailing, 25)
-                            }
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        // conditionally show the clothing items if the section is expanded
-                        if expandedCategories[category] == true {
-                            ForEach(clothesStore.allClothes.filter { $0.category == category }) { clothing in
-                                NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
-                                    HStack {
-                                        ClothingListRow(clothing: clothing)
-                                        Text(clothing.name)
-                                            .foregroundColor(.primary)
-                                        Spacer()
-                                    }
-                                }
-                                .padding()
-                                .background(Color.gray.opacity(0.08))
-                                .cornerRadius(10)
-                                .padding(.horizontal, 20)
-                                .padding(.bottom, 10)
-                            }
-                        }
-                    }
+                    ExpandableClothingCategoryView(
+                        category: category,
+                        clothes: clothesStore.allClothes.filter { $0.category == category },
+                        isExpanded: Binding(
+                            get: { expandedCategories[category, default: false] },
+                            set: { expandedCategories[category] = $0 }
+                            )
+                    )
                 }
+
             }
             .navigationTitle("Wardrobe")
             .padding(.top, 10)
         }
         .onAppear {
-            // initialize the expanded state for all categories as collapsed
             for category in Clothing.Category.allCases {
-                if expandedCategories[category] == nil {
-                    expandedCategories[category] = false
+                expandedCategories[category] = expandedCategories[category] ?? false
+            }
+        }
+    }
+}
+
+struct ExpandableClothingCategoryView: View {
+    var category: Clothing.Category
+    var clothes: [Clothing]
+    @Binding var isExpanded: Bool
+    
+    var body: some View {
+        VStack {
+            Button(action: {
+                withAnimation {
+                    isExpanded.toggle()
+                }
+            }) {
+                HStack {
+                    Text(categoryTitle(category))
+                        .font(.title2)
+                        .fontWeight(isExpanded ? .bold : .regular)
+                        .padding(.top)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 25)
+                    Spacer()
+                    Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                        .fontWeight(isExpanded ? .bold : .regular)
+                        .padding(.trailing, 25)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            if isExpanded {
+                ForEach(clothes) { clothing in
+                    NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
+                        HStack {
+                            ClothingListRow(clothing: clothing)
+                            Text(clothing.name)
+                                .foregroundColor(.primary)
+                            Spacer()
+                        }
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.08))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
                 }
             }
         }
     }
 }
+
 
 // category title helper function
 private func categoryTitle(_ category: Clothing.Category) -> String {
