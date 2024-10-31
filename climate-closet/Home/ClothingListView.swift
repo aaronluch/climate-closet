@@ -70,36 +70,6 @@ struct ClothingInfoView: View {
     }
 }
 
-struct ClothingListView: View {
-    @EnvironmentObject var clothesStore: ClothesStore
-    @State private var expandedCategories: [Clothing.Category: Bool] = [:]
-    
-    var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(Clothing.Category.allCases, id: \.self) { category in
-                    ExpandableClothingCategoryView(
-                        category: category,
-                        clothes: clothesStore.allClothes.filter { $0.category == category },
-                        isExpanded: Binding(
-                            get: { expandedCategories[category, default: false] },
-                            set: { expandedCategories[category] = $0 }
-                            )
-                    )
-                }
-
-            }
-            .navigationTitle("Wardrobe")
-            .padding(.top, 10)
-        }
-        .onAppear {
-            for category in Clothing.Category.allCases {
-                expandedCategories[category] = expandedCategories[category] ?? false
-            }
-        }
-    }
-}
-
 struct ExpandableClothingCategoryView: View {
     var category: Clothing.Category
     var clothes: [Clothing]
@@ -148,6 +118,35 @@ struct ExpandableClothingCategoryView: View {
     }
 }
 
+struct ClothingListView: View {
+    @EnvironmentObject var clothesStore: ClothesStore
+    @State private var expandedCategories: [Clothing.Category: Bool] = [:]
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                ForEach(Clothing.Category.allCases, id: \.self) { category in
+                    ExpandableClothingCategoryView(
+                        category: category,
+                        clothes: clothesStore.allClothes.filter { $0.category == category },
+                        isExpanded: Binding(
+                            get: { expandedCategories[category, default: false] },
+                            set: { expandedCategories[category] = $0 }
+                            )
+                    )
+                }
+
+            }
+            .navigationTitle("Wardrobe")
+            .padding(.top, 10)
+        }
+        .onAppear {
+            for category in Clothing.Category.allCases {
+                expandedCategories[category] = expandedCategories[category] ?? false
+            }
+        }
+    }
+}
 
 // category title helper function
 private func categoryTitle(_ category: Clothing.Category) -> String {

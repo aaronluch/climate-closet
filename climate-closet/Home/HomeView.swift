@@ -24,7 +24,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
 
-                NavigationLink(destination: CreateOutfitView()) {
+                NavigationLink(destination: CreateOutfitView().environmentObject(ClothesStore())) {
                     Text("Your Outfits")
                         .frame(maxWidth: .infinity)
                         .padding()
