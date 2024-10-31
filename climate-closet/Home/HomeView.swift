@@ -13,9 +13,9 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
 
-                // not implemented yet, same button scheme
-                // and nav link idea when added
-                NavigationLink(destination: OutfitsView()) {
+                
+                NavigationLink(destination: OutfitsView()
+                    .environmentObject(OutfitStore()).environmentObject(ClothesStore())) {
                     Text("Your Outfits")
                         .frame(maxWidth: .infinity)
                         .padding()
