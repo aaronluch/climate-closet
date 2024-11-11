@@ -18,7 +18,16 @@
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
 		02AB3A742CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */; };
+		02C8193C2CE275F4006628E6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193B2CE275F4006628E6 /* LoginView.swift */; };
+		02C8193E2CE27604006628E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193D2CE27604006628E6 /* RegisterView.swift */; };
+		02C819402CE2760F006628E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193F2CE2760F006628E6 /* SettingsView.swift */; };
 		02C829CC2CCA8D7100C765BC /* OutfitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C829CB2CCA8D7100C765BC /* OutfitsView.swift */; };
+		02F9861C2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
+		02F9861D2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
+		02F9861E2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
+		02F986212CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
+		02F986222CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
+		02F986232CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
 		0721EBD22CB72603008E9BA5 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD12CB72603008E9BA5 /* CameraView.swift */; };
 		0721EBD42CB7260E008E9BA5 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD32CB7260E008E9BA5 /* FeedView.swift */; };
 		0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD52CB72616008E9BA5 /* HomeView.swift */; };
@@ -30,6 +39,9 @@
 		3DF60F782CC401350068C50E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF60F742CC401350068C50E /* LocationManager.swift */; };
 		3DF60F7A2CC401350068C50E /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF60F762CC401350068C50E /* WeatherView.swift */; };
 		3DF60F7C2CC447D60068C50E /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF60F7B2CC447D60068C50E /* WeatherData.swift */; };
+		E28CF5C480C232A779A080DE /* Pods_climate_closet_climate_closetUITesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E2A867A12B445028AE8741 /* Pods_climate_closet_climate_closetUITesting.framework */; };
+		E2F59FD8A2BD5BEEC2243333 /* Pods_climate_closetTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BB758E02656AD8993636F2 /* Pods_climate_closetTesting.framework */; };
+		E36E4501C211B64868A5F120 /* Pods_climate_closet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B92F33DB9D0917E2E8319FC /* Pods_climate_closet.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +77,12 @@
 		02AB3A6F2CB5A12300C92A0E /* climate-closetUITesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITesting.swift; sourceTree = "<group>"; };
 		02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITestingLaunchTests.swift; sourceTree = "<group>"; };
+		02C8193B2CE275F4006628E6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		02C8193D2CE27604006628E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		02C8193F2CE2760F006628E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		02C829CB2CCA8D7100C765BC /* OutfitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitsView.swift; sourceTree = "<group>"; };
+		02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		02F986202CDD128300ED5985 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0721EBD12CB72603008E9BA5 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0721EBD32CB7260E008E9BA5 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		0721EBD52CB72616008E9BA5 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -74,9 +91,18 @@
 		07BBBD072CC150820069D3F2 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07BBBD092CC158AF0069D3F2 /* outfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = outfit.swift; sourceTree = "<group>"; };
 		07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = outfitStore.swift; sourceTree = "<group>"; };
+		17448AA901EEE93828E22BEE /* Pods-climate-closet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closet.release.xcconfig"; path = "Target Support Files/Pods-climate-closet/Pods-climate-closet.release.xcconfig"; sourceTree = "<group>"; };
+		1E4B1BB0BA78EC657395E59D /* Pods-climate-closet-climate-closetUITesting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closet-climate-closetUITesting.debug.xcconfig"; path = "Target Support Files/Pods-climate-closet-climate-closetUITesting/Pods-climate-closet-climate-closetUITesting.debug.xcconfig"; sourceTree = "<group>"; };
+		1F7F6B77476F1F9C9CF569B3 /* Pods-climate-closet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closet.debug.xcconfig"; path = "Target Support Files/Pods-climate-closet/Pods-climate-closet.debug.xcconfig"; sourceTree = "<group>"; };
+		30BB758E02656AD8993636F2 /* Pods_climate_closetTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_climate_closetTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3431A916054F5E69EBDF0825 /* Pods-climate-closet-climate-closetUITesting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closet-climate-closetUITesting.release.xcconfig"; path = "Target Support Files/Pods-climate-closet-climate-closetUITesting/Pods-climate-closet-climate-closetUITesting.release.xcconfig"; sourceTree = "<group>"; };
 		3DF60F742CC401350068C50E /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3DF60F762CC401350068C50E /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		3DF60F7B2CC447D60068C50E /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		563D09CB4A034D64F4B08D58 /* Pods-climate-closetTesting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closetTesting.debug.xcconfig"; path = "Target Support Files/Pods-climate-closetTesting/Pods-climate-closetTesting.debug.xcconfig"; sourceTree = "<group>"; };
+		5B92F33DB9D0917E2E8319FC /* Pods_climate_closet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_climate_closet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7E2A867A12B445028AE8741 /* Pods_climate_closet_climate_closetUITesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_climate_closet_climate_closetUITesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBCB30A22690EAA16AFA9B6E /* Pods-climate-closetTesting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-climate-closetTesting.release.xcconfig"; path = "Target Support Files/Pods-climate-closetTesting/Pods-climate-closetTesting.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E36E4501C211B64868A5F120 /* Pods_climate_closet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2F59FD8A2BD5BEEC2243333 /* Pods_climate_closetTesting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E28CF5C480C232A779A080DE /* Pods_climate_closet_climate_closetUITesting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
+				02C8193F2CE2760F006628E6 /* SettingsView.swift */,
+				02C8193D2CE27604006628E6 /* RegisterView.swift */,
+				02C8193B2CE275F4006628E6 /* LoginView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -151,6 +183,8 @@
 				02AB3A632CB5A11200C92A0E /* climate-closetTesting */,
 				02AB3A702CB5A12300C92A0E /* climate-closetUITesting */,
 				0247306B2CB589F300A6C86B /* Products */,
+				FA2B4EB6F415F0DDEFF52D75 /* Pods */,
+				71575A41CDA833422D30739D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				0237E5792CC44F09002D1928 /* Info.plist */,
+				02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */,
 				024730712CB589F300A6C86B /* Assets.xcassets */,
 				0237E57C2CC452D1002D1928 /* Home */,
 				0237E57F2CC45358002D1928 /* Feed */,
@@ -175,6 +210,7 @@
 				3DF60F772CC401350068C50E /* Weather */,
 				0237E57E2CC45349002D1928 /* Profile */,
 				0247306D2CB589F300A6C86B /* climate_closetApp.swift */,
+				02F986202CDD128300ED5985 /* AppDelegate.swift */,
 				0247306F2CB589F300A6C86B /* ContentView.swift */,
 				024730732CB589F300A6C86B /* Preview Content */,
 			);
@@ -217,6 +253,29 @@
 			path = Weather;
 			sourceTree = "<group>";
 		};
+		71575A41CDA833422D30739D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B92F33DB9D0917E2E8319FC /* Pods_climate_closet.framework */,
+				C7E2A867A12B445028AE8741 /* Pods_climate_closet_climate_closetUITesting.framework */,
+				30BB758E02656AD8993636F2 /* Pods_climate_closetTesting.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA2B4EB6F415F0DDEFF52D75 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1F7F6B77476F1F9C9CF569B3 /* Pods-climate-closet.debug.xcconfig */,
+				17448AA901EEE93828E22BEE /* Pods-climate-closet.release.xcconfig */,
+				1E4B1BB0BA78EC657395E59D /* Pods-climate-closet-climate-closetUITesting.debug.xcconfig */,
+				3431A916054F5E69EBDF0825 /* Pods-climate-closet-climate-closetUITesting.release.xcconfig */,
+				563D09CB4A034D64F4B08D58 /* Pods-climate-closetTesting.debug.xcconfig */,
+				DBCB30A22690EAA16AFA9B6E /* Pods-climate-closetTesting.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -224,9 +283,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0247308E2CB589F300A6C86B /* Build configuration list for PBXNativeTarget "climate-closet" */;
 			buildPhases = (
+				E669BE8FF900BED79CE6B57B /* [CP] Check Pods Manifest.lock */,
 				024730662CB589F200A6C86B /* Sources */,
 				024730672CB589F200A6C86B /* Frameworks */,
 				024730682CB589F200A6C86B /* Resources */,
+				AAD9CC75A9F8236C8A2F7099 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -241,6 +302,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02AB3A682CB5A11200C92A0E /* Build configuration list for PBXNativeTarget "climate-closetTesting" */;
 			buildPhases = (
+				90067959A0BA4F62D01619F5 /* [CP] Check Pods Manifest.lock */,
 				02AB3A5E2CB5A11200C92A0E /* Sources */,
 				02AB3A5F2CB5A11200C92A0E /* Frameworks */,
 				02AB3A602CB5A11200C92A0E /* Resources */,
@@ -259,9 +321,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02AB3A772CB5A12300C92A0E /* Build configuration list for PBXNativeTarget "climate-closetUITesting" */;
 			buildPhases = (
+				FB9E5B22D320F0C3AAC65C4F /* [CP] Check Pods Manifest.lock */,
 				02AB3A6B2CB5A12300C92A0E /* Sources */,
 				02AB3A6C2CB5A12300C92A0E /* Frameworks */,
 				02AB3A6D2CB5A12300C92A0E /* Resources */,
+				9DBC93E637507F2621BE8B40 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,6 +369,9 @@
 				Base,
 			);
 			mainGroup = 024730612CB589F200A6C86B;
+			packageReferences = (
+				02F9861F2CDD116B00ED5985 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 0247306B2CB589F300A6C86B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -323,6 +390,7 @@
 			files = (
 				024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */,
 				024730722CB589F300A6C86B /* Assets.xcassets in Resources */,
+				02F9861C2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +398,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F9861D2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,10 +406,114 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F9861E2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		90067959A0BA4F62D01619F5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-climate-closetTesting-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DBC93E637507F2621BE8B40 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-climate-closet-climate-closetUITesting/Pods-climate-closet-climate-closetUITesting-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-climate-closet-climate-closetUITesting/Pods-climate-closet-climate-closetUITesting-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-climate-closet-climate-closetUITesting/Pods-climate-closet-climate-closetUITesting-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAD9CC75A9F8236C8A2F7099 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-climate-closet/Pods-climate-closet-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-climate-closet/Pods-climate-closet-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-climate-closet/Pods-climate-closet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E669BE8FF900BED79CE6B57B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-climate-closet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB9E5B22D320F0C3AAC65C4F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-climate-closet-climate-closetUITesting-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		024730662CB589F200A6C86B /* Sources */ = {
@@ -349,6 +522,8 @@
 			files = (
 				0721EBDC2CB7F388008E9BA5 /* ClothingListView.swift in Sources */,
 				3DF60F7C2CC447D60068C50E /* WeatherData.swift in Sources */,
+				02F986212CDD128300ED5985 /* AppDelegate.swift in Sources */,
+				02C8193E2CE27604006628E6 /* RegisterView.swift in Sources */,
 				07BBBD0C2CC2BE780069D3F2 /* outfitStore.swift in Sources */,
 				0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */,
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
@@ -364,7 +539,9 @@
 				07BBBD082CC150820069D3F2 /* ImagePicker.swift in Sources */,
 				3DF60F782CC401350068C50E /* LocationManager.swift in Sources */,
 				0721EBD42CB7260E008E9BA5 /* FeedView.swift in Sources */,
+				02C8193C2CE275F4006628E6 /* LoginView.swift in Sources */,
 				023DA7E12CB5983F004F3975 /* clothingStore.swift in Sources */,
+				02C819402CE2760F006628E6 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +549,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F986222CDD128300ED5985 /* AppDelegate.swift in Sources */,
 				02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +558,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F986232CDD128300ED5985 /* AppDelegate.swift in Sources */,
 				02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */,
 				02AB3A742CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift in Sources */,
 			);
@@ -438,7 +617,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -501,7 +680,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -514,6 +693,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -522,12 +702,14 @@
 		};
 		0247308F2CB589F300A6C86B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F7F6B77476F1F9C9CF569B3 /* Pods-climate-closet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"climate-closet/Preview Content\"";
+				DEVELOPMENT_TEAM = XLX92Z8SKR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "climate-closet/Info.plist";
@@ -551,12 +733,14 @@
 		};
 		024730902CB589F300A6C86B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17448AA901EEE93828E22BEE /* Pods-climate-closet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"climate-closet/Preview Content\"";
+				DEVELOPMENT_TEAM = XLX92Z8SKR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "climate-closet/Info.plist";
@@ -580,6 +764,7 @@
 		};
 		02AB3A692CB5A11200C92A0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 563D09CB4A034D64F4B08D58 /* Pods-climate-closetTesting.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -597,6 +782,7 @@
 		};
 		02AB3A6A2CB5A11200C92A0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBCB30A22690EAA16AFA9B6E /* Pods-climate-closetTesting.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -614,6 +800,7 @@
 		};
 		02AB3A782CB5A12300C92A0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E4B1BB0BA78EC657395E59D /* Pods-climate-closet-climate-closetUITesting.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -630,6 +817,7 @@
 		};
 		02AB3A792CB5A12300C92A0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3431A916054F5E69EBDF0825 /* Pods-climate-closet-climate-closetUITesting.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -684,6 +872,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		02F9861F2CDD116B00ED5985 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 024730622CB589F200A6C86B /* Project object */;
 }

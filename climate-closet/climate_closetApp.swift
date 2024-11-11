@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct climate_closetApp: App {
+    // connect app delegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

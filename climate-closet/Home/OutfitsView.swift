@@ -52,6 +52,7 @@ struct OutfitsView: View {
             }
         }
         .navigationTitle("Outfits")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

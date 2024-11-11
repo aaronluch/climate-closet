@@ -6,5 +6,7 @@
 	<string>We need your location to provide weather data</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need your location to provide accurate weather information.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to your photo library to save and retrieve outfit photos.</string>
 </dict>
 </plist>

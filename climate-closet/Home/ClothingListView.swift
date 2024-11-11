@@ -138,6 +138,7 @@ struct ClothingListView: View {
 
             }
             .navigationTitle("Wardrobe")
+            .navigationBarTitleDisplayMode(.inline)
             .padding(.top, 10)
         }
         .onAppear {
