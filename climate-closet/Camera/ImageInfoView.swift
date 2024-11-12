@@ -6,7 +6,7 @@ struct ImageInfoView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
     
-    @State private var userID: String
+    //@State private var userID: String bug?
     @State private var name: String = ""
     @State private var owned: Bool = true
     @State private var category: Clothing.Category = .other
@@ -17,8 +17,8 @@ struct ImageInfoView: View {
     @State private var image: UIImage
     @State private var successUpload = false
 
-    init(userID: String, image: UIImage, selectedImage: Binding<UIImage?>) {
-        self._userID = State(initialValue: userID)
+    init(image: UIImage, selectedImage: Binding<UIImage?>) {
+        //self._userID = State(initialValue: userID)
         self._image = State(initialValue: image)
         self._selectedImage = selectedImage
     }
@@ -78,6 +78,11 @@ struct ImageInfoView: View {
         
         // convert image to base64 and upload with metadata
         private func uploadImageToFirestore() {
+            guard let userID = UserSession.shared.userID else {
+                print("Error: User ID not available")
+                return
+            }
+            
             guard let base64String = convertImageToBase64String(img: image) else {
                 print("Error: Could not convert image to Base64.")
                 return

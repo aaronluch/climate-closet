@@ -36,7 +36,7 @@ struct CameraView: View {
                 .padding()
                 
                 if let unwrappedImage = selectedImage {
-                    NavigationLink(destination: ImageInfoView(userID: clothing.userID, image: unwrappedImage, selectedImage: $selectedImage)) {
+                    NavigationLink(destination: ImageInfoView(image: unwrappedImage, selectedImage: $selectedImage)) {
                         Text("Proceed to Info")
                     }
                     .padding()
