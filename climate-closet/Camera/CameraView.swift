@@ -1,5 +1,7 @@
 import SwiftUI
 import Photos
+import FirebaseStorage
+import FirebaseFirestore
 
 struct CameraView: View {
     @State private var selectedImage: UIImage? = nil

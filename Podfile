@@ -9,6 +9,7 @@ target 'climate-closet' do
   pod 'FirebaseCore'
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
+  pod 'Firebase/Storage'
 
   target 'climate-closetTesting' do
     inherit! :search_paths
