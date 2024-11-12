@@ -1,0 +1,5 @@
+# Ignore .DS_Store files everywhere
+.DS_Store
+
+# Ignore .DS_Store files in specific project directories
+climate-closet/.DS_Store
