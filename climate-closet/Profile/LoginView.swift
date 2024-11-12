@@ -5,6 +5,9 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var loginError: String?
+    @State private var loginSuccess = false
+    @Environment(\.presentationMode) var presentationMode
+    private var countdownTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack(spacing: 20) {
@@ -40,11 +43,16 @@ struct LoginView: View {
                     .cornerRadius(8)
             }
             .padding(.top)
+            if loginSuccess {
+//                Text("Success!")
+//                    .foregroundColor(.green)
+//                    .padding()
+                // this just looks stupid right now, queue makes it feel sluggish to countdown from as well
+            }
         }
         .padding()
         .navigationTitle("Login")
         .navigationBarTitleDisplayMode(.inline)
-        
     }
     
     private func loginUser() {
@@ -52,6 +60,7 @@ struct LoginView: View {
             switch result {
             case .success(let user):
                 print("Logged in user ID: \(user.uid)")
+                loginSuccess = true
                 loginError = nil
             case .failure(let error):
                 loginError = "Failed to login: \(error.localizedDescription)"

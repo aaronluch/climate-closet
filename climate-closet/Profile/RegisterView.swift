@@ -31,7 +31,7 @@ struct RegisterView: View {
             }
 
             if isRegistered {
-                Text("Registration successful! Returning in \(countdown)...")
+                Text("Registration successful! Returning in \(countdown)s...")
                     .foregroundColor(.green)
                     .padding()
                     .onReceive(countdownTimer) { _ in
