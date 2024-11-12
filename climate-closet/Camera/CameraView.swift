@@ -6,10 +6,11 @@ struct CameraView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false
     @State private var imageSource: ImagePicker.SourceType = .photoLibrary
-    @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "")
+    @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "na")
+    @State private var navigateToImageInfo = false // controls the navigation
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 if let selectedImage = selectedImage {
                     Image(uiImage: selectedImage)
@@ -35,16 +36,17 @@ struct CameraView: View {
                 .padding()
                 
                 if let unwrappedImage = selectedImage {
-                    NavigationLink(destination: ImageInfoView(clothing: clothing, selectedImage: unwrappedImage, onSave: uploadToFirebase)) {
+                    NavigationLink(destination: ImageInfoView(userID: clothing.userID, image: unwrappedImage, selectedImage: $selectedImage)) {
                         Text("Proceed to Info")
                     }
                     .padding()
                 }
 
-                
+
                 if selectedImage != nil {
                     Button("Remove Image") {
                         selectedImage = nil
+                        navigateToImageInfo = false // reset nav if image is removed
                     }
                     .foregroundColor(.red)
                     .padding()
@@ -53,13 +55,11 @@ struct CameraView: View {
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(sourceType: imageSource, selectedImage: $selectedImage)
             }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(sourceType: imageSource, selectedImage: $selectedImage)
+            }
             .navigationTitle("Camera View")
         }
-    }
-    
-    private func uploadToFirebase() {
-        guard let image = clothing.image else { return }
-        // Add code to upload `clothing` object and `image` to Firebase
     }
 }
 

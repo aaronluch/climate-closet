@@ -7,7 +7,7 @@ struct ClothingListRow: View {
     var body: some View {
         HStack {
             if clothing.isLocalImage {
-                // local hardcoded image
+                // if local hardcoded image
                 if let imageName = clothing.imageUrl {
                     Image(imageName)
                         .resizable()
@@ -20,35 +20,18 @@ struct ClothingListRow: View {
                         .background(Color.gray.opacity(0.3))
                         .cornerRadius(8)
                 }
+            } else if let decodedImage = clothing.image {
+                // decode base64 image
+                Image(uiImage: decodedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipped()
             } else {
-                // remote image from Firebase using AsyncImage
-                if let imageUrl = clothing.imageUrl, let url = URL(string: imageUrl) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView() // Show a loading spinner
-                                .frame(width: 100, height: 100)
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .clipped()
-                        case .failure:
-                            Text("Failed to load image")
-                                .frame(width: 100, height: 100)
-                                .background(Color.gray.opacity(0.3))
-                                .cornerRadius(8)
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                } else {
-                    Text("Image not available")
-                        .frame(width: 100, height: 100)
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(8)
-                }
+                Text("Image not available")
+                    .frame(width: 100, height: 100)
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(8)
             }
             
             Spacer()
@@ -57,57 +40,55 @@ struct ClothingListRow: View {
     }
 }
 
+
 // Shows the information about each article of clothing when
 // expanding each piece of clothing
 struct ClothingInfoView: View {
     @ObservedObject var clothing: Clothing
-
+    
     var body: some View {
-        VStack {
+        VStack() {
+            // renders depending on if local or on firebase db
             if clothing.isLocalImage {
                 // render local hardcoded image
                 if let imageName = clothing.imageUrl {
                     Image(imageName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 350, height: 350)
                 } else {
                     Text("Image not available")
+                        .frame(width: 200, height: 200)
+                        .background(Color.gray.opacity(0.3))
                 }
+            } else if let decodedImage = clothing.image {
+                // decoded base64 image
+                Image(uiImage: decodedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 350, height: 350)
             } else {
-                // render image from Firebase using AsyncImage for URL
-                if let imageUrl = clothing.imageUrl, let url = URL(string: imageUrl) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView() // loading spinner
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                        case .failure:
-                            Text("Failed to load image")
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                } else {
-                    Text("Image not available")
-                }
+                Text("Image not available")
+                    .frame(width: 200, height: 200)
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(8)
             }
             
-            Text(clothing.name)
-                .font(.headline)
-                .padding(.top, 5)
-            
-            Text(clothing.category.rawValue.capitalized)
-                .font(.subheadline)
-                .foregroundColor(.gray)
+            // clothing details
+            VStack(alignment: .leading, spacing: 5) {
+                Text(clothing.name)
+                    .font(.headline)
+                Text("Category: \(clothing.category.rawValue.capitalized)")
+                    .font(.subheadline)
+                Text("Owned: \(clothing.owned ? "Yes" : "No")")
+                    .font(.subheadline)
+                Text("Temperature Range: \(clothing.minTemp)° - \(clothing.maxTemp)°")
+                    .font(.subheadline)
+            }
+            .padding(.top, 5)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemBackground)))
-        .shadow(radius: 5)
+        //.border(Color.red, width: 4) - just to view bounds
     }
 }
 
@@ -139,20 +120,32 @@ struct ExpandableClothingCategoryView: View {
             .buttonStyle(PlainButtonStyle())
             
             if isExpanded {
-                ForEach(clothes) { clothing in
-                    NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
-                        HStack {
-                            ClothingListRow(clothing: clothing)
-                            Text(clothing.name)
-                                .foregroundColor(.primary)
-                            Spacer()
+                if clothes.isEmpty {
+                    Text("Nothing here yet...")
+                        .frame(maxWidth: .infinity, minHeight: 80)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(8)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                } else {
+                    ForEach(clothes) { clothing in
+                        NavigationLink(destination: ClothingInfoView(clothing: clothing)) {
+                            HStack {
+                                ClothingListRow(clothing: clothing)
+                                Text(clothing.name)
+                                    .foregroundColor(.primary)
+                                Spacer()
+                            }
                         }
+                        .padding()
+                        .background(Color.gray.opacity(0.08))
+                        .cornerRadius(10)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
                     }
-                    .padding()
-                    .background(Color.gray.opacity(0.08))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 10)
                 }
             }
         }
@@ -173,10 +166,10 @@ struct ClothingListView: View {
                         isExpanded: Binding(
                             get: { expandedCategories[category, default: false] },
                             set: { expandedCategories[category] = $0 }
-                            )
+                        )
                     )
                 }
-
+                
             }
             .navigationTitle("Wardrobe")
             .navigationBarTitleDisplayMode(.inline)

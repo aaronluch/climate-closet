@@ -1,38 +1,81 @@
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
 class ClothesStore: ObservableObject {
     @ObservedObject var userSession = UserSession.shared
-    @Published var allClothes: [Clothing]
-    
+    @Published var allClothes: [Clothing] = []
+    private var db = Firestore.firestore()
+    private var listener: ListenerRegistration?
+
     init() {
-        allClothes = []
+        listenForClothingUpdates()
+    }
+
+    deinit {
+        listener?.remove() // remove listener when ClothesStore is deinitialized
+    }
+
+    func listenForClothingUpdates() {
+        guard let userID = userSession.userID else {
+            print("User is not logged in.")
+            return
+        }
         
-        // NOTE!!! This is to store all clothing information which will be loaded
-        // in from firebase. At the moment, we're manually inputting it for
-        // testing / preliminary purposes.
-        
-        let userID = userSession.userID ?? "na" // fallback on na
-        
-        // shirts / tops
-        allClothes.append(Clothing(userID: userID, name: "Target T-shirt", owned: true, category: .top, minTemp: "55", maxTemp: "95", imageUrl: "target-tshirt", isLocalImage: true))
-        allClothes.append(Clothing(userID: userID, name: "Generic White T-shirt", owned: true, category: .top, minTemp: "65", maxTemp: "80", imageUrl:"white-tshirt", isLocalImage: true))
-        allClothes.append(Clothing(userID: userID, name: "Awesome T-shirt", owned: true, category: .top, minTemp: "35", maxTemp: "70", imageUrl: "awesome-tshirt", isLocalImage: true))
-        
-        // pants / bottoms
-        allClothes.append(Clothing(userID: userID, name: "Grandpa's Old Jeans", owned: true, category: .bottom, minTemp: "40", maxTemp: "80", imageUrl: "old-jeans", isLocalImage: true))
-        allClothes.append(Clothing(userID: userID, name: "Tech Pants", owned: false, category: .bottom, minTemp: "30", maxTemp: "75", imageUrl: "tech-pants", isLocalImage: true))
-        
-        // outerwear
-        allClothes.append(Clothing(userID: userID, name: "Carhartt Jacket", owned: true, category: .outerwear, minTemp: "10", maxTemp: "55", imageUrl: "carhartt-jacket", isLocalImage: true))
-        
-        // accessories
-        allClothes.append(Clothing(userID: userID, name: "Generic Silver Rings", owned: true, category: .accessory, minTemp: "0", maxTemp: "100", imageUrl: "silver-rings", isLocalImage: true))
-        
-        // shoes
-        allClothes.append(Clothing(userID: userID, name: "Nike 77 Blazers", owned: true, category: .footwear, minTemp: "0", maxTemp: "100", imageUrl: "blazer-shoes", isLocalImage: true))
-        
-        // other
-        allClothes.append(Clothing(userID: userID, name: "Funny Hat", owned: false, category: .other, minTemp: "0", maxTemp: "100", imageUrl: "funny-hat", isLocalImage: true))
+        // listener for clothing items belonging to the current user
+        listener = db.collection("clothing")
+            .whereField("userID", isEqualTo: userID)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error listening for clothing updates: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No clothing items found for this user.")
+                    return
+                }
+
+                self.allClothes = documents.compactMap { doc in
+                    let data = doc.data()
+                    return self.parseClothingData(data)
+                }
+            }
+    }
+
+    private func parseClothingData(_ data: [String: Any]) -> Clothing? {
+        guard
+            let userID = data["userID"] as? String,
+            let name = data["name"] as? String,
+            let owned = data["owned"] as? Bool,
+            let categoryString = data["category"] as? String,
+            let category = Clothing.Category(rawValue: categoryString),
+            let minTemp = data["minTemp"] as? String,
+            let maxTemp = data["maxTemp"] as? String,
+            let imageUrl = data["imageUrl"] as? String,
+            let isLocalImage = data["isLocalImage"] as? Bool
+        else {
+            print("Error parsing clothing data.")
+            return nil
+        }
+
+        let clothing = Clothing(
+            userID: userID,
+            name: name,
+            owned: owned,
+            category: category,
+            minTemp: minTemp,
+            maxTemp: maxTemp,
+            imageUrl: isLocalImage ? imageUrl : nil,
+            isLocalImage: isLocalImage
+        )
+
+        if !isLocalImage, let imageData = Data(base64Encoded: imageUrl), let decodedImage = UIImage(data: imageData) {
+            clothing.image = decodedImage
+        }
+
+        return clothing
     }
 }
