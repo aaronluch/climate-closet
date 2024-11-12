@@ -15,42 +15,55 @@ struct ProfileView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // login / register button will become
-                // a ternary based on login state of user
-                NavigationLink(destination: LoginView()) {
-                    Text("Login")
-                        .font(.title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .border(Color.black, width: 2)
-                        .cornerRadius(3)
-                }
-
-                NavigationLink(destination: RegisterView()) {
-                    Text("Register")
-                        .font(.title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .border(Color.black, width: 2)
-                        .cornerRadius(3)
-                }
-
-                NavigationLink(destination: SettingsView()) {
-                    Text("Settings")
-                        .font(.title)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                        .background(Color.white)
-                        .foregroundColor(.black)
-                        .border(Color.black, width: 2)
-                        .cornerRadius(3)
+                if userSession.userID == nil {
+                    NavigationLink(destination: LoginView()) {
+                        Text("Login")
+                            .font(.title)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .border(Color.black, width: 2)
+                            .cornerRadius(3)
+                    }
+                    
+                    NavigationLink(destination: RegisterView()) {
+                        Text("Register")
+                            .font(.title)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .border(Color.black, width: 2)
+                            .cornerRadius(3)
+                    }
+                } else if userSession.userID != nil {
+                    NavigationLink(destination: SettingsView()) {
+                        Text("Settings")
+                            .font(.title)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.white)
+                            .foregroundColor(.black)
+                            .border(Color.black, width: 2)
+                            .cornerRadius(3)
+                    }
+                    
+                    Button(action: {
+                        userSession.logout() // Call the logout function to sign out
+                    }) {
+                        Text("Logout")
+                            .font(.title)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 15)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(3)
+                    }
                 }
             }
             .navigationTitle(navigationTitle)

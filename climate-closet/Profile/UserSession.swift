@@ -28,9 +28,11 @@ class UserSession: ObservableObject {
     
     func logout() {
         do {
+            print("\(self.userID) going to sign out")
             try Auth.auth().signOut()
             self.userID = nil
             self.userEmail = nil
+            print("Successfully signed out.")
         } catch {
             print("Error signing out.")
         }
