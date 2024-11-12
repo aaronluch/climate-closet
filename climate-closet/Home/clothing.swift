@@ -17,7 +17,7 @@ class Clothing: Identifiable, ObservableObject {
         var id: String { rawValue }
     }
     
-    init(userID: String = "", name: String = "", owned: Bool = true, category: Category = .other, minTemp: String = "", maxTemp: String = "", imageUrl: String? = nil, isLocalImage: Bool = true) {
+    init(userID: String, name: String = "", owned: Bool = true, category: Category = .other, minTemp: String = "", maxTemp: String = "", imageUrl: String? = nil, isLocalImage: Bool = true) {
         self.userID = userID
         self.name = name
         self.owned = owned
@@ -26,6 +26,5 @@ class Clothing: Identifiable, ObservableObject {
         self.maxTemp = maxTemp
         self.imageUrl = imageUrl
         self.isLocalImage = isLocalImage
-        self.image = image
     }
 }

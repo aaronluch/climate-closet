@@ -1,13 +1,12 @@
 import SwiftUI
 import Photos
-import FirebaseStorage
 import FirebaseFirestore
 
 struct CameraView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false
     @State private var imageSource: ImagePicker.SourceType = .photoLibrary
-    @StateObject private var clothing = Clothing()
+    @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "")
 
     var body: some View {
         NavigationView {
