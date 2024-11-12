@@ -39,7 +39,7 @@ struct WeatherView: View {
                     .cornerRadius(3)
 
                     
-                    NavigationLink(destination: ClothingListView()) {
+                    NavigationLink(destination: OutfitPlanningView()) {
                         Text("Plan Tomorrow's Outfit")
                             .font(.headline)
                             .padding()

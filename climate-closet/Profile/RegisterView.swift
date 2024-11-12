@@ -1,32 +1,50 @@
-//
-//  RegisterView.swift
-//  climate-closet
-//
-//  Created by Aaron Luciano on 11/11/24.
-//
-
 import Foundation
 import SwiftUI
 
 struct RegisterView: View {
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var registrationError: String?
+    @State private var isRegistered = false
+    @State private var countdown = 3
+    @Environment(\.presentationMode) var presentationMode
+    private var countdownTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 20) {
             Text("Register")
                 .font(.largeTitle)
 
-            TextField("Username", text: $username)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            TextField("Email", text: $username)
+                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
                 .padding()
 
             SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
                 .padding()
 
+            if let registrationError = registrationError {
+                Text(registrationError)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
+
+            if isRegistered {
+                Text("Registration successful! Returning in \(countdown)...")
+                    .foregroundColor(.green)
+                    .padding()
+                    .onReceive(countdownTimer) { _ in
+                        if countdown > 0 {
+                            countdown -= 1
+                        } else {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+            }
+
             Button(action: {
-                
+                registerUser()
             }) {
                 Text("Register")
                     .font(.headline)
@@ -43,5 +61,19 @@ struct RegisterView: View {
         .padding()
         .navigationTitle("Register")
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func registerUser() {
+        AuthService.shared.registerUser(email: username, password: password) { result in
+            switch result {
+            case .success(let user):
+                print("Registered user ID: \(user.uid)")
+                isRegistered = true
+                registrationError = nil
+
+            case .failure(let error):
+                registrationError = "Failed to register: \(error.localizedDescription)"
+            }
+        }
     }
 }

@@ -1,7 +1,17 @@
 import SwiftUI
-// current basic implementation of profile page,
-// probably want to separate these view into more files soon
+
 struct ProfileView: View {
+    @ObservedObject var userSession = UserSession.shared // user session
+    
+    private var navigationTitle: String {
+        if let userEmail = userSession.userEmail{
+            let username = userEmail.components(separatedBy: "@").first ?? userEmail
+            return "Welcome back, \(username)!"
+        } else {
+            return "Profile"
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -43,7 +53,7 @@ struct ProfileView: View {
                         .cornerRadius(3)
                 }
             }
-            .navigationTitle("Profile")
+            .navigationTitle(navigationTitle)
             .padding()
         }
     }
