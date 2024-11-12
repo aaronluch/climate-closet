@@ -3,3 +3,8 @@
 
 # Ignore .DS_Store files in specific project directories
 climate-closet/.DS_Store
+
+# CocoaPods
+Pods/
+Podfile.lock
+*.xcworkspace
