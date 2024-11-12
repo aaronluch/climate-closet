@@ -1,6 +1,7 @@
 import SwiftUI
 // WIP
 class Outfit: Identifiable {
+    var userID: String
     var name: String
     var clothes: [Clothing]
     
@@ -8,10 +9,10 @@ class Outfit: Identifiable {
         clothes.append(clothing)
     }
     
-    init(name: String = "", clothes: [Clothing]) {
+    init(userID: String = "", name: String = "", clothes: [Clothing]) {
+        self.userID = userID
         self.name = name
         self.clothes = clothes
-        
     }
 }
 
