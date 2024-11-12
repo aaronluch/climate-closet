@@ -15,6 +15,9 @@
 		0260DDB02CD3C6EE00B94D0E /* OutfitPlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */; };
 		0260DDB22CD3C93E00B94D0E /* CreateOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */; };
 		0272C8722CE3912A0018F454 /* ImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8712CE3912A0018F454 /* ImageInfoView.swift */; };
+		0272C87A2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
+		0272C87B2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
+		0272C87C2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
 		028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028D3F8C2CB58B2800F8B4FA /* clothing.swift */; };
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
@@ -23,9 +26,6 @@
 		02C8193E2CE27604006628E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193D2CE27604006628E6 /* RegisterView.swift */; };
 		02C819402CE2760F006628E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193F2CE2760F006628E6 /* SettingsView.swift */; };
 		02C829CC2CCA8D7100C765BC /* OutfitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C829CB2CCA8D7100C765BC /* OutfitsView.swift */; };
-		02F9861C2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
-		02F9861D2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
-		02F9861E2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */; };
 		02F986212CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
 		02F986222CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
 		02F986232CDD128300ED5985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F986202CDD128300ED5985 /* AppDelegate.swift */; };
@@ -73,6 +73,7 @@
 		0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutfitPlanningView.swift; sourceTree = "<group>"; };
 		0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOutfitView.swift; sourceTree = "<group>"; };
 		0272C8712CE3912A0018F454 /* ImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoView.swift; sourceTree = "<group>"; };
+		0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
 		02AB3A622CB5A11200C92A0E /* climate-closetTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetTesting.swift; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		02C8193D2CE27604006628E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		02C8193F2CE2760F006628E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		02C829CB2CCA8D7100C765BC /* OutfitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitsView.swift; sourceTree = "<group>"; };
-		02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		02F986202CDD128300ED5985 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0721EBD12CB72603008E9BA5 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0721EBD32CB7260E008E9BA5 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				0237E5792CC44F09002D1928 /* Info.plist */,
-				02F9861B2CDD10D000ED5985 /* GoogleService-Info.plist */,
+				0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */,
 				024730712CB589F300A6C86B /* Assets.xcassets */,
 				0237E57C2CC452D1002D1928 /* Home */,
 				0237E57F2CC45358002D1928 /* Feed */,
@@ -393,7 +393,7 @@
 			files = (
 				024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */,
 				024730722CB589F300A6C86B /* Assets.xcassets in Resources */,
-				02F9861C2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
+				0272C87A2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02F9861D2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
+				0272C87B2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02F9861E2CDD10D000ED5985 /* GoogleService-Info.plist in Resources */,
+				0272C87C2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
