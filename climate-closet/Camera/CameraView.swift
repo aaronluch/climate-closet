@@ -1,86 +1,64 @@
 import SwiftUI
-import UIKit
 import Photos
 
 struct CameraView: View {
-    @State private var isImagePickerPresented: Bool = false
-    @State private var capturedImage: UIImage?
-    @State private var showSaveAlert: Bool = false
-    @State private var saveError: Error?
-    @State private var isSimulator: Bool = false
-    
+    @State private var selectedImage: UIImage? = nil
+    @State private var showImagePicker: Bool = false
+    @State private var imageSource: ImagePicker.SourceType = .photoLibrary
+    @StateObject private var clothing = Clothing()
+
     var body: some View {
-        VStack {
-            if let image = capturedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 300)
-                    .cornerRadius(10)
-                    .padding()
-                
-                Button(action: saveImage) {
-                    Text("Save to Library")
-                }
-                .alert(isPresented: $showSaveAlert) {
-                    Alert(
-                        title: Text(saveError == nil ? "Saved" : "Error"),
-                        message: Text(saveError?.localizedDescription ?? "Image saved to library."),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-            } else if isSimulator {
-                Text("Camera is not supported in Simulator. Please use a real device.")
-                    .padding()
-            }
-        }
-        .onAppear {
-            checkIfSimulator()
-            requestCameraPermission()
-        }
-        .sheet(isPresented: $isImagePickerPresented) {
-            ImagePicker(capturedImage: $capturedImage)
-        }
-    }
-    
-    private func checkIfSimulator() {
-        #if targetEnvironment(simulator)
-        isSimulator = true
-        #else
-        isSimulator = false
-        #endif
-    }
-    
-    private func requestCameraPermission() {
-        PHPhotoLibrary.requestAuthorization { status in
-            DispatchQueue.main.async {
-                if status == .authorized {
-                    if !isSimulator {
-                        isImagePickerPresented = true
-                    }
+        NavigationView {
+            VStack {
+                if let selectedImage = selectedImage {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
                 } else {
-                    self.saveError = NSError(domain: "Permission Denied", code: 1)
-                    self.showSaveAlert = true
+                    Text("Select an image")
+                        .foregroundColor(.gray)
+                }
+                
+                HStack {
+                    Button("Camera") {
+                        imageSource = .camera
+                        showImagePicker = true
+                    }
+                    .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
+
+                    Button("Photo Library") {
+                        imageSource = .photoLibrary
+                        showImagePicker = true
+                    }
+                }
+                .padding()
+                
+                if let unwrappedImage = selectedImage {
+                    NavigationLink(destination: ImageInfoView(clothing: clothing, selectedImage: unwrappedImage, onSave: uploadToFirebase)) {
+                        Text("Proceed to Info")
+                    }
+                    .padding()
+                }
+
+                
+                if selectedImage != nil {
+                    Button("Remove Image") {
+                        selectedImage = nil
+                    }
+                    .foregroundColor(.red)
+                    .padding()
                 }
             }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(sourceType: imageSource, selectedImage: $selectedImage)
+            }
+            .navigationTitle("Camera View")
         }
     }
     
-    private func saveImage() {
-        guard let image = capturedImage else { return }
-        
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }) { success, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    self.saveError = error
-                } else if success {
-                    self.saveError = nil
-                }
-                self.showSaveAlert = true
-            }
-        }
+    private func uploadToFirebase() {
+        guard let image = clothing.image else { return }
+        // Add code to upload `clothing` object and `image` to Firebase
     }
 }
 

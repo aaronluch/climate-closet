@@ -1,20 +1,58 @@
 import Foundation
 import SwiftUI
 
-// For each list of clothing type
-// Shows each image for that respective article
 struct ClothingListRow: View {
-    var clothing: Clothing!
+    var clothing: Clothing
+    
     var body: some View {
-        HStack() {
-            clothing.imageUrl
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .clipped()
+        HStack {
+            if clothing.isLocalImage {
+                // local hardcoded image
+                if let imageName = clothing.imageUrl {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                } else {
+                    Text("Image not available")
+                        .frame(width: 100, height: 100)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(8)
+                }
+            } else {
+                // remote image from Firebase using AsyncImage
+                if let imageUrl = clothing.imageUrl, let url = URL(string: imageUrl) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView() // Show a loading spinner
+                                .frame(width: 100, height: 100)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .clipped()
+                        case .failure:
+                            Text("Failed to load image")
+                                .frame(width: 100, height: 100)
+                                .background(Color.gray.opacity(0.3))
+                                .cornerRadius(8)
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                } else {
+                    Text("Image not available")
+                        .frame(width: 100, height: 100)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(8)
+                }
+            }
+            
             Spacer()
         }
-        .frame(width: 100, height: 100)
         .padding()
     }
 }
@@ -22,51 +60,54 @@ struct ClothingListRow: View {
 // Shows the information about each article of clothing when
 // expanding each piece of clothing
 struct ClothingInfoView: View {
-    var clothing: Clothing!
+    @ObservedObject var clothing: Clothing
+
     var body: some View {
         VStack {
-            List {
-                // Clothing image
-                VStack {
-                    clothing.imageUrl
+            if clothing.isLocalImage {
+                // render local hardcoded image
+                if let imageName = clothing.imageUrl {
+                    Image(imageName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .padding(.bottom, 20)
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .frame(width: 100, height: 100)
+                } else {
+                    Text("Image not available")
                 }
-                .listRowSeparator(.hidden)  // Hide separator for the image
-                
-                // Clothing Name
-                HStack {
-                    Text("Name: ")
-                    Spacer()
-                    Text(clothing.name)
-                }
-                
-                // Owned status
-                HStack {
-                    Text("Owned:")
-                    Spacer()
-                    Text(clothing.owned ? "Yes" : "No")
-                }
-                
-                // Category
-                HStack {
-                    Text("Category:")
-                    Spacer()
-                    Text(categoryTitle(clothing.category))
-                }
-                
-                // Temperature range
-                HStack {
-                    Text("Temperature Range:")
-                    Spacer()
-                    Text("\(clothing.minTemp)° to \(clothing.maxTemp)°")
+            } else {
+                // render image from Firebase using AsyncImage for URL
+                if let imageUrl = clothing.imageUrl, let url = URL(string: imageUrl) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView() // loading spinner
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                        case .failure:
+                            Text("Failed to load image")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                } else {
+                    Text("Image not available")
                 }
             }
-            .listStyle(InsetGroupedListStyle())
+            
+            Text(clothing.name)
+                .font(.headline)
+                .padding(.top, 5)
+            
+            Text(clothing.category.rawValue.capitalized)
+                .font(.subheadline)
+                .foregroundColor(.gray)
         }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemBackground)))
+        .shadow(radius: 5)
     }
 }
 
