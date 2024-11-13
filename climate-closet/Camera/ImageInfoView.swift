@@ -8,6 +8,7 @@ struct ImageInfoView: View {
     
     //@State private var userID: String bug?
     @State private var name: String = ""
+    @State private var itemID: String = ""
     @State private var owned: Bool = true
     @State private var category: Clothing.Category = .other
     @State private var minTemp: String = ""
@@ -104,10 +105,12 @@ struct ImageInfoView: View {
             
             // upload to firestore part of db
             let db = Firestore.firestore()
-            db.collection("clothing").addDocument(data: clothingData) { error in
+            let documentRef = db.collection("clothing").document()
+            documentRef.setData(clothingData) { error in
                 if let error = error {
                     print("Error uploading clothing: \(error.localizedDescription)")
                 } else {
+                    documentRef.updateData(["itemID": documentRef.documentID]) // assigns identifier when uploaded to collection
                     print("Clothing item successfully uploaded.")
                     successUpload = true
                     clearImageAndReturn()

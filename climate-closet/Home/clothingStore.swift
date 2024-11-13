@@ -40,14 +40,16 @@ class ClothesStore: ObservableObject {
 
                 self.allClothes = documents.compactMap { doc in
                     let data = doc.data()
-                    return self.parseClothingData(data)
+                    
+                    return self.parseClothingData(data, documentID: doc.documentID)
                 }
             }
     }
 
-    private func parseClothingData(_ data: [String: Any]) -> Clothing? {
+    private func parseClothingData(_ data: [String: Any], documentID: String) -> Clothing? {
         guard
             let userID = data["userID"] as? String,
+            let itemID = data["itemID"] as? String,
             let name = data["name"] as? String,
             let owned = data["owned"] as? Bool,
             let categoryString = data["category"] as? String,
@@ -60,9 +62,10 @@ class ClothesStore: ObservableObject {
             print("Error parsing clothing data.")
             return nil
         }
-
+        
         let clothing = Clothing(
             userID: userID,
+            itemID: itemID,
             name: name,
             owned: owned,
             category: category,

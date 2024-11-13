@@ -6,7 +6,8 @@ struct CameraView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false
     @State private var imageSource: ImagePicker.SourceType = .photoLibrary
-    @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "na")
+    @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "na",
+                                                 itemID: "")
     @State private var navigateToImageInfo = false // controls the navigation
 
     var body: some View {
