@@ -5,6 +5,23 @@ struct OutfitListRow: View {
     var body: some View {
         HStack() {
             Text(outfit.name)
+                .padding(.trailing, 20)
+            
+            ZStack {
+                ForEach(outfit.clothes.prefix(3).indices, id: \.self) {index in
+                    let clothing = outfit.clothes[index]
+                    if let uiImage = clothing.image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                        .frame(width: 80, height: 100)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .background(RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 3))
+                        .offset(x: CGFloat(index) * 15, y:CGFloat(index) * 3)
+                    }
+                }
+            }
         }
     }
 }
