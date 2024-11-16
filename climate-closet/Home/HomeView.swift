@@ -2,28 +2,32 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var userSession = UserSession.shared // user session
+    let debug = false
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                Text("[DEBUG!]")
-                var uid_debug: String {
-                    if let userId = userSession.userID {
-                        let uid = userId
-                        return uid
-                    } else {
-                        return "not logged in"
+                if debug {
+                    Text("[DEBUG!]")
+                    var uid_debug: String {
+                        if let userId = userSession.userID {
+                            let uid = userId
+                            return uid
+                        } else {
+                            return "not logged in"
+                        }
                     }
-                }
-                var uemail_debug: String {
-                    if let userEmail = userSession.userEmail {
-                        let uemail = userEmail
-                        return uemail
-                    } else {
-                        return "not logged in"
+                    
+                    var uemail_debug: String {
+                        if let userEmail = userSession.userEmail {
+                            let uemail = userEmail
+                            return uemail
+                        } else {
+                            return "not logged in"
+                        }
                     }
+                    Text("UID: \(uid_debug), \nUEMAIL: \(uemail_debug)")
                 }
-                Text("UID: \(uid_debug), \nUEMAIL: \(uemail_debug)")
                 
                 NavigationLink(destination: ClothingListView().environmentObject(ClothesStore())) {
                     Text("Wardrobe")
@@ -45,8 +49,10 @@ struct HomeView: View {
                         .cornerRadius(10)
                 }
 
-                NavigationLink(destination: CreateOutfitView().environmentObject(ClothesStore())) {
-                    Text("Your Outfits")
+                NavigationLink(destination: CreateOutfitView()
+                    .environmentObject(ClothesStore())
+                    .environmentObject(OutfitStore())) {
+                    Text("Create Outfits")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.purple)

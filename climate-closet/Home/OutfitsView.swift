@@ -44,7 +44,7 @@ struct OutfitInfoView: View {
                 
                 ForEach(categorizedClothes) { clothing in
                     HStack {
-                        // Conditionally load local or remote image
+                        // conditionally load local or remote image
                         if clothing.isLocalImage, let imageName = clothing.imageUrl {
                             Image(imageName)
                                 .resizable()
@@ -97,15 +97,18 @@ struct OutfitsView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     
     var body: some View {
-        List(outfitStore.allOutfits) { outfit in
-            NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
-                OutfitListRow(outfit: outfit)
+        VStack {
+            List(outfitStore.allOutfits) { outfit in
+                NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
+                    OutfitListRow(outfit: outfit)
+                }
             }
         }
         .navigationTitle("Outfits")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 private func categoryTitle(_ category: Clothing.Category) -> String {
     switch category {
