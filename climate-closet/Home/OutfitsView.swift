@@ -18,7 +18,7 @@ struct OutfitListRow: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .background(RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.gray, lineWidth: 3))
-                        .offset(x: CGFloat(index) * 15, y:CGFloat(index) * 3)
+                        .offset(x: CGFloat(index) * 15  , y:CGFloat(index) * 3)
                     }
                 }
             }

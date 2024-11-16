@@ -1,31 +1,79 @@
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
 class OutfitStore: ObservableObject {
-    @Published var allOutfits: [Outfit]
     @ObservedObject var userSession = UserSession.shared
-    
-    func addOutfit(outfit: Outfit) {
-        allOutfits.append(outfit)
-    }
+    @Published var allOutfits: [Outfit] = []
+    private var db = Firestore.firestore()
+    private var listener: ListenerRegistration?
     
     init() {
-        allOutfits = []
-        let userID = userSession.userID ?? "na" // fallback on na
+        listenForOutfitUpdates()
+    }
+    
+    deinit {
+        listener?.remove()
+    }
+    
+    func listenForOutfitUpdates() {
+        guard let userID = userSession.userID else {
+            print("User is not logged in.")
+            return
+        }
         
-        // initialization of Clothing instances
-        /* BUGGED NOW, they need to include itemID, which will need to be implemented from firestore db when outfits are setup properly */
+        listener = db.collection("outfits")
+            .whereField("userID", isEqualTo: userID)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error listening for outfit updates: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("No outfits found for this user.")
+                    return
+                }
+                
+                let outfits = documents.compactMap { doc in
+                    let data = doc.data()
+                    return self.parseOutfitData(data, documentID: doc.documentID)
+                }
+                
+                self.allOutfits = outfits
+                for outfit in self.allOutfits {
+                    self.populateClothes(for: outfit)
+                }
+            }
+    }
+    
+    private func parseOutfitData(_ data: [String: Any], documentID: String) -> Outfit? {
+        guard
+            let userID = data["userID"] as? String,
+            let clothingIDs = data["clothingIDs"] as? [String],
+            let name = data["name"] as? String
+        else {
+            print("Error parsing outfit data.")
+            return nil
+        }
         
-        //let shirt = Clothing(userID: userID, name: "Target T-shirt", owned: true, category: .top, minTemp: "55", maxTemp: "95", imageUrl: "target-tshirt", isLocalImage: true)
-        //let pants = Clothing(userID: userID, name: "Grandpa's Old Jeans", owned: true, category: .bottom, minTemp: "40", maxTemp: "80", imageUrl: "old-jeans", isLocalImage: true)
+        let itemID = data["itemID"] as? String ?? ""
         
-        let outfit1 = Outfit(userID: userID, name: "Sick fit", clothes: [])
+        let outfit = Outfit(
+            userID: userID,
+            itemID: itemID,
+            clothingIDs: clothingIDs,
+            name: name
+        )
         
-        // adding clothing items to the outfit
-//        outfit1.addClothing(clothing: shirt)
-//        outfit1.addClothing(clothing: pants)
-        
-        // adding outfit to the store
-        addOutfit(outfit: outfit1)
+        return outfit
+    }
+    
+    private func populateClothes(for outfit: Outfit) {
+        let clothesStore = ClothesStore()
+        outfit.clothes = clothesStore.allClothes.filter { outfit.clothingIDs.contains($0.itemID)
+        }
     }
 }
