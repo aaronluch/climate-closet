@@ -61,6 +61,7 @@ struct ImageInfoView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 // upload to firestore
+                // this needs a binding to prevent multiple clicking and uploading a ton of the same item
                 Button("Upload") {
                     uploadImageToFirestore()
                 }
