@@ -30,3 +30,9 @@ class Clothing: Identifiable, ObservableObject {
         self.isLocalImage = isLocalImage
     }
 }
+
+extension Clothing {
+    static func == (lhs: Clothing, rhs: Clothing) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

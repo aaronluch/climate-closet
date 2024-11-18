@@ -29,7 +29,7 @@ struct HomeView: View {
                     Text("UID: \(uid_debug), \nUEMAIL: \(uemail_debug)")
                 }
                 
-                NavigationLink(destination: ClothingListView().environmentObject(ClothesStore())) {
+                NavigationLink(destination: WardrobeView().environmentObject(ClothesStore())) {
                     Text("Wardrobe")
                         .frame(maxWidth: .infinity)
                         .padding()

@@ -28,6 +28,7 @@
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
 		02AB3A742CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */; };
+		02BDE4822CEBB39D0041902F /* WardrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BDE4812CEBB39D0041902F /* WardrobeView.swift */; };
 		02C8193C2CE275F4006628E6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193B2CE275F4006628E6 /* LoginView.swift */; };
 		02C8193E2CE27604006628E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193D2CE27604006628E6 /* RegisterView.swift */; };
 		02C819402CE2760F006628E6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C8193F2CE2760F006628E6 /* SettingsView.swift */; };
@@ -39,7 +40,7 @@
 		0721EBD42CB7260E008E9BA5 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD32CB7260E008E9BA5 /* FeedView.swift */; };
 		0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD52CB72616008E9BA5 /* HomeView.swift */; };
 		0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBD72CB7261C008E9BA5 /* ProfileView.swift */; };
-		0721EBDC2CB7F388008E9BA5 /* ClothingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */; };
+		0721EBDC2CB7F388008E9BA5 /* ClothingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721EBDB2CB7F388008E9BA5 /* ClothingList.swift */; };
 		07BBBD082CC150820069D3F2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBBD072CC150820069D3F2 /* ImagePicker.swift */; };
 		07BBBD0A2CC158AF0069D3F2 /* outfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBBD092CC158AF0069D3F2 /* outfit.swift */; };
 		07BBBD0C2CC2BE780069D3F2 /* outfitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */; };
@@ -88,6 +89,7 @@
 		02AB3A6F2CB5A12300C92A0E /* climate-closetUITesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetUITesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITesting.swift; sourceTree = "<group>"; };
 		02AB3A732CB5A12300C92A0E /* climate_closetUITestingLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetUITestingLaunchTests.swift; sourceTree = "<group>"; };
+		02BDE4812CEBB39D0041902F /* WardrobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeView.swift; sourceTree = "<group>"; };
 		02C8193B2CE275F4006628E6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		02C8193D2CE27604006628E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		02C8193F2CE2760F006628E6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -97,7 +99,7 @@
 		0721EBD32CB7260E008E9BA5 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		0721EBD52CB72616008E9BA5 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0721EBD72CB7261C008E9BA5 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListView.swift; sourceTree = "<group>"; };
+		0721EBDB2CB7F388008E9BA5 /* ClothingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingList.swift; sourceTree = "<group>"; };
 		07BBBD072CC150820069D3F2 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07BBBD092CC158AF0069D3F2 /* outfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = outfit.swift; sourceTree = "<group>"; };
 		07BBBD0B2CC2BE780069D3F2 /* outfitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = outfitStore.swift; sourceTree = "<group>"; };
@@ -147,8 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				0721EBD52CB72616008E9BA5 /* HomeView.swift */,
+				02BDE4812CEBB39D0041902F /* WardrobeView.swift */,
 				028D3F8C2CB58B2800F8B4FA /* clothing.swift */,
-				0721EBDB2CB7F388008E9BA5 /* ClothingListView.swift */,
+				0721EBDB2CB7F388008E9BA5 /* ClothingList.swift */,
 				02C829CB2CCA8D7100C765BC /* OutfitsView.swift */,
 				023DA7E02CB5983F004F3975 /* clothingStore.swift */,
 				07BBBD092CC158AF0069D3F2 /* outfit.swift */,
@@ -533,7 +536,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0721EBDC2CB7F388008E9BA5 /* ClothingListView.swift in Sources */,
+				0721EBDC2CB7F388008E9BA5 /* ClothingList.swift in Sources */,
 				3DF60F7C2CC447D60068C50E /* WeatherData.swift in Sources */,
 				02F986212CDD128300ED5985 /* AppDelegate.swift in Sources */,
 				02C8193E2CE27604006628E6 /* RegisterView.swift in Sources */,
@@ -541,6 +544,7 @@
 				0721EBD82CB7261C008E9BA5 /* ProfileView.swift in Sources */,
 				0272C8822CE3C39D0018F454 /* UserSession.swift in Sources */,
 				024730702CB589F300A6C86B /* ContentView.swift in Sources */,
+				02BDE4822CEBB39D0041902F /* WardrobeView.swift in Sources */,
 				02C829CC2CCA8D7100C765BC /* OutfitsView.swift in Sources */,
 				0721EBD62CB72616008E9BA5 /* HomeView.swift in Sources */,
 				0247306E2CB589F300A6C86B /* climate_closetApp.swift in Sources */,
