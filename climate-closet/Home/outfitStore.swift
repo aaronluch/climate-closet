@@ -82,7 +82,14 @@ class OutfitStore: ObservableObject {
             )
         }
         
-        return Outfit(userID: userID, itemID: itemID, name: name, clothes: clothes)
+        let outfit = Outfit(userID: userID, itemID: itemID, name: name, clothes: clothes)
+                
+        // decode the base64 thumbnail image
+        if let thumbnailBase64 = data["thumbnail"] as? String, let imageData = Data(base64Encoded: thumbnailBase64) {
+            outfit.thumbnail = UIImage(data: imageData)
+        }
+
+        return outfit
     }
 }
 

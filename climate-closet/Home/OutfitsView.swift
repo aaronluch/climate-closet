@@ -1,30 +1,31 @@
 import SwiftUI
 
 struct OutfitListRow: View {
-    var outfit: Outfit!
+    var outfit: Outfit
+    
     var body: some View {
-        HStack() {
-            Text(outfit.name)
-                .padding(.trailing, 20)
-            
-            ZStack {
-                ForEach(outfit.clothes.prefix(3).indices, id: \.self) {index in
-                    let clothing = outfit.clothes[index]
-                    if let uiImage = clothing.image {
-                    Image(uiImage: uiImage)
+        VStack() {
+            HStack() {
+                // thumbnail if avail
+                if let thumbnailImage = outfit.thumbnail {
+                    Image(uiImage: thumbnailImage)
                         .resizable()
-                        .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
-                        .frame(width: 80, height: 100)
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .background(RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 3))
-                        .offset(x: CGFloat(index) * 15  , y:CGFloat(index) * 3)
-                    }
+                        .padding(.bottom, 10)
                 }
+                // outfit name
+                Text(outfit.name)
             }
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(12)
+            .padding(.horizontal)
         }
     }
 }
+
 
 struct OutfitInfoView: View {
     var outfit: Outfit!
