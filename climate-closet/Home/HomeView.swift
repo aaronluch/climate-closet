@@ -29,7 +29,8 @@ struct HomeView: View {
                     Text("UID: \(uid_debug), \nUEMAIL: \(uemail_debug)")
                 }
                 
-                NavigationLink(destination: WardrobeView().environmentObject(ClothesStore())) {
+                NavigationLink(destination: WardrobeView()
+                    .environmentObject(ClothesStore())) {
                     Text("Wardrobe")
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -40,7 +41,8 @@ struct HomeView: View {
 
                 
                 NavigationLink(destination: OutfitsView()
-                    .environmentObject(OutfitStore()).environmentObject(ClothesStore())) {
+                    .environmentObject(OutfitStore())
+                    .environmentObject(ClothesStore())) {
                     Text("Your Outfits")
                         .frame(maxWidth: .infinity)
                         .padding()

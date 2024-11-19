@@ -106,15 +106,28 @@ extension OutfitStore {
             "itemID": outfit.itemID,
             "name": outfit.name,
             "clothes": outfit.clothes.map { clothing in
-                [
+                var clothingData: [String: Any] = [
                     "itemID": clothing.itemID,
                     "name": clothing.name,
                     "category": clothing.category.rawValue,
                     "minTemp": clothing.minTemp,
                     "maxTemp": clothing.maxTemp,
-                    "isLocalImage": clothing.isLocalImage,
-                    "imageUrl": clothing.imageUrl ?? ""
+                    "isLocalImage": clothing.isLocalImage
                 ]
+                print(clothing.itemID)
+                print(clothing.name)
+                print(clothing.category.rawValue)
+                print(clothing.minTemp)
+                print(clothing.maxTemp)
+                print(clothing.imageUrl)
+                // only add imageUrl if it's non-nil
+                if let imageUrl = clothing.imageUrl {
+                    clothingData["imageUrl"] = imageUrl
+                } else {
+                    print("imageurl was empty")
+                }
+                
+                return clothingData
             }
         ]
         
@@ -140,6 +153,7 @@ extension OutfitStore {
             }
         }
     }
+
     private func convertImageToBase64String(img: UIImage) -> String? {
         guard let imageData = img.jpegData(compressionQuality: 0.02) else { return nil }
         return imageData.base64EncodedString()

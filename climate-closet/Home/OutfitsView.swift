@@ -26,15 +26,55 @@ struct OutfitListRow: View {
     }
 }
 
+// extract images from clothing for outfit to access
+struct OutfitClothingImageView: View {
+    @ObservedObject var clothing: Clothing
+
+    var body: some View {
+        HStack {
+            if clothing.isLocalImage {
+                if let imageName = clothing.imageUrl {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                } else {
+                    Text("Image not available")
+                        .frame(width: 100, height: 100)
+                        .background(Color.gray.opacity(0.3))
+                        .cornerRadius(8)
+                }
+            } else if let decodedImage = clothing.image {
+                Image(uiImage: decodedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipped()
+            } else {
+                Text("Image not available [here]")
+                    .frame(width: 100, height: 100)
+                    .background(Color.gray.opacity(0.3))
+                    .cornerRadius(8)
+            }
+
+            Spacer()
+
+            Text(clothing.name)
+                .foregroundColor(.primary)
+        }
+    }
+}
+
 
 struct OutfitInfoView: View {
-    var outfit: Outfit!
-    
+    @ObservedObject var outfit: Outfit
+
     var body: some View {
         VStack {
             ForEach(Clothing.Category.allCases, id: \.self) { category in
                 let categorizedClothes = outfit.clothes.filter { $0.category == category }
-                
+
                 if !categorizedClothes.isEmpty {
                     Text(categoryTitle(category))
                         .font(.title2)
@@ -42,56 +82,16 @@ struct OutfitInfoView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 25)
                 }
-                
+
                 ForEach(categorizedClothes) { clothing in
-                    HStack {
-                        // conditionally load local or remote image
-                        if clothing.isLocalImage, let imageName = clothing.imageUrl {
-                            Image(imageName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .clipped()
-                        } else if let imageUrl = clothing.imageUrl, let url = URL(string: imageUrl) {
-                            AsyncImage(url: url) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                        .frame(width: 100, height: 100)
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 100)
-                                        .clipped()
-                                case .failure:
-                                    Text("Failed to load image")
-                                        .frame(width: 100, height: 100)
-                                        .background(Color.gray.opacity(0.3))
-                                        .cornerRadius(8)
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                        } else {
-                            Text("Image not available")
-                                .frame(width: 100, height: 100)
-                                .background(Color.gray.opacity(0.3))
-                                .cornerRadius(8)
-                        }
-                        
-                        Spacer()
-                        
-                        Text(clothing.name)
-                            .foregroundColor(.primary)
-                    }
-                    .padding(.horizontal, 25)
+                    OutfitClothingImageView(clothing: clothing)
+                        .padding(.horizontal, 25)
                 }
             }
         }
+        .padding()
     }
 }
-
 
 
 struct OutfitsView: View {
@@ -99,9 +99,13 @@ struct OutfitsView: View {
     
     var body: some View {
         VStack {
-            List(outfitStore.allOutfits) { outfit in
-                NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
-                    OutfitListRow(outfit: outfit)
+            if outfitStore.allOutfits.isEmpty {
+                Text("Loading...")
+            } else {
+                List(outfitStore.allOutfits) { outfit in
+                    NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
+                        OutfitListRow(outfit: outfit)
+                    }
                 }
             }
         }
@@ -109,7 +113,6 @@ struct OutfitsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-
 
 private func categoryTitle(_ category: Clothing.Category) -> String {
     switch category {

@@ -8,7 +8,7 @@ class Clothing: Identifiable, ObservableObject {
     var category: Category
     var minTemp: String
     var maxTemp: String
-    var imageUrl: String? = nil // store image name for local images or url for remote images
+    @Published var imageUrl: String? = nil // store image name for local images or url for remote images
     var isLocalImage: Bool = true // default to true for local images
     @Published var image: UIImage? // temp storage for image before upload
     

@@ -1,10 +1,10 @@
 import SwiftUI
 
-class Outfit: Identifiable {
+class Outfit: Identifiable, ObservableObject {
     var userID: String
     var itemID: String
     var name: String
-    var clothes: [Clothing] = []
+    @Published var clothes: [Clothing] = []
     var thumbnail: UIImage?
     
     init(userID: String = "", itemID: String, name: String = "", clothes: [Clothing] = [], thumbnail: UIImage? = nil) {

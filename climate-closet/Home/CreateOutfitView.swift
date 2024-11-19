@@ -55,7 +55,6 @@ struct CreateOutfitView: View {
                         thumbnail: thumbnailImage
                     ) { success in
                         if success {
-                            print("Outfit saved successfully!")
                             // clear after saving
                             selectedClothes.removeAll()
                         } else {
