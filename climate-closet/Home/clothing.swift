@@ -1,15 +1,15 @@
 import SwiftUI
 
 class Clothing: Identifiable, ObservableObject {
-    var userID: String
-    var itemID: String
-    var name: String
-    var owned: Bool
-    var category: Category
-    var minTemp: String
-    var maxTemp: String
+    @Published var userID: String
+    @Published var itemID: String
+    @Published var name: String
+    @Published var owned: Bool
+    @Published var category: Category
+    @Published var minTemp: String
+    @Published var maxTemp: String
     @Published var imageUrl: String? = nil // store image name for local images or url for remote images
-    var isLocalImage: Bool = true // default to true for local images
+    @Published var isLocalImage: Bool = true // default to true for local images
     @Published var image: UIImage? // temp storage for image before upload
     
 
@@ -28,6 +28,14 @@ class Clothing: Identifiable, ObservableObject {
         self.maxTemp = maxTemp
         self.imageUrl = imageUrl
         self.isLocalImage = isLocalImage
+        
+        decodeImage()
+    }
+    
+    func decodeImage() {
+        if !isLocalImage, image == nil, let imageUrl = imageUrl, let imageData = Data(base64Encoded: imageUrl) {
+            self.image = UIImage(data: imageData)
+        }
     }
 }
 

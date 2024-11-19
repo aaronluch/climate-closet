@@ -50,22 +50,22 @@ struct OutfitClothingImageView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 100)
-                    .clipped()
             } else {
+                let imgUrl: String? = clothing.imageUrl
+                if let unw = imgUrl {
+                    Text(unw)
+                }
                 Text("Image not available [here]")
                     .frame(width: 100, height: 100)
                     .background(Color.gray.opacity(0.3))
                     .cornerRadius(8)
             }
-
             Spacer()
-
             Text(clothing.name)
                 .foregroundColor(.primary)
         }
     }
 }
-
 
 struct OutfitInfoView: View {
     @ObservedObject var outfit: Outfit
@@ -74,14 +74,6 @@ struct OutfitInfoView: View {
         VStack {
             ForEach(Clothing.Category.allCases, id: \.self) { category in
                 let categorizedClothes = outfit.clothes.filter { $0.category == category }
-
-                if !categorizedClothes.isEmpty {
-                    Text(categoryTitle(category))
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 25)
-                }
 
                 ForEach(categorizedClothes) { clothing in
                     OutfitClothingImageView(clothing: clothing)

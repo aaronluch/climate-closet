@@ -46,7 +46,7 @@ class ClothesStore: ObservableObject {
             }
     }
 
-    private func parseClothingData(_ data: [String: Any], documentID: String) -> Clothing? {
+    func parseClothingData(_ data: [String: Any], documentID: String) -> Clothing? {
         guard
             let userID = data["userID"] as? String,
             let name = data["name"] as? String,
