@@ -114,19 +114,21 @@ extension OutfitStore {
                     "maxTemp": clothing.maxTemp,
                     "isLocalImage": clothing.isLocalImage
                 ]
-                print(clothing.itemID)
-                print(clothing.name)
-                print(clothing.category.rawValue)
-                print(clothing.minTemp)
-                print(clothing.maxTemp)
-                print(clothing.imageUrl)
-                // only add imageUrl if it's non-nil
-                if let imageUrl = clothing.imageUrl {
-                    clothingData["imageUrl"] = imageUrl
-                } else {
-                    print("imageurl was empty")
-                }
                 
+                // re encode image as a url due to it un-encoding when loaded in
+                let size = CGSize(width: 200.0, height: 200.0)
+                // unwrap, and resize so firebase doesnt freak out
+                if let image = clothing.image {
+                    if let resizedImage = resizeImage(image: image, targetSize: size) {
+                        if let b64str = convertImageToBase64String(img: resizedImage) {
+                            clothingData["imageUrl"] = b64str
+                        } else {
+                            print("Failed to convert resized image to Base64.")
+                        }
+                    } else {
+                        print("Failed to resize image.")
+                    }
+                }
                 return clothingData
             }
         ]
@@ -141,7 +143,6 @@ extension OutfitStore {
             data["thumbnail"] = ""
         }
         
-        print("Saving outfit with data:", data)
         
         db.collection("outfits").document(outfit.itemID).setData(data) { error in
             if let error = error {
@@ -153,9 +154,27 @@ extension OutfitStore {
             }
         }
     }
+    
+    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? { // oh wow i love firebase!!!!!!!!!!!!!!
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        let ratio = min(widthRatio, heightRatio)
+        
+        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
 
     private func convertImageToBase64String(img: UIImage) -> String? {
-        guard let imageData = img.jpegData(compressionQuality: 0.02) else { return nil }
+        guard let imageData = img.jpegData(compressionQuality: 0.01) else { return nil } // i love corporate america :]
         return imageData.base64EncodedString()
     }
 }
@@ -175,7 +194,7 @@ extension OutfitStore {
             clothes: clothes,
             thumbnail: thumbnail
         )
-        
+
         saveOutfit(newOutfit) { success in
             completion(success)
         }

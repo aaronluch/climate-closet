@@ -8,6 +8,7 @@ struct CreateOutfitView: View {
     @State private var selectedClothes: [Clothing] = []
     @State private var thumbnailImage: UIImage?
     @State private var isShowingImagePicker = false
+    @State private var outfitName = ""
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -26,6 +27,18 @@ struct CreateOutfitView: View {
                         selectedClothes: $selectedClothes
                     )
                 }
+                // name outfit
+                TextField(
+                    "Enter name of outfit",
+                    text: $outfitName
+                )
+                .padding()
+                .frame(width: .infinity)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
+                
                 // thumbnail
                 if let thumbnailImage = thumbnailImage {
                     Image(uiImage: thumbnailImage)
@@ -50,7 +63,7 @@ struct CreateOutfitView: View {
                 // create new outfit button
                 Button(action: {
                     outfitStore.createNewOutfit(
-                        name: "testing outfits still",
+                        name: outfitName,
                         clothes: selectedClothes,
                         thumbnail: thumbnailImage
                     ) { success in
