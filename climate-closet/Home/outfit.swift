@@ -5,12 +5,14 @@ class Outfit: Identifiable {
     var itemID: String
     var name: String
     var clothes: [Clothing] = []
+    var thumbnail: UIImage?
     
-    init(userID: String = "", itemID: String, name: String = "", clothes: [Clothing] = []) {
+    init(userID: String = "", itemID: String, name: String = "", clothes: [Clothing] = [], thumbnail: UIImage? = nil) {
         self.userID = userID
         self.itemID = itemID
         self.name = name
         self.clothes = clothes
+        self.thumbnail = thumbnail
     }
     
     func addClothing(_ clothing: Clothing) {

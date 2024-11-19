@@ -6,7 +6,10 @@ struct CreateOutfitView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     @State private var expandedCategories: [Clothing.Category: Bool] = [:]
     @State private var selectedClothes: [Clothing] = []
-
+    @State private var thumbnailImage: UIImage?
+    @State private var isShowingImagePicker = false
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -23,12 +26,33 @@ struct CreateOutfitView: View {
                         selectedClothes: $selectedClothes
                     )
                 }
-
+                // thumbnail
+                if let thumbnailImage = thumbnailImage {
+                    Image(uiImage: thumbnailImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                        .padding()
+                } else {
+                    Button(action: {
+                        // trigger image picker
+                        isShowingImagePicker = true
+                    }) {
+                        Text("Add Thumbnail")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                }
                 // create new outfit button
                 Button(action: {
                     outfitStore.createNewOutfit(
-                        name: "need to add a text field for name of outfit",
-                        clothes: selectedClothes
+                        name: "testing outfits still",
+                        clothes: selectedClothes,
+                        thumbnail: thumbnailImage
                     ) { success in
                         if success {
                             print("Outfit saved successfully!")
@@ -53,11 +77,14 @@ struct CreateOutfitView: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding(.top, 10)
         }
+        .sheet(isPresented: $isShowingImagePicker) {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: $thumbnailImage)
+        }
         .onAppear {
             initializeExpandedCategories()
         }
     }
-
+    
     private func initializeExpandedCategories() {
         for category in Clothing.Category.allCases {
             expandedCategories[category] = expandedCategories[category] ?? false

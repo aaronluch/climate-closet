@@ -94,7 +94,7 @@ extension OutfitStore {
             return
         }
         
-        let data: [String: Any] = [
+        var data: [String: Any] = [
             "userID": userID,
             "itemID": outfit.itemID,
             "name": outfit.name,
@@ -110,6 +110,17 @@ extension OutfitStore {
                 ]
             }
         ]
+        
+        if let thumbnail = outfit.thumbnail {
+            guard let base64String = convertImageToBase64String(img: thumbnail) else {
+                print("Error, could not convert thumbnail image...")
+                return
+            }
+            data["thumbnail"] = base64String
+        } else {
+            data["thumbnail"] = ""
+        }
+        
         print("Saving outfit with data:", data)
         
         db.collection("outfits").document(outfit.itemID).setData(data) { error in
@@ -122,10 +133,14 @@ extension OutfitStore {
             }
         }
     }
+    private func convertImageToBase64String(img: UIImage) -> String? {
+        guard let imageData = img.jpegData(compressionQuality: 0.02) else { return nil }
+        return imageData.base64EncodedString()
+    }
 }
 
 extension OutfitStore {
-    func createNewOutfit(name: String, clothes: [Clothing] = [], completion: @escaping (Bool) -> Void) {
+    func createNewOutfit(name: String, clothes: [Clothing] = [], thumbnail: UIImage? = nil, completion: @escaping (Bool) -> Void) {
         guard let userID = userSession.userID else {
             print("User is not logged in.")
             completion(false)
@@ -136,7 +151,8 @@ extension OutfitStore {
             userID: userID,
             itemID: UUID().uuidString,
             name: name,
-            clothes: clothes
+            clothes: clothes,
+            thumbnail: thumbnail
         )
         
         saveOutfit(newOutfit) { success in
