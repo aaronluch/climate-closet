@@ -206,4 +206,8 @@ extension OutfitStore {
     func getUnplannedOutfits() -> [Outfit] {
         return allOutfits.filter { !$0.isPlanned }
     }
+    
+    func hasPlannedOutfit() -> Bool {
+        return allOutfits.contains { $0.isPlanned }
+    }
 }

@@ -4,6 +4,7 @@ struct WeatherView: View {
     
     @ObservedObject var locationManager = LocationManager()
     @State private var weatherData: WeatherData?
+    @EnvironmentObject var outfitStore: OutfitStore
 
     var body: some View {
         NavigationView {
@@ -37,22 +38,31 @@ struct WeatherView: View {
                     .border(Color.black, width: 2)
                     .background(Color.white)
                     .cornerRadius(3)
-
                     
-                    NavigationLink(destination: OutfitPlanningView()
-                        .environmentObject(ClothesStore())
-                        .environmentObject(OutfitStore())) {
-                        Text("Plan Tomorrow's Outfit")
-                            .font(.headline)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .border(Color.black, width: 2)
-                            .cornerRadius(3)
+                    if outfitStore.hasPlannedOutfit() {
+                        VStack {
+                            Text("Tomorrow's Outfit")
+                            if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
+                                NavigationLink(destination: OutfitInfoView(outfit: plannedOutfit)) {
+                                    OutfitListRow(outfit: plannedOutfit)
+                                }
+                            }
+                        }
+                    } else {
+                        NavigationLink(destination: OutfitPlanningView()
+                            .environmentObject(ClothesStore())
+                            .environmentObject(OutfitStore())) {
+                            Text("Plan Tomorrow's Outfit")
+                                .font(.headline)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 15)
+                                .background(Color.white)
+                                .foregroundColor(.black)
+                                .border(Color.black, width: 2)
+                                .cornerRadius(3)
+                        }
                     }
-                    .padding()
 
                     
                     VStack {
@@ -85,6 +95,8 @@ struct WeatherView: View {
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
+        // Provide a preview with the necessary environment object
         WeatherView()
+            .environmentObject(OutfitStore()) // Inject the OutfitStore environment object
     }
 }

@@ -23,6 +23,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Weather", systemImage: "cloud.sun")
                 }
+                .environmentObject(OutfitStore())
             ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
