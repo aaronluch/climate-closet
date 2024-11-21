@@ -4,6 +4,15 @@ struct HomeView: View {
     @ObservedObject var userSession = UserSession.shared // user session
     let debug = false
     
+    private var navigationTitle: String {
+        if let userEmail = userSession.userEmail{
+            let username = userEmail.components(separatedBy: "@").first ?? userEmail
+            return ("Welcome back, \(username)!")
+        } else {
+            return "Home"
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -31,20 +40,21 @@ struct HomeView: View {
                 
                 NavigationLink(destination: WardrobeView().environmentObject(ClothesStore())) {
                     Text("Wardrobe")
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: 35)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        .padding(.top, 50)
                 }
 
                 
                 NavigationLink(destination: OutfitsView()
                     .environmentObject(OutfitStore()).environmentObject(ClothesStore())) {
                     Text("Your Outfits")
-                        .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: 35)
                         .padding()
-                        .background(Color.green)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -53,9 +63,9 @@ struct HomeView: View {
                     .environmentObject(ClothesStore())
                     .environmentObject(OutfitStore())) {
                     Text("Create Outfits")
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: 35)
                         .padding()
-                        .background(Color.purple)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -63,7 +73,7 @@ struct HomeView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Home")
+            .navigationTitle(navigationTitle)
         }
     }
 }

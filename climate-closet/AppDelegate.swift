@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         // change nav title on all files
         let titleAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 20, weight: .medium),
+            .font: UIFont.systemFont(ofSize: 24, weight: .medium),
             .foregroundColor: UIColor.black
         ]
         
