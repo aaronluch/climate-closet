@@ -49,13 +49,13 @@ class OutfitStore: ObservableObject {
         guard
             let userID = data["userID"] as? String,
             let name = data["name"] as? String,
-            let clothesData = data["clothes"] as? [[String: Any]],
-            let isPlanned = data["isPlanned"] as? Bool? ?? false
+            let clothesData = data["clothes"] as? [[String: Any]]
         else {
             print("Error parsing outfit data.")
             return nil
         }
         
+        let isPlanned = (data["isPlanned"] as? Bool) ?? false // take this out of guard incase planned is just nil from previous outfits
         let itemID = data["itemID"] as? String ?? ""
         
         let clothes = clothesData.compactMap { clothingDict -> Clothing? in
