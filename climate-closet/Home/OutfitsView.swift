@@ -91,10 +91,12 @@ struct OutfitsView: View {
     
     var body: some View {
         VStack {
-            if outfitStore.allOutfits.isEmpty {
+            let savedOutfits = outfitStore.getUnplannedOutfits()
+            
+            if savedOutfits.isEmpty {
                 Text("Loading...")
             } else {
-                List(outfitStore.allOutfits) { outfit in
+                List(savedOutfits) { outfit in
                     NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
                         OutfitListRow(outfit: outfit)
                     }

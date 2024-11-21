@@ -49,7 +49,8 @@ class OutfitStore: ObservableObject {
         guard
             let userID = data["userID"] as? String,
             let name = data["name"] as? String,
-            let clothesData = data["clothes"] as? [[String: Any]]
+            let clothesData = data["clothes"] as? [[String: Any]],
+            let isPlanned = data["isPlanned"] as? Bool? ?? false
         else {
             print("Error parsing outfit data.")
             return nil
@@ -82,7 +83,7 @@ class OutfitStore: ObservableObject {
             )
         }
         
-        let outfit = Outfit(userID: userID, itemID: itemID, name: name, clothes: clothes)
+        let outfit = Outfit(userID: userID, itemID: itemID, name: name, clothes: clothes, isPlanned: isPlanned)
                 
         // decode the base64 thumbnail image
         if let thumbnailBase64 = data["thumbnail"] as? String, let imageData = Data(base64Encoded: thumbnailBase64) {
@@ -105,6 +106,7 @@ extension OutfitStore {
             "userID": userID,
             "itemID": outfit.itemID,
             "name": outfit.name,
+            "isPlanned" : outfit.isPlanned,
             "clothes": outfit.clothes.map { clothing in
                 var clothingData: [String: Any] = [
                     "itemID": clothing.itemID,
@@ -180,7 +182,7 @@ extension OutfitStore {
 }
 
 extension OutfitStore {
-    func createNewOutfit(name: String, clothes: [Clothing] = [], thumbnail: UIImage? = nil, completion: @escaping (Bool) -> Void) {
+    func createNewOutfit(name: String, clothes: [Clothing] = [], isPlanned: Bool = false, thumbnail: UIImage? = nil, completion: @escaping (Bool) -> Void) {
         guard let userID = userSession.userID else {
             print("User is not logged in.")
             completion(false)
@@ -192,11 +194,16 @@ extension OutfitStore {
             itemID: UUID().uuidString,
             name: name,
             clothes: clothes,
+            isPlanned: isPlanned,
             thumbnail: thumbnail
         )
 
         saveOutfit(newOutfit) { success in
             completion(success)
         }
+    }
+    
+    func getUnplannedOutfits() -> [Outfit] {
+        return allOutfits.filter { !$0.isPlanned }
     }
 }

@@ -1,47 +1,106 @@
-
 import SwiftUI
+import Foundation
 
 struct OutfitPlanningView: View {
-    @State private var selectedShirt: String = ""
-    @State private var selectedPants: String = ""
+    @EnvironmentObject var clothesStore: ClothesStore
+    @EnvironmentObject var outfitStore: OutfitStore
+    @State private var expandedCategories: [Clothing.Category: Bool] = [:]
+    @State private var selectedClothes: [Clothing] = []
+    @State private var thumbnailImage: UIImage?
+    @State private var isShowingImagePicker = false
+    @State private var outfitName = ""
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Plan Tomorrow's Outfit")
-                .font(.largeTitle)
+        ScrollView {
+            VStack {
+                ForEach(Clothing.Category.allCases, id: \.self) { category in
+                    ExpandableClothingCategoryView(
+                        category: category,
+                        clothes: clothesStore.allClothes.filter { $0.category == category },
+                        isExpanded: Binding(
+                            get: { expandedCategories[category, default: false] },
+                            set: { expandedCategories[category] = $0 }
+                        ),
+                        selectedClothing: .constant(nil), // Not used in selecting mode
+                        mode: .selecting,
+                        selectedClothes: $selectedClothes
+                    )
+                }
+                // name outfit
+                TextField(
+                    "Enter name of outfit",
+                    text: $outfitName
+                )
                 .padding()
-
-            TextField("Shirt", text: $selectedShirt)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            TextField("Pants", text: $selectedPants)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            Button(action: {
-            }) {
-                Text("Save Outfit")
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .border(Color.black, width: 2)
-                    .cornerRadius(8)
+                .frame(width: .infinity)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
+                
+                // thumbnail
+                if let thumbnailImage = thumbnailImage {
+                    Image(uiImage: thumbnailImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                        .padding()
+                } else {
+                    Button(action: {
+                        // trigger image picker
+                        isShowingImagePicker = true
+                    }) {
+                        Text("Add Thumbnail")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            .padding(.horizontal)
+                    }
+                }
+                // create new outfit button
+                Button(action: {
+                    outfitStore.createNewOutfit(
+                        name: outfitName,
+                        clothes: selectedClothes,
+                        isPlanned: true,
+                        thumbnail: thumbnailImage
+                    ) { success in
+                        if success {
+                            // clear after saving
+                            selectedClothes.removeAll()
+                        } else {
+                            print("Failed to save outfit.")
+                        }
+                    }
+                }) {
+                    Text("Save Outfit")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+                .padding(.top, 20)
             }
-            .padding(.top)
-
-            Spacer()
+            .navigationTitle("Create Outfit")
+            .navigationBarTitleDisplayMode(.inline)
+            .padding(.top, 10)
         }
-        .padding()
-        .navigationTitle("Outfit Planning")
+        .sheet(isPresented: $isShowingImagePicker) {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: $thumbnailImage)
+        }
+        .onAppear {
+            initializeExpandedCategories()
+        }
     }
-}
-
-struct OutfitPlanningView_Previews: PreviewProvider {
-    static var previews: some View {
-        OutfitPlanningView()
+    
+    private func initializeExpandedCategories() {
+        for category in Clothing.Category.allCases {
+            expandedCategories[category] = expandedCategories[category] ?? false
+        }
     }
 }

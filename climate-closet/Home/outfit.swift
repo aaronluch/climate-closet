@@ -5,13 +5,15 @@ class Outfit: Identifiable, ObservableObject {
     var itemID: String
     var name: String
     @Published var clothes: [Clothing] = []
+    @Published var isPlanned: Bool
     var thumbnail: UIImage?
     
-    init(userID: String = "", itemID: String, name: String = "", clothes: [Clothing] = [], thumbnail: UIImage? = nil) {
+    init(userID: String = "", itemID: String, name: String = "", clothes: [Clothing] = [], isPlanned: Bool = false, thumbnail: UIImage? = nil) {
         self.userID = userID
         self.itemID = itemID
         self.name = name
         self.clothes = clothes
+        self.isPlanned = isPlanned
         self.thumbnail = thumbnail
     }
     

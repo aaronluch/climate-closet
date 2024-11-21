@@ -39,7 +39,9 @@ struct WeatherView: View {
                     .cornerRadius(3)
 
                     
-                    NavigationLink(destination: OutfitPlanningView()) {
+                    NavigationLink(destination: OutfitPlanningView()
+                        .environmentObject(ClothesStore())
+                        .environmentObject(OutfitStore())) {
                         Text("Plan Tomorrow's Outfit")
                             .font(.headline)
                             .padding()
