@@ -47,51 +47,71 @@ struct ClothingInfoView: View {
     @ObservedObject var clothing: Clothing
     
     var body: some View {
-        VStack() {
-            // renders depending on if local or on firebase db
-            if clothing.isLocalImage {
-                // render local hardcoded image
-                if let imageName = clothing.imageUrl {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 350, height: 350)
-                } else {
-                    Text("Image not available")
-                        .frame(width: 200, height: 200)
-                        .background(Color.gray.opacity(0.3))
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                //  image in top half
+                VStack {
+                    if clothing.isLocalImage {
+                        if let imageName = clothing.imageUrl {
+                            Image(imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: geometry.size.width - 20, maxHeight: .infinity)
+                        } else {
+                            Text("Image not available")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(Color.gray.opacity(0.3))
+                        }
+                    } else if let decodedImage = clothing.image {
+                        Image(uiImage: decodedImage)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(maxWidth: geometry.size.width - 20, maxHeight: .infinity)
+                    } else {
+                        Text("Image not available")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.gray.opacity(0.3))
+                            .cornerRadius(8)
+                    }
                 }
-            } else if let decodedImage = clothing.image {
-                // decoded base64 image
-                Image(uiImage: decodedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 350, height: 350)
-            } else {
-                Text("Image not available")
-                    .frame(width: 300, height: 300)
-                    .background(Color.gray.opacity(0.3))
-                    .cornerRadius(8)
+                .frame(height: geometry.size.height / 2)
+                //.border(Color.red, width: 2)
+
+                // clothing details
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(clothing.name)
+                        .font(.title2)
+                        .fontWeight(.bold)
+
+                    HStack(alignment: .top) {
+                        Text("Category:").bold().font(.title3)
+                        Text(clothing.category.rawValue.capitalized).fontWeight(.regular)
+                    }
+                    .font(.headline)
+
+                    HStack(alignment: .top) {
+                        Text("Owned:").bold().font(.title3)
+                        Text(clothing.owned ? "Yes" : "No").fontWeight(.regular)
+                    }
+                    .font(.headline)
+
+                    HStack(alignment: .top) {
+                        Text("Temperature Range:").bold().font(.title3)
+                        Text("\(clothing.minTemp)° - \(clothing.maxTemp)°").fontWeight(.regular)
+                    }
+                    .font(.headline)
+                }
+
+                .frame(height: geometry.size.height / 2, alignment: .top)
+                //.border(Color.blue, width: 2)
             }
-            
-            // clothing details
-            VStack(alignment: .leading, spacing: 5) {
-                Text(clothing.name)
-                    .font(.headline)
-                Text("Category: \(clothing.category.rawValue.capitalized)")
-                    .font(.headline)
-                Text("Owned: \(clothing.owned ? "Yes" : "No")")
-                    .font(.headline)
-                Text("Temperature Range: \(clothing.minTemp)° - \(clothing.maxTemp)°")
-                    .font(.headline)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(15)
-        //.border(Color.red, width: 4)// - just to view bounds
     }
 }
+
 
 struct ClothingRowView: View {
     var clothing: Clothing
