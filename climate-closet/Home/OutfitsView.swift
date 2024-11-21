@@ -94,7 +94,7 @@ struct OutfitsView: View {
             let savedOutfits = outfitStore.getUnplannedOutfits()
             
             if savedOutfits.isEmpty {
-                Text("Loading...")
+                Text("No outfits found!")
             } else {
                 List(savedOutfits) { outfit in
                     NavigationLink(destination: OutfitInfoView(outfit: outfit)) {

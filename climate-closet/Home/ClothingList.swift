@@ -69,7 +69,7 @@ struct ClothingInfoView: View {
                     .frame(width: 350, height: 350)
             } else {
                 Text("Image not available")
-                    .frame(width: 200, height: 200)
+                    .frame(width: 300, height: 300)
                     .background(Color.gray.opacity(0.3))
                     .cornerRadius(8)
             }
@@ -79,16 +79,17 @@ struct ClothingInfoView: View {
                 Text(clothing.name)
                     .font(.headline)
                 Text("Category: \(clothing.category.rawValue.capitalized)")
-                    .font(.subheadline)
+                    .font(.headline)
                 Text("Owned: \(clothing.owned ? "Yes" : "No")")
-                    .font(.subheadline)
+                    .font(.headline)
                 Text("Temperature Range: \(clothing.minTemp)° - \(clothing.maxTemp)°")
-                    .font(.subheadline)
+                    .font(.headline)
             }
-            .padding(.top, 5)
         }
         .padding()
-        //.border(Color.red, width: 4) - just to view bounds
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(15)
+        //.border(Color.red, width: 4)// - just to view bounds
     }
 }
 
