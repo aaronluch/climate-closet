@@ -338,14 +338,21 @@ struct OutfitDetailView: View {
 
                 // details
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(outfit.name)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 20)
+                    HStack{
+                        Text(outfit.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 20)
+                    }
 
-                    Text("Clothes:")
-                        .bold()
-                        .font(.title3)
+                    HStack {
+                        Image(systemName: "tshirt")
+                            .font(.title3)
+                            .foregroundColor(.primary)
+                        Text("Clothes:")
+                            .bold()
+                            .font(.title3)
+                    }
 
                     ForEach(outfit.clothes, id: \.itemID) { clothing in
                         HStack {
@@ -358,6 +365,7 @@ struct OutfitDetailView: View {
                         }
                     }
                 }
+                .padding()
                 .padding()
                 .frame(height: geometry.size.height / 2, alignment: .top)
             }

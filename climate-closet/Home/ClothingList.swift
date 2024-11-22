@@ -45,11 +45,11 @@ struct ClothingListRow: View {
 // expanding each piece of clothing
 struct ClothingInfoView: View {
     @ObservedObject var clothing: Clothing
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                //  image in top half
+                // Image section
                 VStack {
                     if clothing.isLocalImage {
                         if let imageName = clothing.imageUrl {
@@ -62,6 +62,7 @@ struct ClothingInfoView: View {
                             Text("Image not available")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .background(Color.gray.opacity(0.3))
+                                .cornerRadius(8)
                         }
                     } else if let decodedImage = clothing.image {
                         Image(uiImage: decodedImage)
@@ -77,38 +78,80 @@ struct ClothingInfoView: View {
                     }
                 }
                 .frame(height: geometry.size.height / 2)
-                //.border(Color.red, width: 2)
 
-                // clothing details
+                // details section
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(clothing.name)
-                        .font(.title2)
-                        .fontWeight(.bold)
-
-                    HStack(alignment: .top) {
-                        Text("Category:").bold().font(.title3)
-                        Text(clothing.category.rawValue.capitalized).fontWeight(.regular)
+                    HStack {
+                        Text(clothing.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 20)
                     }
-                    .font(.headline)
 
-                    HStack(alignment: .top) {
-                        Text("Owned:").bold().font(.title3)
-                        Text(clothing.owned ? "Yes" : "No").fontWeight(.regular)
+                    HStack {
+                        Text("Details:")
+                            .bold()
+                            .font(.title3)
                     }
-                    .font(.headline)
 
-                    HStack(alignment: .top) {
-                        Text("Temperature Range:").bold().font(.title3)
-                        Text("\(clothing.minTemp)° - \(clothing.maxTemp)°").fontWeight(.regular)
+                    // category
+                    HStack {
+                        Text("Category:")
+                            .bold()
+                            .font(.headline)
+                        Spacer()
+                        Text(clothing.category.rawValue.capitalized)
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                        Image(systemName: systemImageName(for: clothing.category))
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
                     }
-                    .font(.headline)
+
+                    // owned
+                    HStack {
+                        Text("Owned:")
+                            .bold()
+                            .font(.headline)
+                        Spacer()
+                        Text(clothing.owned ? "Yes" : "No")
+                            .foregroundColor(clothing.owned ? .green : .red)
+                            .font(.subheadline)
+                    }
+
+                    // temperature Range
+                    HStack {
+                        Text("Temperature Range:")
+                            .bold()
+                            .font(.headline)
+                        Spacer()
+                        Text("\(clothing.minTemp)° - \(clothing.maxTemp)°")
+                            .font(.subheadline)
+                    }
                 }
-
+                .padding()
                 .frame(height: geometry.size.height / 2, alignment: .top)
-                //.border(Color.blue, width: 2)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+    }
+}
+
+// helper function to get relative image for clothing cateogry
+private func systemImageName(for category: Clothing.Category) -> String {
+    switch category {
+    case .top:
+        return "tshirt.fill" // symbol for tops
+    case .bottom:
+        return "figure.stand" // bottoms
+    case .outerwear:
+        return "cloud.rain.fill" // outerwear (wanted to use jacket but not up to date with simulator
+    case .accessory:
+        return "sparkles" // accessories
+    case .footwear:
+        return "shoeprints.fill" // shoes / footwear
+    case .other:
+        return "questionmark" // other
     }
 }
 
@@ -212,19 +255,42 @@ struct ExpandableClothingCategoryView: View {
     // helper function for clothing row content
     private func clothingRowContent(for clothing: Clothing) -> some View {
         HStack {
-            ClothingListRow(clothing: clothing)
+            if let thumbnail = clothing.image {
+                Image(uiImage: thumbnail)
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .cornerRadius(8)
+            } else {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.black)
+                        .frame(width: 70, height: 70)
+                        .cornerRadius(8)
+                    Text("No Image")
+                        .foregroundColor(.white)
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                }
+            }
             Text(clothing.name)
-                .foregroundColor(.primary)
+                .font(.headline)
+                .padding(.leading, 10)
+                .foregroundColor(.black)
             Spacer()
-            if mode == .selecting && selectedClothes.contains(where: { $0.id == clothing.id }) {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(.blue)
+            if mode == .browsing {
+                Image(systemName: "chevron.right")
+            } else if mode == .selecting {
+                if selectedClothes.contains(where: { $0.id == clothing.id }) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.blue)
+                }
             }
         }
         .padding()
-        .background(mode == .selecting && selectedClothes.contains(where: { $0.id == clothing.id }) ? Color.blue.opacity(0.2) : Color.gray.opacity(0.08))
-        .cornerRadius(10)
+        .background(Color.gray.opacity(0.15))
+        .cornerRadius(12)
     }
+
 
     private func toggleSelection(for clothing: Clothing) {
         if let index = selectedClothes.firstIndex(where: { $0.id == clothing.id }) {
