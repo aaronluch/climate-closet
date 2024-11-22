@@ -9,6 +9,8 @@ struct CreateOutfitView: View {
     @State private var thumbnailImage: UIImage?
     @State private var isShowingImagePicker = false
     @State private var outfitName = ""
+    @State private var successMessage = false
+    @State private var buttonDisabled = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -44,46 +46,69 @@ struct CreateOutfitView: View {
                     Image(uiImage: thumbnailImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .padding()
+                        .frame(width: 150, height: 150)
                 } else {
                     Button(action: {
                         // trigger image picker
                         isShowingImagePicker = true
                     }) {
-                        Text("Add Thumbnail")
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .padding(.horizontal)
+                        HStack {
+                            Image(systemName: "photo")
+                                .font(.headline)
+                            Text("Add Thumbnail")
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 2)
+                        )
+                        .padding(.horizontal)
                     }
                 }
+                
+                if successMessage {
+                    Text("Success! Returning...")
+                        .foregroundColor(.green)
+                        .padding()
+                }
+                
                 // create new outfit button
                 Button(action: {
+                    buttonDisabled = true
                     outfitStore.createNewOutfit(
                         name: outfitName,
                         clothes: selectedClothes,
                         thumbnail: thumbnailImage
                     ) { success in
                         if success {
-                            // clear after saving
                             selectedClothes.removeAll()
+                            successMessage = true
+                            clearAndReturn()
                         } else {
                             print("Failed to save outfit.")
+                            buttonDisabled = false
                         }
                     }
                 }) {
                     Text("Save Outfit")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
+                        .background(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ? Color.gray.opacity(0.2) : Color.blue)
+                        .foregroundColor(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
+                            Color.red : Color.white)
                         .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
+                                        Color.red : Color.blue, lineWidth: 2)
+                        )
                         .padding(.horizontal)
                 }
-                .padding(.top, 20)
+                .disabled(buttonDisabled || selectedClothes.isEmpty || outfitName.isEmpty)
             }
             .navigationTitle("Create Outfit")
             .navigationBarTitleDisplayMode(.inline)
@@ -100,6 +125,12 @@ struct CreateOutfitView: View {
     private func initializeExpandedCategories() {
         for category in Clothing.Category.allCases {
             expandedCategories[category] = expandedCategories[category] ?? false
+        }
+    }
+    
+    private func clearAndReturn() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            presentationMode.wrappedValue.dismiss()
         }
     }
 }

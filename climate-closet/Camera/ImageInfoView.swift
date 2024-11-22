@@ -6,9 +6,7 @@ struct ImageInfoView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
     
-    //@State private var userID: String bug?
     @State private var name: String = ""
-    @State private var itemID: String = ""
     @State private var owned: Bool = true
     @State private var category: Clothing.Category = .other
     @State private var minTemp: String = ""
@@ -17,58 +15,106 @@ struct ImageInfoView: View {
     @State private var isLocalImage: Bool = false // false because we remote upload this
     @State private var image: UIImage
     @State private var successUpload = false
+    @State private var buttonDisabled = false // prevent multiple uploads
     
     init(image: UIImage, selectedImage: Binding<UIImage?>) {
-        //self._userID = State(initialValue: userID)
         self._image = State(initialValue: image)
         self._selectedImage = selectedImage
     }
     
+    // validation check
+    private var isFormValid: Bool {
+        !name.isEmpty && !minTemp.isEmpty && !maxTemp.isEmpty
+    }
+    
     var body: some View {
         VStack {
-            // preview image
+            // image thumbnail
             Image(uiImage: image)
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .frame(width: 180, height: 180)
+                .padding(.horizontal, 5)
+                .padding(.vertical)
             
             // input fields for metadata
-            
-            // name of clothing object
-            TextField("Name", text: $name)
-                .padding()
-            
-            // state of own / not owned
-            Toggle("Owned", isOn: $owned)
-                .padding()
-            
-            // choose category
-            Picker("Category", selection: $category) {
-                ForEach(Clothing.Category.allCases, id: \.self) { category in
-                    Text(category.rawValue.capitalized).tag(category)
+            VStack(spacing: 15) {
+                // Name
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(height: 50)
+                    TextField("Name", text: $name)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity)
                 }
+                .padding(.horizontal, 5)
+                
+                // Min Temperature
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(height: 50)
+                    TextField("Min Temperature", text: $minTemp)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(.horizontal, 5)
+                
+                // Max Temperature
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(height: 50)
+                    TextField("Max Temperature", text: $maxTemp)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(.horizontal, 5)
+                
+                // Category
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(height: 50)
+                    Picker("Category", selection: $category) {
+                        ForEach(Clothing.Category.allCases, id: \.self) { category in
+                            Text(category.rawValue.capitalized).tag(category)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .padding(.horizontal, 10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal, 5)
+                
+                // Owned State Toggle
+                Toggle("Owned", isOn: $owned)
+                    .padding(.horizontal, 5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding()
+            .frame(maxWidth: 400)
             
-            // type min temp
-            TextField("Min Temperature", text: $minTemp)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            // type max temp
-            TextField("Max Temperature", text: $maxTemp)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            // upload to firestore
-            // this needs a binding to prevent multiple clicking and uploading a ton of the same item
-            Button("Upload") {
+            // upload
+            Button(action: {
+                buttonDisabled = true
                 uploadImageToFirestore()
+            }) {
+                Text("Upload")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(buttonDisabled || !isFormValid ? Color.gray.opacity(0.2) : Color.blue)
+                    .foregroundColor(buttonDisabled || !isFormValid ? Color.red : Color.white)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(buttonDisabled || !isFormValid ? Color.red : Color.blue, lineWidth: 2)
+                    )
             }
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+            .disabled(buttonDisabled || !isFormValid)
+            .padding(.top, 20)
             
+            // success
             if successUpload {
                 Text("Success! Returning...")
                     .foregroundColor(.green)
@@ -82,11 +128,13 @@ struct ImageInfoView: View {
     private func uploadImageToFirestore() {
         guard let userID = UserSession.shared.userID else {
             print("Error: User ID not available")
+            buttonDisabled = false
             return
         }
         
         guard let base64String = convertImageToBase64String(img: image) else {
             print("Error: Could not convert image to Base64.")
+            buttonDisabled = false
             return
         }
         
@@ -100,18 +148,19 @@ struct ImageInfoView: View {
             "category": category.rawValue,
             "minTemp": minTemp,
             "maxTemp": maxTemp,
-            "imageUrl": base64String, // use base64 string as url
+            "imageUrl": base64String, // use base64 string as URL
             "isLocalImage": isLocalImage
         ]
         
-        // upload to firestore part of db
+        // upload to Firestore
         let db = Firestore.firestore()
         let documentRef = db.collection("clothing").document()
         documentRef.setData(clothingData) { error in
             if let error = error {
                 print("Error uploading clothing: \(error.localizedDescription)")
+                buttonDisabled = false
             } else {
-                documentRef.updateData(["itemID": documentRef.documentID]) // assigns identifier when uploaded to collection
+                documentRef.updateData(["itemID": documentRef.documentID]) // assign id on upload
                 print("Clothing item successfully uploaded.")
                 successUpload = true
                 clearImageAndReturn()
@@ -119,7 +168,7 @@ struct ImageInfoView: View {
         }
     }
     
-    // convert ui image to base64, needs to be very small due to firebase limitations
+    // convert UIImage to base64, ensure small size for Firebase
     private func convertImageToBase64String(img: UIImage) -> String? {
         guard let imageData = img.jpegData(compressionQuality: 0.02) else { return nil }
         return imageData.base64EncodedString()
@@ -127,7 +176,7 @@ struct ImageInfoView: View {
     
     private func clearImageAndReturn() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            selectedImage = nil // clear the image in CameraView
+            selectedImage = nil
             presentationMode.wrappedValue.dismiss()
         }
     }
