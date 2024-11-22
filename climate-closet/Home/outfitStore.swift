@@ -6,15 +6,19 @@ class OutfitStore: ObservableObject {
     @ObservedObject var userSession = UserSession.shared
     @EnvironmentObject var outfitStore: OutfitStore
     @Published var allOutfits: [Outfit] = []
+    @Published var feedOutfits: [Outfit] = []
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
+    private var feedListener: ListenerRegistration?
     
     init() {
         listenForOutfitUpdates()
+        listenForFeedUpdates()
     }
     
     deinit {
         listener?.remove()
+        feedListener?.remove()
     }
     
     func listenForOutfitUpdates() {
@@ -44,6 +48,88 @@ class OutfitStore: ObservableObject {
                 }
             }
     }
+    
+    func listenForFeedUpdates() {
+        feedListener = db.collection("feed")
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error listening for feed updates: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("No outfits found in feed.")
+                    return
+                }
+                
+                self.feedOutfits = documents.compactMap { doc in
+                    let data = doc.data()
+                    return self.parseOutfitData(data, documentID: doc.documentID)
+                }
+            }
+    }
+    
+    func addToFeed(outfit: Outfit) {
+        guard let userID = userSession.userID else {
+            print("User is not logged in.")
+            return
+        }
+
+        var data: [String: Any] = [
+            "userID": userID,
+            "itemID": outfit.itemID,
+            "name": outfit.name,
+            "isPlanned": outfit.isPlanned,
+            "clothes": outfit.clothes.map { clothing in
+                var clothingData: [String: Any] = [
+                    "itemID": clothing.itemID,
+                    "name": clothing.name,
+                    "category": clothing.category.rawValue,
+                    "minTemp": clothing.minTemp,
+                    "maxTemp": clothing.maxTemp,
+                    "isLocalImage": clothing.isLocalImage
+                ]
+                
+                // encode image
+                if let image = clothing.image {
+                    if let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 200.0, height: 200.0)) {
+                        if let base64String = convertImageToBase64String(img: resizedImage) {
+                            clothingData["imageUrl"] = base64String
+                        } else {
+                            print("Failed to convert clothing image to Base64.")
+                        }
+                    } else {
+                        print("Failed to resize clothing image.")
+                    }
+                }
+                return clothingData
+            }
+        ]
+
+        // encode thumbnail as base64
+        if let thumbnail = outfit.thumbnail {
+            if let base64String = convertImageToBase64String(img: thumbnail) {
+                data["thumbnail"] = base64String
+            } else {
+                print("Error: Could not convert thumbnail image to Base64.")
+                data["thumbnail"] = ""
+            }
+        } else {
+            data["thumbnail"] = ""
+        }
+
+        // save to feed specific collection
+        db.collection("feed").document(outfit.itemID).setData(data) { error in
+            if let error = error {
+                print("Error adding outfit to feed: \(error.localizedDescription)")
+            } else {
+                print("Outfit successfully added to feed.")
+            }
+        }
+    }
+
     
     private func parseOutfitData(_ data: [String: Any], documentID: String) -> Outfit? {
         guard

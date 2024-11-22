@@ -14,6 +14,7 @@
 		024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 024730742CB589F300A6C86B /* Preview Assets.xcassets */; };
 		0260DDB02CD3C6EE00B94D0E /* OutfitPlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */; };
 		0260DDB22CD3C93E00B94D0E /* CreateOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */; };
+		026BC4082CF10939001E2CC5 /* OutfitSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026BC4072CF10939001E2CC5 /* OutfitSelectorView.swift */; };
 		0272C8722CE3912A0018F454 /* ImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8712CE3912A0018F454 /* ImageInfoView.swift */; };
 		0272C87A2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
 		0272C87B2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
@@ -79,6 +80,7 @@
 		024730742CB589F300A6C86B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutfitPlanningView.swift; sourceTree = "<group>"; };
 		0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOutfitView.swift; sourceTree = "<group>"; };
+		026BC4072CF10939001E2CC5 /* OutfitSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitSelectorView.swift; sourceTree = "<group>"; };
 		0272C8712CE3912A0018F454 /* ImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoView.swift; sourceTree = "<group>"; };
 		0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0272C87D2CE3B1F20018F454 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				0721EBD32CB7260E008E9BA5 /* FeedView.swift */,
+				026BC4072CF10939001E2CC5 /* OutfitSelectorView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				0260DDB02CD3C6EE00B94D0E /* OutfitPlanningView.swift in Sources */,
 				028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */,
 				0260DDB22CD3C93E00B94D0E /* CreateOutfitView.swift in Sources */,
+				026BC4082CF10939001E2CC5 /* OutfitSelectorView.swift in Sources */,
 				07BBBD0A2CC158AF0069D3F2 /* outfit.swift in Sources */,
 				0272C87E2CE3B1F20018F454 /* AuthService.swift in Sources */,
 				0721EBD22CB72603008E9BA5 /* CameraView.swift in Sources */,

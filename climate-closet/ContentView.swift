@@ -15,6 +15,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Feed", systemImage: "list.bullet")
                 }
+                .environmentObject(OutfitStore())
             CameraView()
                 .tabItem {
                     Label("Camera", systemImage: "camera")
