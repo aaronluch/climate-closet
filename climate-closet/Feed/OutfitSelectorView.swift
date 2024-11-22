@@ -4,20 +4,21 @@ import SwiftUI
 struct OutfitSelectorView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var outfitStore: OutfitStore
-    let onOutfitSelected: (Outfit) -> Void // Callback for the selected outfit
-
+    let onOutfitSelected: (Outfit) -> Void
+    @State private var unplannedOutfits: [Outfit] = [] // local to hold unplanned outfits
+    
     var body: some View {
         NavigationView {
             VStack {
-                if outfitStore.allOutfits.isEmpty {
-                    Text("No outfits available.")
+                if unplannedOutfits.isEmpty {
+                    Text("No unplanned outfits available.")
                         .font(.headline)
                         .padding()
                 } else {
-                    List(outfitStore.allOutfits, id: \.itemID) { outfit in
+                    List(unplannedOutfits, id: \.itemID) { outfit in
                         Button(action: {
                             onOutfitSelected(outfit)
-                            presentationMode.wrappedValue.dismiss() // Dismiss the view
+                            presentationMode.wrappedValue.dismiss() // dismiss view
                         }) {
                             HStack {
                                 if let thumbnail = outfit.thumbnail {
@@ -40,6 +41,14 @@ struct OutfitSelectorView: View {
                 }
             }
             .navigationTitle("Select an Outfit")
+            .onAppear(perform: fetchUnplannedOutfits)
+            .onReceive(outfitStore.$allOutfits) { _ in
+                fetchUnplannedOutfits() // update list whenever a new outfit (isnt planned for weather) is added
+            }
         }
+    }
+
+    private func fetchUnplannedOutfits() {
+        unplannedOutfits = outfitStore.allOutfits.filter { !$0.isPlanned }
     }
 }
