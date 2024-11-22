@@ -83,3 +83,9 @@ class ClothesStore: ObservableObject {
         return clothing
     }
 }
+
+extension ClothesStore {
+    func deleteClothing(_ clothing: Clothing, completion: @escaping (Bool) -> Void) {
+        db.collection("clothing").document(clothing.itemID).delete()
+    }
+}

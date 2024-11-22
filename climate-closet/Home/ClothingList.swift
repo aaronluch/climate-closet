@@ -45,7 +45,10 @@ struct ClothingListRow: View {
 // expanding each piece of clothing
 struct ClothingInfoView: View {
     @ObservedObject var clothing: Clothing
-
+    @EnvironmentObject var clothesStore: ClothesStore
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isShowingDialog = false
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
@@ -129,6 +132,22 @@ struct ClothingInfoView: View {
                         Text("\(clothing.minTemp)° - \(clothing.maxTemp)°")
                             .font(.subheadline)
                     }
+                    
+                    // Button to delete clothing item
+                    Button(action: {
+                        isShowingDialog = true
+                    }) {
+                        Text("Delete")
+                    }
+                    .confirmationDialog("Are you sure you want to delete this clothing item?", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                        Button("Delete", role: .destructive) {
+                            clothesStore.deleteClothing(clothing) { _ in }
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        Button("Cancel", role: .cancel) {
+                            isShowingDialog = false
+                        }
+                    }
                 }
                 .padding()
                 .frame(height: geometry.size.height / 2, alignment: .top)
@@ -136,6 +155,7 @@ struct ClothingInfoView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
+    
 }
 
 // helper function to get relative image for clothing cateogry
@@ -311,4 +331,5 @@ struct ExpandableClothingCategoryView: View {
         case .other: return "Other"
         }
     }
+    
 }
