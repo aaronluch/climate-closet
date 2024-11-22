@@ -35,7 +35,6 @@ struct CreateOutfitView: View {
                     text: $outfitName
                 )
                 .padding()
-                .frame(width: .infinity)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
                 .padding(.horizontal)
@@ -43,10 +42,24 @@ struct CreateOutfitView: View {
                 
                 // thumbnail
                 if let thumbnailImage = thumbnailImage {
-                    Image(uiImage: thumbnailImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
+                    ZStack(alignment: .topTrailing) {
+                        Image(uiImage: thumbnailImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 150)
+                            .cornerRadius(10)
+
+                        Button(action: {
+                            self.thumbnailImage = nil // clear thumbnail image
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.red)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
+                        .offset(x: 10, y: 10)
+                    }
                 } else {
                     Button(action: {
                         // trigger image picker
@@ -69,68 +82,69 @@ struct CreateOutfitView: View {
                         .padding(.horizontal)
                     }
                 }
-                
-                if successMessage {
-                    Text("Success! Returning...")
-                        .foregroundColor(.green)
-                        .padding()
-                }
-                
-                // create new outfit button
-                Button(action: {
-                    buttonDisabled = true
-                    outfitStore.createNewOutfit(
-                        name: outfitName,
-                        clothes: selectedClothes,
-                        thumbnail: thumbnailImage
-                    ) { success in
-                        if success {
-                            selectedClothes.removeAll()
-                            successMessage = true
-                            clearAndReturn()
-                        } else {
-                            print("Failed to save outfit.")
-                            buttonDisabled = false
-                        }
-                    }
-                }) {
-                    Text("Save Outfit")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ? Color.gray.opacity(0.2) : Color.blue)
-                        .foregroundColor(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
-                            Color.red : Color.white)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
-                                        Color.red : Color.blue, lineWidth: 2)
-                        )
-                        .padding(.horizontal)
-                }
-                .disabled(buttonDisabled || selectedClothes.isEmpty || outfitName.isEmpty)
+
+            
+            if successMessage {
+                Text("Success! Returning...")
+                    .foregroundColor(.green)
+                    .padding()
             }
-            .navigationTitle("Create Outfit")
-            .navigationBarTitleDisplayMode(.inline)
-            .padding(.top, 10)
+            
+            // create new outfit button
+            Button(action: {
+                buttonDisabled = true
+                outfitStore.createNewOutfit(
+                    name: outfitName,
+                    clothes: selectedClothes,
+                    thumbnail: thumbnailImage
+                ) { success in
+                    if success {
+                        selectedClothes.removeAll()
+                        successMessage = true
+                        clearAndReturn()
+                    } else {
+                        print("Failed to save outfit.")
+                        buttonDisabled = false
+                    }
+                }
+            }) {
+                Text("Save Outfit")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ? Color.gray.opacity(0.2) : Color.blue)
+                    .foregroundColor(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
+                                     Color.red : Color.white)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(buttonDisabled || outfitName.isEmpty || selectedClothes.isEmpty ?
+                                    Color.red : Color.blue, lineWidth: 2)
+                    )
+                    .padding(.horizontal)
+            }
+            .disabled(buttonDisabled || selectedClothes.isEmpty || outfitName.isEmpty)
         }
+        .navigationTitle("Create Outfit")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.top, 10)
+    }
         .sheet(isPresented: $isShowingImagePicker) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: $thumbnailImage)
         }
         .onAppear {
             initializeExpandedCategories()
         }
+}
+
+private func initializeExpandedCategories() {
+    for category in Clothing.Category.allCases {
+        expandedCategories[category] = expandedCategories[category] ?? false
     }
-    
-    private func initializeExpandedCategories() {
-        for category in Clothing.Category.allCases {
-            expandedCategories[category] = expandedCategories[category] ?? false
-        }
+}
+
+private func clearAndReturn() {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        presentationMode.wrappedValue.dismiss()
     }
-    
-    private func clearAndReturn() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            presentationMode.wrappedValue.dismiss()
-        }
-    }
+}
 }
