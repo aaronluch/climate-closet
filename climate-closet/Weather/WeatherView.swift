@@ -4,6 +4,7 @@ struct WeatherView: View {
     
     @ObservedObject var locationManager = LocationManager()
     @State private var weatherData: WeatherData?
+    @State private var isShowingDialog = false
     @EnvironmentObject var outfitStore: OutfitStore
 
     var body: some View {
@@ -45,6 +46,20 @@ struct WeatherView: View {
                             if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
                                 NavigationLink(destination: OutfitDetailView(outfit: plannedOutfit)) {
                                     OutfitListRow(outfit: plannedOutfit)
+                                }
+                                
+                                Button(action: {
+                                    isShowingDialog = true
+                                }) {
+                                    Text("Delete")          
+                                }
+                                .confirmationDialog("Are you sure you want to delete tomorrows outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                                    Button("Delete", role: .destructive) {
+                                        outfitStore.deletePlannedOutfit { _ in }
+                                    }
+                                    Button("Cancel", role: .cancel) {
+                                        isShowingDialog = false
+                                    }
                                 }
                             }
                         }

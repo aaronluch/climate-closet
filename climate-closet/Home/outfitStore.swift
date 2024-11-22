@@ -296,6 +296,20 @@ extension OutfitStore {
     func hasPlannedOutfit() -> Bool {
         return allOutfits.contains { $0.isPlanned }
     }
+    
+    func deletePlannedOutfit(completion: @escaping (Bool) -> Void) {
+        guard let userID = userSession.userID else {
+            print("User not logged in.")
+            completion(false)
+            return
+        }
+        guard let plannedOutfit = allOutfits.first(where: { $0.isPlanned }) else {
+            completion(false)
+            return
+        }
+        
+        db.collection("outfits").document(plannedOutfit.itemID).delete()
+    }
 }
 
 // Expand and display all details and clothng articles in an outfit
