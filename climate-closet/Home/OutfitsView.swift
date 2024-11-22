@@ -1,60 +1,70 @@
 import SwiftUI
 
-struct OutfitListRow: View {
-    var outfit: Outfit
-    
-    var body: some View {
-        VStack() {
-            HStack() {
-                // thumbnail if avail
-                if let thumbnailImage = outfit.thumbnail {
-                    Image(uiImage: thumbnailImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .padding(.bottom, 10)
-                }
-                // outfit name
-                Text(outfit.name)
-            }
-            .padding()
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(12)
-            .padding(.horizontal)
-        }
-    }
-}
-
 struct OutfitsView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     
     var body: some View {
+        
         VStack {
             let savedOutfits = outfitStore.getUnplannedOutfits()
             
             if savedOutfits.isEmpty {
                 Text("No outfits found!")
+                    .font(.headline)
+                    .padding()
             } else {
-                List(savedOutfits) { outfit in
-                    NavigationLink(destination: OutfitDetailView(outfit: outfit)) {
-                        OutfitListRow(outfit: outfit)
+                ScrollView {
+                    LazyVStack(spacing: 20) {
+                        ForEach(savedOutfits) { outfit in
+                            NavigationLink(destination: OutfitDetailView(outfit: outfit)) {
+                                OutfitListRow(outfit: outfit)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
                     }
+                    .padding(.top, 20)
+                    .padding(.horizontal)
                 }
             }
+            Spacer() // Push the content to the top
         }
         .navigationTitle("Outfits")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-private func categoryTitle(_ category: Clothing.Category) -> String {
-    switch category {
-    case .top: return "Tops"
-    case .bottom: return "Bottoms"
-    case .outerwear: return "Outerwear"
-    case .accessory: return "Accessories"
-    case .footwear: return "Footwear"
-    case .other: return "Other"
+// this is in a dumb spot but our file structure is really bad so im just leaving it...
+struct OutfitListRow: View {
+    let outfit: Outfit
+    
+    var body: some View {
+        HStack {
+            if let thumbnail = outfit.thumbnail {
+                Image(uiImage: thumbnail)
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .cornerRadius(8)
+            } else {
+                ZStack {
+                    Rectangle()
+                        .fill(Color.black)
+                        .frame(width: 70, height: 70)
+                        .cornerRadius(8)
+                    Text("No Image")
+                        .foregroundColor(.white)
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            Text(outfit.name)
+                .font(.headline)
+                .padding(.leading, 10)
+                .foregroundColor(.black)
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+        .padding()
+        .background(Color.gray.opacity(0.15))
+        .cornerRadius(12)
     }
 }

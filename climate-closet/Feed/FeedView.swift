@@ -2,8 +2,8 @@ import SwiftUI
 
 struct FeedView: View {
     @EnvironmentObject var outfitStore: OutfitStore
-    @State private var showOutfitSelector = false // toggle if adding outfit
-    @State private var selectedOutfitID: String? // track selected outfit ID for navigation
+    @State private var showOutfitSelector = false
+    @State private var selectedOutfitID: String?
 
     var body: some View {
         NavigationStack {
@@ -13,36 +13,22 @@ struct FeedView: View {
                         .font(.headline)
                         .padding()
                 } else {
-                    List(outfitStore.feedOutfits, id: \.itemID) { outfit in
-                        Button(action: {
-                            selectedOutfitID = outfit.itemID
-                        }) {
-                            HStack {
-                                if let thumbnail = outfit.thumbnail {
-                                    Image(uiImage: thumbnail)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50, height: 50)
-                                        .cornerRadius(8)
-                                } else {
-                                    Rectangle()
-                                        .fill(Color.gray)
-                                        .frame(width: 50, height: 50)
-                                        .cornerRadius(8)
+                    ScrollView {
+                        LazyVStack(spacing: 20) {
+                            ForEach(outfitStore.feedOutfits, id: \.itemID) { outfit in
+                                NavigationLink(value: outfit.itemID) {
+                                    OutfitListRow(outfit: outfit)
                                 }
-                                Text(outfit.name)
-                                    .font(.headline)
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
-                        .background(
-                            NavigationLink(value: outfit.itemID) {
-                                EmptyView()
-                            }
-                        )
+                        .padding(.top, 20)
+                        .padding(.horizontal)
                     }
                 }
             }
             .navigationTitle("Feed")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {

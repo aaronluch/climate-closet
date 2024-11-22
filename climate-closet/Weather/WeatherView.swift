@@ -45,7 +45,7 @@ struct WeatherView: View {
                             if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
                                 NavigationLink(destination: OutfitDetailView(outfit: plannedOutfit)) {
                                     OutfitListRow(outfit: plannedOutfit)
-                                }
+                                }.padding()
                             }
                         }
                     } else {

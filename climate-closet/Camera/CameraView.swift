@@ -59,7 +59,8 @@ struct CameraView: View {
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(sourceType: imageSource, selectedImage: $selectedImage)
             }
-            .navigationTitle("Camera View")
+            .navigationTitle("Add a new item")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
