@@ -73,6 +73,7 @@ struct ClothingInfoView: View {
                     } else {
                         Text("Image not available")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding()
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(8)
                     }

@@ -332,6 +332,7 @@ struct OutfitDetailView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.gray.opacity(0.3))
                             .cornerRadius(8)
+                            .padding()
                     }
                 }
                 .frame(height: geometry.size.height / 2)
