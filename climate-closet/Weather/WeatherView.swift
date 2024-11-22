@@ -4,6 +4,7 @@ struct WeatherView: View {
     
     @ObservedObject var locationManager = LocationManager()
     @State private var weatherData: WeatherData?
+    @State private var isShowingDialog = false
     @EnvironmentObject var outfitStore: OutfitStore
 
     var body: some View {
@@ -13,7 +14,7 @@ struct WeatherView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
-                    .frame(maxWidth: .infinity, alignment: .center) 
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(.black)
 
                 if let weather = weatherData {
@@ -45,7 +46,22 @@ struct WeatherView: View {
                             if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
                                 NavigationLink(destination: OutfitDetailView(outfit: plannedOutfit)) {
                                     OutfitListRow(outfit: plannedOutfit)
-                                }.padding()
+                                }
+                                .padding()
+
+                                Button(action: {
+                                    isShowingDialog = true
+                                }) {
+                                    Text("Delete")
+                                }
+                                .confirmationDialog("Are you sure you want to delete tomorrow's outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                                    Button("Delete", role: .destructive) {
+                                        outfitStore.deletePlannedOutfit { _ in }
+                                    }
+                                    Button("Cancel", role: .cancel) {
+                                        isShowingDialog = false
+                                    }
+                                }
                             }
                         }
                     } else {
@@ -63,7 +79,6 @@ struct WeatherView: View {
                                 .cornerRadius(3)
                         }
                     }
-
                     
                     VStack {
                         Text("24-Hour Weather Breakdown")
@@ -72,7 +87,6 @@ struct WeatherView: View {
                             .frame(maxWidth: .infinity)
                             .border(Color.black, width: 2)
                             .foregroundColor(.black)
-                        
                     }
                     .padding()
                 } else {
@@ -100,3 +114,4 @@ struct WeatherView_Previews: PreviewProvider {
             .environmentObject(OutfitStore()) // Inject the OutfitStore environment object
     }
 }
+
