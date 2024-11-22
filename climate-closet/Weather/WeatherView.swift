@@ -43,7 +43,7 @@ struct WeatherView: View {
                         VStack {
                             Text("Tomorrow's Outfit")
                             if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
-                                NavigationLink(destination: OutfitInfoView(outfit: plannedOutfit)) {
+                                NavigationLink(destination: OutfitDetailView(outfit: plannedOutfit)) {
                                     OutfitListRow(outfit: plannedOutfit)
                                 }
                             }

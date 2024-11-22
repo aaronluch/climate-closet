@@ -26,66 +26,6 @@ struct OutfitListRow: View {
     }
 }
 
-// extract images from clothing for outfit to access
-struct OutfitClothingImageView: View {
-    @ObservedObject var clothing: Clothing
-
-    var body: some View {
-        HStack {
-            if clothing.isLocalImage {
-                if let imageName = clothing.imageUrl {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100)
-                        .clipped()
-                } else {
-                    Text("Image not available")
-                        .frame(width: 100, height: 100)
-                        .background(Color.gray.opacity(0.3))
-                        .cornerRadius(8)
-                }
-            } else if let decodedImage = clothing.image {
-                Image(uiImage: decodedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-            } else {
-                let imgUrl: String? = clothing.imageUrl
-                if let unw = imgUrl {
-                    Text(unw)
-                }
-                Text("Image not available [here]")
-                    .frame(width: 100, height: 100)
-                    .background(Color.gray.opacity(0.3))
-                    .cornerRadius(8)
-            }
-            Spacer()
-            Text(clothing.name)
-                .foregroundColor(.primary)
-        }
-    }
-}
-
-struct OutfitInfoView: View {
-    @ObservedObject var outfit: Outfit
-
-    var body: some View {
-        VStack {
-            ForEach(Clothing.Category.allCases, id: \.self) { category in
-                let categorizedClothes = outfit.clothes.filter { $0.category == category }
-
-                ForEach(categorizedClothes) { clothing in
-                    OutfitClothingImageView(clothing: clothing)
-                        .padding(.horizontal, 25)
-                }
-            }
-        }
-        .padding()
-    }
-}
-
-
 struct OutfitsView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     
@@ -97,7 +37,7 @@ struct OutfitsView: View {
                 Text("No outfits found!")
             } else {
                 List(savedOutfits) { outfit in
-                    NavigationLink(destination: OutfitInfoView(outfit: outfit)) {
+                    NavigationLink(destination: OutfitDetailView(outfit: outfit)) {
                         OutfitListRow(outfit: outfit)
                     }
                 }

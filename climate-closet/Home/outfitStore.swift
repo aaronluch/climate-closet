@@ -297,3 +297,57 @@ extension OutfitStore {
         return allOutfits.contains { $0.isPlanned }
     }
 }
+
+// Expand and display all details and clothng articles in an outfit
+struct OutfitDetailView: View {
+    @ObservedObject var outfit: Outfit
+
+    var body: some View {
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                // thumbnail
+                VStack {
+                    if let thumbnail = outfit.thumbnail {
+                        Image(uiImage: thumbnail)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(maxWidth: geometry.size.width - 20, maxHeight: .infinity)
+                    } else {
+                        Text("Image not available")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.gray.opacity(0.3))
+                            .cornerRadius(8)
+                    }
+                }
+                .frame(height: geometry.size.height / 2)
+
+                // details
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(outfit.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 20)
+
+                    Text("Clothes:")
+                        .bold()
+                        .font(.title3)
+
+                    ForEach(outfit.clothes, id: \.itemID) { clothing in
+                        HStack {
+                            Text(clothing.name)
+                                .font(.body)
+                            Spacer()
+                            Text(clothing.category.rawValue.capitalized)
+                                .foregroundColor(.gray)
+                                .font(.subheadline)
+                        }
+                    }
+                }
+                .padding()
+                .frame(height: geometry.size.height / 2, alignment: .top)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
