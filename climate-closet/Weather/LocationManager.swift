@@ -12,6 +12,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         // Check if location services are enabled
         if CLLocationManager.locationServicesEnabled() {
             manager.requestWhenInUseAuthorization()  // Request authorization to use location

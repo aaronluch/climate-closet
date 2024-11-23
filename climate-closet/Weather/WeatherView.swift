@@ -53,6 +53,12 @@ struct WeatherView: View {
                                     isShowingDialog = true
                                 }) {
                                     Text("Delete")
+                                        .frame(maxWidth: .infinity, minHeight: 35)
+                                        .padding()
+                                        .background(Color.red)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                        .padding(.horizontal, 20)
                                 }
                                 .confirmationDialog("Are you sure you want to delete tomorrow's outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
                                     Button("Delete", role: .destructive) {
@@ -69,14 +75,12 @@ struct WeatherView: View {
                             .environmentObject(ClothesStore())
                             .environmentObject(OutfitStore())) {
                             Text("Plan Tomorrow's Outfit")
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 15)
-                                .background(Color.white)
-                                .foregroundColor(.black)
-                                .border(Color.black, width: 2)
-                                .cornerRadius(3)
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal, 20)
                         }
                     }
                     
@@ -96,10 +100,13 @@ struct WeatherView: View {
             .padding(.top)
             .onAppear {
                 if let location = locationManager.location {
+                    print("Location: \(location.latitude), \(location.longitude)")  
                     fetchWeather(latitude: location.latitude, longitude: location.longitude) { data in
                         self.weatherData = data
                     }
                 }
+                
+                
             }
             .navigationTitle("")
             .navigationBarHidden(true)
