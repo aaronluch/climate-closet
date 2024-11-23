@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 import FirebaseFirestore
 
 struct WeatherView: View {
@@ -8,58 +9,85 @@ struct WeatherView: View {
     @State private var isShowingDialog = false
     @EnvironmentObject var outfitStore: OutfitStore
     @State private var listener: ListenerRegistration?
-
+    @State private var locationName: String = "Weather"
+    
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                Text("Weather")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
+            VStack() {
+                Text(locationName)
+                    .font(.system(size: 32))
+                    .fontWeight(.regular)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(.black)
-
+                
                 if let weather = weatherData {
                     let tempFahrenheit = Int((weather.main.temp * 9/5) + 32)
                     let currentTemp = "\(tempFahrenheit)°F"
                     let description = weather.weather.first?.description.capitalized ?? ""
                     
-                    HStack {
-                        Image(systemName: "cloud.sun")
+                    VStack {
+                        Text("\(currentTemp)")
+                            .font(.system(size: 80))
+                            .foregroundColor(.black.opacity(0.8))
+                            .fontWeight(.light)
+                        Text("\(description)")
+                            .font(.headline)
+                            .foregroundColor(.black.opacity(0.8))
+                            .fontWeight(.light)
+                            .padding(.bottom, 10)
+                        
+                        weatherIcon(for: description)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.black)
-                        
-                        Text("Now: \(description), \(currentTemp)")
-                            .font(.headline)
-                            .foregroundColor(.black)
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.blue)
                     }
+                    .padding(.bottom, 20)
                     .font(.headline)
-                    .padding()
                     .frame(maxWidth: .infinity)
-                    .border(Color.black, width: 2)
-                    .background(Color.white)
                     .cornerRadius(3)
                     
                     if outfitStore.hasPlannedOutfit() {
                         VStack {
-                            Text("Tomorrow's Outfit")
+                            HStack() {
+                                Text("Tomorrow's Outfit")
+                                    .padding(.horizontal)
+                                    .offset(y: 20)
+                                Spacer()
+                            }
                             if let plannedOutfit = outfitStore.allOutfits.first(where: { $0.isPlanned }) {
                                 NavigationLink(destination: OutfitDetailView(outfit: plannedOutfit)) {
                                     OutfitListRow(outfit: plannedOutfit)
                                 }
                                 .padding()
-
+                                
                                 Button(action: {
                                     isShowingDialog = true
                                 }) {
-                                    Text("Delete")
+                                    Text("Remove Tomorrow's Outfit")
                                         .frame(maxWidth: .infinity, minHeight: 10)
                                         .padding()
-                                        .background(Color.red)
+                                        .background(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color.red.opacity(0.8), Color.red]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(
+                                                    LinearGradient(
+                                                        gradient: Gradient(colors: [Color.white.opacity(1.0), Color.gray.opacity(0.5)]),
+                                                        startPoint: .topLeading,
+                                                        endPoint: .bottomTrailing
+                                                    ),
+                                                    lineWidth: 1.5
+                                                )
+                                        )
+                                        .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 2, y: 2)
                                         .padding(.horizontal, 20)
                                 }
                                 .confirmationDialog("Are you sure you want to delete tomorrow's outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
@@ -76,25 +104,34 @@ struct WeatherView: View {
                         NavigationLink(destination: OutfitPlanningView()
                             .environmentObject(ClothesStore())
                             .environmentObject(OutfitStore())) {
-                            Text("Plan Tomorrow's Outfit")
+                                Text("Plan Tomorrow's Outfit")
                                     .frame(maxWidth: .infinity, maxHeight: 35)
                                     .padding()
-                                    .background(Color.blue)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.blue]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(
+                                                LinearGradient(
+                                                    gradient: Gradient(colors: [Color.white.opacity(1.0), Color.gray.opacity(0.5)]),
+                                                    startPoint: .topLeading,
+                                                    endPoint: .bottomTrailing
+                                                ),
+                                                lineWidth: 1.5
+                                            )
+                                    )
+                                    .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 2, y: 2)
                                     .padding(.horizontal, 20)
-                        }
+                            }
+                        
                     }
-                    
-                    VStack {
-                        Text("24-Hour Weather Breakdown")
-                            .font(.headline)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .border(Color.black, width: 2)
-                            .foregroundColor(.black)
-                    }
-                    .padding()
                 } else {
                     Text("Fetching weather...")
                 }
@@ -102,11 +139,12 @@ struct WeatherView: View {
             .padding(.top)
             .onAppear {
                 startListeningForPlannedOutfit()
-                if let location = locationManager.location {
-                    print("Location: \(location.latitude), \(location.longitude)")
-                    fetchWeather(latitude: location.latitude, longitude: location.longitude) { data in
+                if let coordinate = locationManager.location {
+                    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                    fetchWeather(latitude: coordinate.latitude, longitude: coordinate.longitude) { data in
                         self.weatherData = data
                     }
+                    fetchLocationName(for: location)
                 }
             }
             .onDisappear {
@@ -117,6 +155,7 @@ struct WeatherView: View {
             .navigationBarHidden(true)
         }
     }
+    
     private func startListeningForPlannedOutfit() {
         guard let userID = UserSession.shared.userID else { return }
         listener = Firestore.firestore().collection("outfits")
@@ -127,17 +166,48 @@ struct WeatherView: View {
                     print("Error listening for planned outfit updates: \(error.localizedDescription)")
                     return
                 }
-
+                
                 guard let documents = snapshot?.documents else {
                     print("No planned outfits found.")
                     return
                 }
-
+                
                 outfitStore.allOutfits = documents.compactMap { doc in
                     let data = doc.data()
                     return outfitStore.parseOutfitData(data, documentID: doc.documentID)
                 }
             }
+    }
+    
+    private func weatherIcon(for description: String) -> Image {
+        switch description.lowercased() {
+        case let str where str.contains("clear"):
+            return Image(systemName: "sun.max.fill")
+        case let str where str.contains("cloud"):
+            return Image(systemName: "cloud.fill")
+        case let str where str.contains("rain"):
+            return Image(systemName: "cloud.rain.fill")
+        case let str where str.contains("snow"):
+            return Image(systemName: "cloud.snow.fill")
+        case let str where str.contains("thunderstorm"):
+            return Image(systemName: "cloud.bolt.rain.fill")
+        case let str where str.contains("mist"), let str where str.contains("fog"):
+            return Image(systemName: "cloud.fog.fill")
+        default:
+            return Image(systemName: "questionmark.circle.fill")
+        }
+    }
+    
+    private func fetchLocationName(for location: CLLocation) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                print("Error fetching location name: \(error.localizedDescription)")
+                self.locationName = "Unknown Location"
+            } else if let placemark = placemarks?.first {
+                self.locationName = placemark.locality ?? placemark.name ?? "Unknown Location"
+            }
+        }
     }
 }
 
