@@ -297,6 +297,10 @@ extension OutfitStore {
         return allOutfits.contains { $0.isPlanned }
     }
     
+    func deleteOutfit(_ outfit: Outfit, completion: @escaping (Bool) -> Void) {
+        db.collection("outfits").document(outfit.itemID).delete()
+    }
+    
     func deletePlannedOutfit(completion: @escaping (Bool) -> Void) {
         guard let userID = userSession.userID else {
             print("User not logged in.")
@@ -315,6 +319,9 @@ extension OutfitStore {
 // Expand and display all details and clothng articles in an outfit
 struct OutfitDetailView: View {
     @ObservedObject var outfit: Outfit
+    @EnvironmentObject var outfitStore: OutfitStore
+    @Environment(\.presentationMode) var presentationMode
+    @State private var isShowingDialog = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -365,6 +372,23 @@ struct OutfitDetailView: View {
                                 .font(.subheadline)
                         }
                     }
+                    
+                    // Button to delete clothing item
+                    Button(action: {
+                        isShowingDialog = true
+                    }) {
+                        Text("Delete")
+                    }
+                    .confirmationDialog("Are you sure you want to delete this outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                        Button("Delete", role: .destructive) {
+                            outfitStore.deleteOutfit(outfit) { _ in }
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        Button("Cancel", role: .cancel) {
+                            isShowingDialog = false
+                        }
+                    }
+                    
                 }
                 .padding()
                 .padding()

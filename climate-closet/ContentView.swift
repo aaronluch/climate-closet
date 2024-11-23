@@ -12,6 +12,7 @@ struct ContentView: View {
                     Label("Home", systemImage: "house")
                 }
                 .environmentObject(ClothesStore())
+                .environmentObject(OutfitStore())
             FeedView()
                 .tabItem {
                     Label("Feed", systemImage: "list.bullet")
