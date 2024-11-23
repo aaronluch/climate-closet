@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseFirestore
 
 struct WeatherView: View {
     
@@ -6,6 +7,7 @@ struct WeatherView: View {
     @State private var weatherData: WeatherData?
     @State private var isShowingDialog = false
     @EnvironmentObject var outfitStore: OutfitStore
+    @State private var listener: ListenerRegistration?
 
     var body: some View {
         NavigationView {
@@ -53,7 +55,7 @@ struct WeatherView: View {
                                     isShowingDialog = true
                                 }) {
                                     Text("Delete")
-                                        .frame(maxWidth: .infinity, minHeight: 35)
+                                        .frame(maxWidth: .infinity, minHeight: 10)
                                         .padding()
                                         .background(Color.red)
                                         .foregroundColor(.white)
@@ -99,26 +101,50 @@ struct WeatherView: View {
             }
             .padding(.top)
             .onAppear {
+                startListeningForPlannedOutfit()
                 if let location = locationManager.location {
-                    print("Location: \(location.latitude), \(location.longitude)")  
+                    print("Location: \(location.latitude), \(location.longitude)")
                     fetchWeather(latitude: location.latitude, longitude: location.longitude) { data in
                         self.weatherData = data
                     }
                 }
-                
-                
+            }
+            .onDisappear {
+                listener?.remove()
+                listener = nil
             }
             .navigationTitle("")
             .navigationBarHidden(true)
         }
     }
+    private func startListeningForPlannedOutfit() {
+        guard let userID = UserSession.shared.userID else { return }
+        listener = Firestore.firestore().collection("outfits")
+            .whereField("userID", isEqualTo: userID)
+            .whereField("isPlanned", isEqualTo: true)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error listening for planned outfit updates: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No planned outfits found.")
+                    return
+                }
+
+                outfitStore.allOutfits = documents.compactMap { doc in
+                    let data = doc.data()
+                    return outfitStore.parseOutfitData(data, documentID: doc.documentID)
+                }
+            }
+    }
 }
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        // Provide a preview with the necessary environment object
         WeatherView()
-            .environmentObject(OutfitStore()) // Inject the OutfitStore environment object
+            .environmentObject(OutfitStore())
     }
 }
 

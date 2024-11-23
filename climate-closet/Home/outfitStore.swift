@@ -131,7 +131,7 @@ class OutfitStore: ObservableObject {
     }
 
     
-    private func parseOutfitData(_ data: [String: Any], documentID: String) -> Outfit? {
+    func parseOutfitData(_ data: [String: Any], documentID: String) -> Outfit? {
         guard
             let userID = data["userID"] as? String,
             let name = data["name"] as? String,
@@ -312,7 +312,35 @@ extension OutfitStore {
             return
         }
         
-        db.collection("outfits").document(plannedOutfit.itemID).delete()
+        db.collection("outfits")
+            .whereField("userID", isEqualTo: userID)
+            .whereField("isPlanned", isEqualTo: true)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching planned outfit: \(error.localizedDescription)")
+                    completion(false)
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    print("No planned outfit found.")
+                    completion(false)
+                    return
+                }
+
+                // iterate through matching documents and delete them
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error deleting planned outfit: \(error.localizedDescription)")
+                            completion(false)
+                        } else {
+                            print("Planned outfit deleted successfully.")
+                            completion(true)
+                        }
+                    }
+                }
+            }
     }
 }
 

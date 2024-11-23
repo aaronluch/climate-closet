@@ -8,5 +8,8 @@
 	<string>We need your location to provide accurate weather information.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library to save and retrieve outfit photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>ClimateCloset needs access to your camera to add new clothing items.</string>
+
 </dict>
 </plist>

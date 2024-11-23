@@ -9,6 +9,7 @@ struct OutfitPlanningView: View {
     @State private var thumbnailImage: UIImage?
     @State private var isShowingImagePicker = false
     @State private var outfitName = ""
+    @State private var successUpload = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -69,21 +70,22 @@ struct OutfitPlanningView: View {
                         thumbnail: thumbnailImage
                     ) { success in
                         if success {
-                            // clear after saving
+                            successUpload = true
                             selectedClothes.removeAll()
                         } else {
                             print("Failed to save outfit.")
                         }
                     }
                 }) {
-                    Text("Save Outfit")
+                    Text(successUpload ? "Outfit Saved" : "Save Outfit")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
+                        .background(successUpload ? Color.gray : Color.blue)
+                        .foregroundColor(successUpload ? Color.white.opacity(0.7) : Color.white)
                         .cornerRadius(10)
                         .padding(.horizontal)
                 }
+                .disabled(successUpload) // disable button after success
                 .padding(.top, 20)
             }
             .navigationTitle("Create Outfit")
