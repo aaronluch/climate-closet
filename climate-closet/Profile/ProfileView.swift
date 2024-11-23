@@ -4,7 +4,7 @@ struct ProfileView: View {
     @ObservedObject var userSession = UserSession.shared // user session
     
     private var navigationTitle: String {
-        if let userEmail = userSession.userEmail{
+        if let userEmail = userSession.userEmail {
             let username = userEmail.components(separatedBy: "@").first ?? userEmail
             return "Welcome back, \(username)!"
         } else {
@@ -14,59 +14,92 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                if userSession.userID == nil {
-                    NavigationLink(destination: LoginView()) {
-                        Text("Login")
-                            .font(.title)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .border(Color.black, width: 2)
-                            .cornerRadius(3)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    // main content
+                    VStack(spacing: 20) {
+                        VStack {
+                            Text("Profile")
+                                .font(.system(size: 32.00))
+                                .fontWeight(.thin)
+                                .padding(.bottom)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(height: geometry.size.height * 0.1)
+                            .zIndex(1)
+                        
+                        Image("CCLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width * 0.4)
+                        
+                        Text("\(navigationTitle)")
+                            .fontWeight(.regular)
+                            .font(.system(size: 30))
+                            .padding(.bottom, 50)
+                        
+                        if userSession.userID == nil {
+                            NavigationLink(destination: LoginView()) {
+                                Text("Login")
+                                    .font(.title3)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, maxHeight: 25)
+                                    .padding(.vertical, 15)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(80)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 4, x: 2, y: 2)
+                            }
+                            
+                            NavigationLink(destination: RegisterView()) {
+                                Text("Register")
+                                    .font(.title3)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, maxHeight: 25)
+                                    .padding(.vertical, 15)
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(80)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 4, x: 2, y: 2)
+                            }
+                        } else if userSession.userID != nil {
+                            NavigationLink(destination: SettingsView()) {
+                                Text("Settings")
+                                    .font(.title3)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, maxHeight: 35)
+                                    .padding(.vertical, 15)
+                                    .background(Color.teal.opacity(1.0))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(80)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 6, x: 2, y: 6)
+                            }
+                        }
                     }
+                    .frame(height: geometry.size.height * 0.8) // 80% height
                     
-                    NavigationLink(destination: RegisterView()) {
-                        Text("Register")
-                            .font(.title)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .border(Color.black, width: 2)
-                            .cornerRadius(3)
+                    // remaining space for logout
+                    VStack {
+                        if userSession.userID != nil {
+                            Button(action: {
+                                userSession.logout()
+                            }) {
+                                Text("Logout")
+                                    .font(.title3)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, maxHeight: 15)
+                                    .padding(.vertical, 10)
+                                    .background(Color.red)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(15)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 4, x: 2, y: 2)
+                            }
+                        }
                     }
-                } else if userSession.userID != nil {
-                    NavigationLink(destination: SettingsView()) {
-                        Text("Settings")
-                            .font(.title)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(Color.white)
-                            .foregroundColor(.black)
-                            .border(Color.black, width: 2)
-                            .cornerRadius(3)
-                    }
-                    
-                    Button(action: {
-                        userSession.logout() // Call the logout function to sign out
-                    }) {
-                        Text("Logout")
-                            .font(.title)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 15)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(3)
-                    }
+                    .frame(height: geometry.size.height * 0.1) // Allocate 10% of height
                 }
             }
-            .navigationTitle(navigationTitle)
+            .navigationTitle("")
             .padding()
         }
     }

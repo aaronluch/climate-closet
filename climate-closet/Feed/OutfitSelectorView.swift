@@ -40,7 +40,7 @@ struct OutfitSelectorView: View {
                     }
                 }
             }
-            .navigationTitle("Select an Outfit")
+            .navigationTitle("Select an outfit to upload")
             .onAppear(perform: fetchUnplannedOutfits)
             .onReceive(outfitStore.$allOutfits) { _ in
                 fetchUnplannedOutfits() // update list whenever a new outfit (isnt planned for weather) is added

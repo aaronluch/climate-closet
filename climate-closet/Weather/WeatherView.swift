@@ -109,15 +109,15 @@ struct WeatherView: View {
                                     .padding()
                                     .background(
                                         LinearGradient(
-                                            gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.blue]),
+                                            gradient: Gradient(colors: [Color.blue.opacity(1.0), Color.teal]),
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )
                                     )
                                     .foregroundColor(.white)
-                                    .cornerRadius(10)
+                                    .cornerRadius(30)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
+                                        RoundedRectangle(cornerRadius: 30)
                                             .stroke(
                                                 LinearGradient(
                                                     gradient: Gradient(colors: [Color.white.opacity(1.0), Color.gray.opacity(0.5)]),
@@ -127,7 +127,7 @@ struct WeatherView: View {
                                                 lineWidth: 1.5
                                             )
                                     )
-                                    .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 2, y: 2)
+                                    .shadow(color: Color.gray.opacity(0.6), radius: 8, x: 2, y: 6)
                                     .padding(.horizontal, 20)
                             }
                         

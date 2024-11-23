@@ -14,7 +14,7 @@ struct FeedView: View {
                         .padding()
                 } else {
                     ScrollView {
-                        LazyVStack(spacing: 20) {
+                        LazyVStack(spacing: 10) {
                             ForEach(outfitStore.feedOutfits, id: \.itemID) { outfit in
                                 NavigationLink(value: outfit.itemID) {
                                     OutfitListRow(outfit: outfit)

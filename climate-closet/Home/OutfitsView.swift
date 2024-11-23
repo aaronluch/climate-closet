@@ -14,7 +14,7 @@ struct OutfitsView: View {
                     .padding()
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 20) {
+                    LazyVStack(spacing: 10) {
                         ForEach(savedOutfits) { outfit in
                             NavigationLink(destination: OutfitDetailView(outfit: outfit)) {
                                 OutfitListRow(outfit: outfit)
@@ -28,7 +28,7 @@ struct OutfitsView: View {
             }
             Spacer() // Push the content to the top
         }
-        .navigationTitle("Outfits")
+        .navigationTitle("Your Outfits")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -42,13 +42,13 @@ struct OutfitListRow: View {
             if let thumbnail = outfit.thumbnail {
                 Image(uiImage: thumbnail)
                     .resizable()
-                    .frame(width: 70, height: 70)
+                    .frame(width: 50, height: 50)
                     .cornerRadius(8)
             } else {
                 ZStack {
                     Rectangle()
                         .fill(Color.black)
-                        .frame(width: 70, height: 70)
+                        .frame(width: 50, height: 50)
                         .cornerRadius(8)
                     Text("No Image")
                         .foregroundColor(.white)
@@ -64,7 +64,8 @@ struct OutfitListRow: View {
             Image(systemName: "chevron.right")
         }
         .padding()
-        .background(Color.gray.opacity(0.15))
+        .background(Color.gray.opacity(0.1))
+        .frame(height: 90)
         .cornerRadius(12)
     }
 }

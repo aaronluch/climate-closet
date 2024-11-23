@@ -25,6 +25,7 @@
 		0272C8822CE3C39D0018F454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8812CE3C39D0018F454 /* UserSession.swift */; };
 		0272C8832CE3C39D0018F454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8812CE3C39D0018F454 /* UserSession.swift */; };
 		0272C8842CE3C39D0018F454 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8812CE3C39D0018F454 /* UserSession.swift */; };
+		02776D2C2CF276E400F598BC /* CCLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 02776D2B2CF276E400F598BC /* CCLogo.png */; };
 		028D3F8D2CB58B2800F8B4FA /* clothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028D3F8C2CB58B2800F8B4FA /* clothing.swift */; };
 		02AB3A652CB5A11200C92A0E /* climate_closetTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */; };
 		02AB3A722CB5A12300C92A0E /* climate_closetUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB3A712CB5A12300C92A0E /* climate_closetUITesting.swift */; };
@@ -85,6 +86,7 @@
 		0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0272C87D2CE3B1F20018F454 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		0272C8812CE3C39D0018F454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		02776D2B2CF276E400F598BC /* CCLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CCLogo.png; path = "climate-closet/images/CCLogo.png"; sourceTree = SOURCE_ROOT; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
 		02AB3A622CB5A11200C92A0E /* climate-closetTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetTesting.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
+				02776D2B2CF276E400F598BC /* CCLogo.png */,
 				02C8193F2CE2760F006628E6 /* SettingsView.swift */,
 				02C8193D2CE27604006628E6 /* RegisterView.swift */,
 				02C8193B2CE275F4006628E6 /* LoginView.swift */,
@@ -407,6 +410,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02776D2C2CF276E400F598BC /* CCLogo.png in Resources */,
 				024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */,
 				024730722CB589F300A6C86B /* Assets.xcassets in Resources */,
 				0272C87A2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */,

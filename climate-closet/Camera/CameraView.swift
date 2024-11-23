@@ -5,7 +5,7 @@ import FirebaseFirestore
 struct CameraView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false
-    @State private var imageSource: ImagePicker.SourceType = .photoLibrary
+    @State private var imageSource: ImagePicker.SourceType? = .photoLibrary // default val for source
     @StateObject private var clothing = Clothing(userID: UserSession.shared.userID ?? "na",
                                                  itemID: "")
     @State private var navigateToImageInfo = false // controls the navigation
@@ -25,12 +25,12 @@ struct CameraView: View {
                                 .frame(maxWidth: .infinity)
                                 .cornerRadius(10)
                         } else {
-                            Text("Select an image")
+                            Text("Take a photo or upload an image")
                                 .foregroundColor(.gray)
                                 .frame(maxHeight: geometry.size.height / 2)
                                 .frame(maxWidth: .infinity)
-                                .background(Color.gray.opacity(0.3))
-                                .cornerRadius(10)
+                            //.background(Color.gray.opacity(0.3))
+                            //.cornerRadius(10)
                         }
                     }
                     .frame(height: geometry.size.height / 2)
@@ -84,7 +84,9 @@ struct CameraView: View {
                 imageSelected = (selectedImage != nil)
             }
             .sheet(isPresented: $showImagePicker) {
-                ImagePicker(sourceType: imageSource, selectedImage: $selectedImage)
+                if let sourceType = imageSource {
+                    ImagePicker(sourceType: sourceType, selectedImage: $selectedImage)
+                }
             }
             .navigationTitle("Add a new item")
             .navigationBarTitleDisplayMode(.inline)

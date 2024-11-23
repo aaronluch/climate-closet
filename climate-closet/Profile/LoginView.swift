@@ -5,7 +5,6 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var loginError: String?
-    @State private var loginSuccess = false
     @Environment(\.presentationMode) var presentationMode
     private var countdownTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -14,13 +13,27 @@ struct LoginView: View {
             Text("Login")
                 .font(.largeTitle)
 
-            TextField("Email", text: $username)
-                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
+            TextField("Email", text: $username).autocorrectionDisabled().autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 .padding()
+                .frame(height: 60)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding(.horizontal)
 
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
+            SecureField("Password", text: $password).autocorrectionDisabled().autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 .padding()
+                .frame(height: 60)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding(.horizontal)
 
             if let loginError = loginError {
                 Text(loginError)
@@ -35,23 +48,24 @@ struct LoginView: View {
                 Text("Login")
                     .font(.headline)
                     .padding()
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: 30.0)
                     .padding(.vertical, 10)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .border(Color.black, width: 2)
-                    .cornerRadius(8)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.blue, Color.teal]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .foregroundColor(.white)
+                    .cornerRadius(30)
+                    .shadow(color: Color.gray.opacity(0.5), radius: 4, x: 2, y: 2)
             }
             .padding(.top)
-            if loginSuccess {
-//                Text("Success!")
-//                    .foregroundColor(.green)
-//                    .padding()
-                // this just looks stupid right now, queue makes it feel sluggish to countdown from as well
-            }
+            .padding(.horizontal)
         }
         .padding()
-        .navigationTitle("Login")
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -60,7 +74,6 @@ struct LoginView: View {
             switch result {
             case .success(let user):
                 print("Logged in user ID: \(user.uid)")
-                loginSuccess = true
                 loginError = nil
             case .failure(let error):
                 loginError = "Failed to login: \(error.localizedDescription)"

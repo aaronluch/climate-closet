@@ -15,13 +15,27 @@ struct RegisterView: View {
             Text("Register")
                 .font(.largeTitle)
 
-            TextField("Email", text: $username)
-                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
+            TextField("Email", text: $username).autocorrectionDisabled().autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 .padding()
+                .frame(height: 60)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding(.horizontal)
 
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle()).autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/).autocorrectionDisabled()
+            SecureField("Password", text: $password).autocorrectionDisabled().autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 .padding()
+                .frame(height: 60)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                .padding(.horizontal)
 
             if let registrationError = registrationError {
                 Text(registrationError)
@@ -49,17 +63,24 @@ struct RegisterView: View {
                 Text("Register")
                     .font(.headline)
                     .padding()
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: 30.0)
                     .padding(.vertical, 10)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .border(Color.black, width: 2)
-                    .cornerRadius(8)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.red, Color.orange]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .foregroundColor(.white)
+                    .cornerRadius(30)
+                    .shadow(color: Color.gray.opacity(0.5), radius: 4, x: 2, y: 2)
             }
             .padding(.top)
+            .padding(.horizontal)
         }
         .padding()
-        .navigationTitle("Register")
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
     }
     
