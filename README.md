@@ -45,6 +45,6 @@ ClimateCloset is an iOS app designed to help users manage their wardrobe and pla
 ## Testing Notes
 
 ### Location Services
-- On the simulator, enable location services under: Simulator → Features → Location and select a location (the app on a phone allows for getting actual location, the simulator has issues understanding location services due to simulated location by default.)
+- On the simulator, enable location services under: Simulator → Features → Location and select a location (By default it may be set to None. If you want to try a custom location you can input one, or choose from the list. Location Services work properly on physical devices (phones))
 - On a physical device, ensure location permissions are granted in settings.
   
