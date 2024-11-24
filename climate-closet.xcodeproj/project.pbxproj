@@ -15,6 +15,7 @@
 		0260DDB02CD3C6EE00B94D0E /* OutfitPlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */; };
 		0260DDB22CD3C93E00B94D0E /* CreateOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */; };
 		026BC4082CF10939001E2CC5 /* OutfitSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026BC4072CF10939001E2CC5 /* OutfitSelectorView.swift */; };
+		026CAD1D2CF2AE70006DC4D8 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 026CAD1C2CF2AE70006DC4D8 /* AppIcon.png */; };
 		0272C8722CE3912A0018F454 /* ImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0272C8712CE3912A0018F454 /* ImageInfoView.swift */; };
 		0272C87A2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
 		0272C87B2CE3AA6C0018F454 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */; };
@@ -82,11 +83,12 @@
 		0260DDAF2CD3C6EE00B94D0E /* OutfitPlanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutfitPlanningView.swift; sourceTree = "<group>"; };
 		0260DDB12CD3C93E00B94D0E /* CreateOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOutfitView.swift; sourceTree = "<group>"; };
 		026BC4072CF10939001E2CC5 /* OutfitSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitSelectorView.swift; sourceTree = "<group>"; };
+		026CAD1C2CF2AE70006DC4D8 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		0272C8712CE3912A0018F454 /* ImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoView.swift; sourceTree = "<group>"; };
 		0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0272C87D2CE3B1F20018F454 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		0272C8812CE3C39D0018F454 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
-		02776D2B2CF276E400F598BC /* CCLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CCLogo.png; path = "climate-closet/images/CCLogo.png"; sourceTree = SOURCE_ROOT; };
+		02776D2B2CF276E400F598BC /* CCLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CCLogo.png; path = "climate-closet/CCLogo.png"; sourceTree = SOURCE_ROOT; };
 		028D3F8C2CB58B2800F8B4FA /* clothing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clothing.swift; sourceTree = "<group>"; };
 		02AB3A622CB5A11200C92A0E /* climate-closetTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "climate-closetTesting.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB3A642CB5A11200C92A0E /* climate_closetTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = climate_closetTesting.swift; sourceTree = "<group>"; };
@@ -179,7 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				0721EBD72CB7261C008E9BA5 /* ProfileView.swift */,
-				02776D2B2CF276E400F598BC /* CCLogo.png */,
 				02C8193F2CE2760F006628E6 /* SettingsView.swift */,
 				02C8193D2CE27604006628E6 /* RegisterView.swift */,
 				02C8193B2CE275F4006628E6 /* LoginView.swift */,
@@ -225,6 +226,8 @@
 			children = (
 				0237E5792CC44F09002D1928 /* Info.plist */,
 				0272C8792CE3AA6C0018F454 /* GoogleService-Info.plist */,
+				026CAD1C2CF2AE70006DC4D8 /* AppIcon.png */,
+				02776D2B2CF276E400F598BC /* CCLogo.png */,
 				024730712CB589F300A6C86B /* Assets.xcassets */,
 				0237E57C2CC452D1002D1928 /* Home */,
 				0237E57F2CC45358002D1928 /* Feed */,
@@ -410,6 +413,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				026CAD1D2CF2AE70006DC4D8 /* AppIcon.png in Resources */,
 				02776D2C2CF276E400F598BC /* CCLogo.png in Resources */,
 				024730752CB589F300A6C86B /* Preview Assets.xcassets in Resources */,
 				024730722CB589F300A6C86B /* Assets.xcassets in Resources */,

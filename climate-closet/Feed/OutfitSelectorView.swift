@@ -1,26 +1,27 @@
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
-// Provides list of outfits to select from, allowing user to upload to the feed
-// Integrates with Firestore
 struct OutfitSelectorView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var outfitStore: OutfitStore
+    @EnvironmentObject var userSession: UserSession // Observe user session changes
     let onOutfitSelected: (Outfit) -> Void
-    @State private var unplannedOutfits: [Outfit] = [] // local to hold unplanned outfits
-    
+    @State private var unplannedOutfits: [Outfit] = [] // Local to hold unplanned outfits
+    @State private var listener: ListenerRegistration?
+
     var body: some View {
         NavigationView {
             VStack {
                 if unplannedOutfits.isEmpty {
-                    Text("No unplanned outfits available.")
+                    Text("No outfits available.")
                         .font(.headline)
                         .padding()
                 } else {
                     List(unplannedOutfits, id: \.itemID) { outfit in
                         Button(action: {
                             onOutfitSelected(outfit)
-                            presentationMode.wrappedValue.dismiss() // dismiss view
+                            presentationMode.wrappedValue.dismiss() // Dismiss view
                         }) {
                             HStack {
                                 if let thumbnail = outfit.thumbnail {
@@ -43,15 +44,44 @@ struct OutfitSelectorView: View {
                 }
             }
             .navigationTitle("Select an outfit to upload")
-            .onAppear(perform: fetchUnplannedOutfits)
-            .onReceive(outfitStore.$allOutfits) { _ in
-                fetchUnplannedOutfits() // update list whenever a new outfit (isnt planned for weather) is added
+            .onAppear {
+                startListeningForChanges()
+            }
+            .onDisappear {
+                stopListeningForChanges()
             }
         }
     }
 
-    // Filters out planned outfits (from weather planner)
     private func fetchUnplannedOutfits() {
         unplannedOutfits = outfitStore.allOutfits.filter { !$0.isPlanned }
+    }
+
+    private func startListeningForChanges() {
+        guard let userID = userSession.userID else {
+            print("Error: User is not logged in.")
+            return
+        }
+        listener = Firestore.firestore().collection("outfits")
+            .whereField("userID", isEqualTo: userID)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error listening for outfits: \(error.localizedDescription)")
+                    return
+                }
+                guard let documents = snapshot?.documents else {
+                    print("No outfits found.")
+                    return
+                }
+                outfitStore.allOutfits = documents.compactMap { doc in
+                    outfitStore.parseOutfitData(doc.data(), documentID: doc.documentID)
+                }
+                fetchUnplannedOutfits() // Update the unplanned outfits list
+            }
+    }
+
+    private func stopListeningForChanges() {
+        listener?.remove()
+        listener = nil
     }
 }

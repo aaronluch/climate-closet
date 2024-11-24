@@ -4,7 +4,6 @@ import SwiftUI
 // Provides navigation to options for wardrobe, and outfits
 struct HomeView: View {
     @ObservedObject var userSession = UserSession.shared // user session
-    let debug = false
     
     private var navigationTitle: String {
         if let userEmail = userSession.userEmail {
@@ -19,6 +18,9 @@ struct HomeView: View {
         NavigationView {
             GeometryReader { geometry in
                 VStack {
+                    if (userSession.userID == nil) {
+                        Text("You're not logged in!")
+                    }
                     // centered main buttons (70% of screen)
                     VStack(spacing: 20) {
                         HStack {

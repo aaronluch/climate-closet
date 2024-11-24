@@ -6,11 +6,16 @@ struct FeedView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     @State private var showOutfitSelector = false
     @State private var selectedOutfitID: String?
+    @ObservedObject var userSession = UserSession.shared
     
     var body: some View {
         NavigationStack {
             VStack {
-                if outfitStore.feedOutfits.isEmpty {
+                if userSession.userID == nil {
+                    Text("Log in to view the feed")
+                        .padding()
+                        .font(.headline)
+                } else if outfitStore.feedOutfits.isEmpty {
                     Text("No outfits in the feed yet.")
                         .font(.headline)
                         .padding()
@@ -57,7 +62,12 @@ struct FeedView: View {
                     OutfitSelectorView { selectedOutfit in
                         outfitStore.addToFeed(outfit: selectedOutfit)
                     }
+                    .environmentObject(UserSession.shared)
                 }
+                .onAppear() {
+                    outfitStore.listenForFeedUpdates()
+                }
+
             // resolves nav links, will error if cant find that outfit
                 .navigationDestination(for: String.self) { outfitID in
                     if let outfit = outfitStore.feedOutfits.first(where: { $0.itemID == outfitID }) {

@@ -26,7 +26,7 @@ struct WeatherView: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 12..<18: // Afternoon
+        case 12..<17: // Afternoon
             DispatchQueue.main.async {
                 self.textColor = .black
             }
@@ -35,7 +35,7 @@ struct WeatherView: View {
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-        case 18..<21: // Evening
+        case 17..<20: // Evening
             DispatchQueue.main.async {
                 self.textColor = .white
             }
@@ -49,7 +49,7 @@ struct WeatherView: View {
                 self.textColor = .white
             }
             return LinearGradient(
-                gradient: Gradient(colors: [Color.black.opacity(0.7), Color.gray.opacity(0.6)]),
+                gradient: Gradient(colors: [Color.black.opacity(0.9), Color.indigo.opacity(0.9)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
