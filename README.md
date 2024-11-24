@@ -34,6 +34,7 @@ ClimateCloset is an iOS app designed to help users manage their wardrobe and pla
   ```
   cd climate-closet
   pod install
+  ```
 
 - If you cannot install pods via ```pod install``` you must install the latest version of CocoaPods stated in Prerequisites.
 
