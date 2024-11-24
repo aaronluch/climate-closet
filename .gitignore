@@ -1,1 +1,10 @@
-# temp remove
+# Ignore .DS_Store files everywhere
+.DS_Store
+
+# CocoaPods
+Pods/
+DerivedData/
+build/
+
+# Swift Package Manager
+.swiftpm/
