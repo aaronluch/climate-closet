@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Displays a list of saved outfits
+// Wont display outfits that are marked as "planned" (so no overlap in planning view)
 struct OutfitsView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     
@@ -33,7 +35,7 @@ struct OutfitsView: View {
     }
 }
 
-// this is in a dumb spot but our file structure is really bad so im just leaving it...
+// Represents a single outfit in a horizontal row, displaying name and nav link to expand
 struct OutfitListRow: View {
     let outfit: Outfit
     

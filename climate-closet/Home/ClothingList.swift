@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// Displays a single clothing item in a list with a thumbnail image or placeholder if no image is available
 struct ClothingListRow: View {
     var clothing: Clothing
     
@@ -41,8 +42,8 @@ struct ClothingListRow: View {
 }
 
 
-// Shows the information about each article of clothing when
-// expanding each piece of clothing
+// Displays detailed information about a clothing item, including its image, category, ownership, and
+// temperature range, with an option to delete the item.
 struct ClothingInfoView: View {
     @ObservedObject var clothing: Clothing
     @EnvironmentObject var clothesStore: ClothesStore
@@ -158,7 +159,7 @@ struct ClothingInfoView: View {
     
 }
 
-// helper function to get relative image for clothing cateogry
+// Maps clothing categories to system icon names
 private func systemImageName(for category: Clothing.Category) -> String {
     switch category {
     case .top:
@@ -176,7 +177,7 @@ private func systemImageName(for category: Clothing.Category) -> String {
     }
 }
 
-
+// Displays a row for a clothing item with a selection state, allowing toggling of selection
 struct ClothingRowView: View {
     var clothing: Clothing
     var isSelected: Bool
@@ -203,11 +204,14 @@ struct ClothingRowView: View {
     }
 }
 
+// Enum for interaction if in Wardrobe or making an outfit
 enum ExpandableClothingCategoryMode {
     case browsing // for WardrobeView
     case selecting // for CreateOutfitView
 }
 
+// Displays a collapsible list of clothing items categorized by type
+// Used for both browsing and selecting modes
 struct ExpandableClothingCategoryView: View {
     var category: Clothing.Category
     var clothes: [Clothing]
@@ -313,6 +317,7 @@ struct ExpandableClothingCategoryView: View {
     }
 
 
+    // Toggles which clothing item is selected
     private func toggleSelection(for clothing: Clothing) {
         if let index = selectedClothes.firstIndex(where: { $0.id == clothing.id }) {
             selectedClothes.remove(at: index)
@@ -320,7 +325,8 @@ struct ExpandableClothingCategoryView: View {
             selectedClothes.append(clothing)
         }
     }
-
+    
+    // Helper function for returning category by name
     private func categoryTitle(_ category: Clothing.Category) -> String {
         switch category {
         case .top: return "Tops"

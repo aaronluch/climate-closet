@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Defines the main landing page of the app
+// Provides navigation to options for wardrobe, and outfits
 struct HomeView: View {
     @ObservedObject var userSession = UserSession.shared // user session
     let debug = false

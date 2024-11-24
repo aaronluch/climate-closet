@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// Allow users to register a new account
 struct RegisterView: View {
     @State private var username: String = ""
     @State private var password: String = ""

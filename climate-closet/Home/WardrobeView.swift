@@ -1,6 +1,8 @@
 import Foundation
 import SwiftUI
 
+// Displays the user's wardrobe categorized by clothing types
+// Allows for expandable and interactive browsing of items
 struct WardrobeView: View {
     @EnvironmentObject var clothesStore: ClothesStore
     @State private var expandedCategories: [Clothing.Category: Bool] = [:]
@@ -32,6 +34,7 @@ struct WardrobeView: View {
         }
     }
 
+    // Initializes the expansion states for all clothing categories to false by default
     private func initializeExpandedCategories() {
         for category in Clothing.Category.allCases {
             expandedCategories[category] = expandedCategories[category] ?? false

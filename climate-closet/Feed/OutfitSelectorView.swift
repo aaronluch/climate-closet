@@ -1,6 +1,8 @@
 import Foundation
 import SwiftUI
 
+// Provides list of outfits to select from, allowing user to upload to the feed
+// Integrates with Firestore
 struct OutfitSelectorView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var outfitStore: OutfitStore
@@ -48,6 +50,7 @@ struct OutfitSelectorView: View {
         }
     }
 
+    // Filters out planned outfits (from weather planner)
     private func fetchUnplannedOutfits() {
         unplannedOutfits = outfitStore.allOutfits.filter { !$0.isPlanned }
     }

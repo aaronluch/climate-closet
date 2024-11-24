@@ -1,10 +1,5 @@
-//
-//  AuthService.swift
-//  climate-closet
-//
-//  Created by Aaron Luciano on 11/12/24.
-//
-
+// Provides methods for user authentication, including registering and logging in users
+// uses Firebase Authentication
 import FirebaseAuth
 import Foundation
 

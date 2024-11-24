@@ -1,6 +1,8 @@
 import SwiftUI
 import Foundation
 
+// Users can plan and create new outfits by selecting clothing items
+// Saves outfit to firestore db
 struct OutfitPlanningView: View {
     @EnvironmentObject var clothesStore: ClothesStore
     @EnvironmentObject var outfitStore: OutfitStore
@@ -42,11 +44,24 @@ struct OutfitPlanningView: View {
                 
                 // thumbnail
                 if let thumbnailImage = thumbnailImage {
-                    Image(uiImage: thumbnailImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .padding()
+                    ZStack(alignment: .topTrailing) {
+                        Image(uiImage: thumbnailImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 150)
+                            .cornerRadius(10)
+                        
+                        Button(action: {
+                            self.thumbnailImage = nil // clear thumbnail image
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.red)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
+                        .offset(x: 10, y: 10)
+                    }
                 } else {
                     Button(action: {
                         // trigger image picker
@@ -91,6 +106,7 @@ struct OutfitPlanningView: View {
             .navigationTitle("Create Outfit")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.top, 10)
+            .padding(.bottom, 20)
         }
         .sheet(isPresented: $isShowingImagePicker) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: $thumbnailImage)

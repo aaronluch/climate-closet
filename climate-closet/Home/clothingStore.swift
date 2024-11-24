@@ -2,6 +2,8 @@ import Foundation
 import SwiftUI
 import FirebaseFirestore
 
+// Manages the user's collection of clothing items
+// Interacts with and listens on firebase database (firestore)
 class ClothesStore: ObservableObject {
     @ObservedObject var userSession = UserSession.shared
     @Published var allClothes: [Clothing] = []
@@ -15,7 +17,8 @@ class ClothesStore: ObservableObject {
     deinit {
         listener?.remove() // remove listener when ClothesStore is deinitialized
     }
-
+    
+    // Sets up a Firestore listener to track updates to clothing items for the currently logged-in user.
     func listenForClothingUpdates() {
         guard let userID = userSession.userID else {
             print("User is not logged in.")
@@ -45,7 +48,8 @@ class ClothesStore: ObservableObject {
                 }
             }
     }
-
+    
+    // Converts Firestore document data into a Clothing object
     func parseClothingData(_ data: [String: Any], documentID: String) -> Clothing? {
         guard
             let userID = data["userID"] as? String,
@@ -84,6 +88,7 @@ class ClothesStore: ObservableObject {
     }
 }
 
+// Delete a specified clothing item
 extension ClothesStore {
     func deleteClothing(_ clothing: Clothing, completion: @escaping (Bool) -> Void) {
         db.collection("clothing").document(clothing.itemID).delete()

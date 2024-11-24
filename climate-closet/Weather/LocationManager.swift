@@ -1,49 +1,62 @@
 import CoreLocation
 import SwiftUI
 
-// This class handles location services and is observable by SwiftUI views.
+// Manages location updates and handles user authorization for location services
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
-    // CLLocationManager is the object that provides location services.
     private let manager = CLLocationManager()
-    
     @Published var location: CLLocationCoordinate2D?
+    @Published var authorizationStatus: CLAuthorizationStatus?
+    @Published var isLocationDenied = false // Track if the user denied location access
 
     override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
-        // Check if location services are enabled
+        
         if CLLocationManager.locationServicesEnabled() {
-            manager.requestWhenInUseAuthorization()  // Request authorization to use location
-            manager.startUpdatingLocation()  // Start fetching location updates
+            // Request permission to use location
+            manager.requestWhenInUseAuthorization()
         } else {
-            print("Location services are not enabled")
+            print("Location services are not enabled.")
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            self.location = location.coordinate
-            manager.stopUpdatingLocation()
+    // update authorized status and track
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let status = manager.authorizationStatus
+        self.authorizationStatus = status
+        
+        switch status {
+        case .notDetermined:
+            print("Authorization not determined. Requesting access.")
+            manager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            print("Location access denied or restricted.")
+            isLocationDenied = true
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("Location authorized. Starting location updates.")
+            startUpdatingLocation()
+        @unknown default:
+            print("Unknown authorization status.")
         }
+    }
+
+    // updates user's location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        self.location = location.coordinate
+        print("Location updated: \(location.coordinate.latitude), \(location.coordinate.longitude)")
+        manager.stopUpdatingLocation() // Stop updates after getting the location
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get location: \(error.localizedDescription)")
     }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .restricted, .denied:
-            print("Location access denied")
-        case .authorizedWhenInUse, .authorizedAlways:
-            manager.startUpdatingLocation()
-        default:
-            break
+
+    private func startUpdatingLocation() {
+        DispatchQueue.main.async {
+            self.manager.startUpdatingLocation()
         }
     }
-
 }

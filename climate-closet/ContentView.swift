@@ -4,6 +4,7 @@
 
 import SwiftUI
 
+// Acts as the main entry point for the app's user interface
 struct ContentView: View {
     var body: some View {
         TabView {

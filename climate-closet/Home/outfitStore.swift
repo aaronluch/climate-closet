@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import FirebaseFirestore
 
+// Manages and synchronizes the lists of outfits with the firestore for current user
 class OutfitStore: ObservableObject {
     @ObservedObject var userSession = UserSession.shared
     @EnvironmentObject var outfitStore: OutfitStore
@@ -21,6 +22,7 @@ class OutfitStore: ObservableObject {
         feedListener?.remove()
     }
     
+    // Listens for changes to outfits in Firestore for the current user
     func listenForOutfitUpdates() {
         guard let userID = userSession.userID else {
             print("User is not logged in.")
@@ -49,6 +51,7 @@ class OutfitStore: ObservableObject {
             }
     }
     
+    // istens for changes to the feed collection in Firestore
     func listenForFeedUpdates() {
         feedListener = db.collection("feed")
             .addSnapshotListener { [weak self] snapshot, error in
@@ -71,12 +74,13 @@ class OutfitStore: ObservableObject {
             }
     }
     
+    // Adds an outfit to the feed by saving it to the Firestore feed collection
     func addToFeed(outfit: Outfit) {
         guard let userID = userSession.userID else {
             print("User is not logged in.")
             return
         }
-
+        
         var data: [String: Any] = [
             "userID": userID,
             "itemID": outfit.itemID,
@@ -107,7 +111,7 @@ class OutfitStore: ObservableObject {
                 return clothingData
             }
         ]
-
+        
         // encode thumbnail as base64
         if let thumbnail = outfit.thumbnail {
             if let base64String = convertImageToBase64String(img: thumbnail) {
@@ -119,7 +123,7 @@ class OutfitStore: ObservableObject {
         } else {
             data["thumbnail"] = ""
         }
-
+        
         // save to feed specific collection
         db.collection("feed").document(outfit.itemID).setData(data) { error in
             if let error = error {
@@ -129,8 +133,8 @@ class OutfitStore: ObservableObject {
             }
         }
     }
-
     
+    // Parses Firestore document data into an Outfit object
     func parseOutfitData(_ data: [String: Any], documentID: String) -> Outfit? {
         guard
             let userID = data["userID"] as? String,
@@ -170,16 +174,17 @@ class OutfitStore: ObservableObject {
         }
         
         let outfit = Outfit(userID: userID, itemID: itemID, name: name, clothes: clothes, isPlanned: isPlanned)
-                
+        
         // decode the base64 thumbnail image
         if let thumbnailBase64 = data["thumbnail"] as? String, let imageData = Data(base64Encoded: thumbnailBase64) {
             outfit.thumbnail = UIImage(data: imageData)
         }
-
+        
         return outfit
     }
 }
 
+// Extension of outfitStore responsible for additional functions which interact with Firestore db
 extension OutfitStore {
     func saveOutfit(_ outfit: Outfit, completion: @escaping (Bool) -> Void) {
         guard let userID = userSession.userID else {
@@ -260,13 +265,14 @@ extension OutfitStore {
         
         return newImage
     }
-
+    
     private func convertImageToBase64String(img: UIImage) -> String? {
         guard let imageData = img.jpegData(compressionQuality: 0.01) else { return nil } // i love corporate america :]
         return imageData.base64EncodedString()
     }
 }
 
+// Another extension, interacts with outfits specifically and can modify / add new ones
 extension OutfitStore {
     func createNewOutfit(name: String, clothes: [Clothing] = [], isPlanned: Bool = false, thumbnail: UIImage? = nil, completion: @escaping (Bool) -> Void) {
         guard let userID = userSession.userID else {
@@ -283,7 +289,7 @@ extension OutfitStore {
             isPlanned: isPlanned,
             thumbnail: thumbnail
         )
-
+        
         saveOutfit(newOutfit) { success in
             completion(success)
         }
@@ -321,13 +327,13 @@ extension OutfitStore {
                     completion(false)
                     return
                 }
-
+                
                 guard let documents = snapshot?.documents else {
                     print("No planned outfit found.")
                     completion(false)
                     return
                 }
-
+                
                 // iterate through matching documents and delete them
                 for document in documents {
                     document.reference.delete { error in
@@ -350,79 +356,99 @@ struct OutfitDetailView: View {
     @EnvironmentObject var outfitStore: OutfitStore
     @Environment(\.presentationMode) var presentationMode
     @State private var isShowingDialog = false
-
+    
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                // thumbnail
-                VStack {
-                    if let thumbnail = outfit.thumbnail {
-                        Image(uiImage: thumbnail)
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .frame(maxWidth: geometry.size.width - 20, maxHeight: .infinity)
-                    } else {
-                        Text("Image not available")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.gray.opacity(0.3))
-                            .cornerRadius(8)
-                            .padding()
+            ScrollView {
+                VStack(spacing: 0) {
+                    // thumbnail
+                    VStack {
+                        if let thumbnail = outfit.thumbnail {
+                            Image(uiImage: thumbnail)
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: geometry.size.width - 20, maxHeight: .infinity)
+                        } else {
+                            Text("Image not available")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(Color.gray.opacity(0.3))
+                                .cornerRadius(8)
+                                .padding()
+                        }
                     }
-                }
-                .frame(height: geometry.size.height / 2)
-
-                // details
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack{
-                        Text(outfit.name)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.bottom, 20)
-                    }
-
-                    HStack {
-                        Image(systemName: "tshirt")
-                            .font(.title3)
-                            .foregroundColor(.primary)
-                        Text("Clothes:")
-                            .bold()
-                            .font(.title3)
-                    }
-
-                    ForEach(outfit.clothes, id: \.itemID) { clothing in
+                    .frame(height: geometry.size.height / 2)
+                    
+                    // details
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack{
+                            Text(outfit.name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.bottom, 20)
+                        }
+                        
                         HStack {
-                            Text(clothing.name)
-                                .font(.body)
-                            Spacer()
-                            Text(clothing.category.rawValue.capitalized)
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
+                            Image(systemName: "tshirt")
+                                .font(.title3)
+                                .foregroundColor(.primary)
+                            Text("Clothes:")
+                                .bold()
+                                .font(.title3)
+                        }
+                        
+                        ForEach(outfit.clothes, id: \.itemID) { clothing in
+                            HStack {
+                                // small thumbnail for each clothing item
+                                if let image = clothing.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(5)
+                                } else {
+                                    ZStack {
+                                        Rectangle()
+                                            .fill(Color.gray.opacity(0.3))
+                                            .frame(width: 40, height: 40)
+                                            .cornerRadius(5)
+                                        Text("No Image")
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+                                }
+                                
+                                VStack(alignment: .leading) {
+                                    Text(clothing.name)
+                                        .font(.body)
+                                    Text(clothing.category.rawValue.capitalized)
+                                        .foregroundColor(.gray)
+                                        .font(.subheadline)
+                                }
+                                Spacer()
+                            }
+                        }
+                        
+                        // Button to delete clothing item
+                        Button(action: {
+                            isShowingDialog = true
+                        }) {
+                            Text("Delete")
+                        }
+                        .confirmationDialog("Are you sure you want to delete this outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
+                            Button("Delete", role: .destructive) {
+                                outfitStore.deleteOutfit(outfit) { _ in }
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                            Button("Cancel", role: .cancel) {
+                                isShowingDialog = false
+                            }
                         }
                     }
-                    
-                    // Button to delete clothing item
-                    Button(action: {
-                        isShowingDialog = true
-                    }) {
-                        Text("Delete")
-                    }
-                    .confirmationDialog("Are you sure you want to delete this outfit?", isPresented: $isShowingDialog, titleVisibility: .visible) {
-                        Button("Delete", role: .destructive) {
-                            outfitStore.deleteOutfit(outfit) { _ in }
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                        Button("Cancel", role: .cancel) {
-                            isShowingDialog = false
-                        }
-                    }
-                    
+                    .padding()
                 }
-                .padding()
-                .padding()
-                .frame(height: geometry.size.height / 2, alignment: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

@@ -8,6 +8,7 @@
 import FirebaseAuth
 import Combine
 
+// Tracks user session based on logged in user
 class UserSession: ObservableObject {
     static let shared = UserSession()
     

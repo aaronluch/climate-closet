@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// Provides navlinks to various setting views (not implemented)
 struct SettingsView: View {
     var body: some View {
         List {

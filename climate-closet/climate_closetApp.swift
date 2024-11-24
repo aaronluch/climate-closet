@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Main entry point of ClimateCloset
 @main
 struct climate_closetApp: App {
     // connect app delegate

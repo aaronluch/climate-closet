@@ -2,6 +2,8 @@ import SwiftUI
 import Photos
 import FirebaseFirestore
 
+// Provides a view to capture or select an image for an item of clothing
+// Can user either phone camera or photo library
 struct CameraView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false

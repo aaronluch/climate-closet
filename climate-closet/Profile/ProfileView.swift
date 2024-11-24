@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Display user's profile with options to login register and logout.
+// Can access settings but not fully implemented
 struct ProfileView: View {
     @ObservedObject var userSession = UserSession.shared // user session
     
@@ -8,7 +10,7 @@ struct ProfileView: View {
             let username = userEmail.components(separatedBy: "@").first ?? userEmail
             return "Welcome back, \(username)!"
         } else {
-            return "Profile"
+            return "ClimateCloset"
         }
     }
     

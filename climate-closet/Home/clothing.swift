@@ -1,5 +1,7 @@
 import SwiftUI
 
+// Represents a clothing item with attributes like user ID, item ID, name, ownership status, category, temperatures
+// ranges, and optional image properties
 class Clothing: Identifiable, ObservableObject {
     @Published var userID: String
     @Published var itemID: String
@@ -32,6 +34,7 @@ class Clothing: Identifiable, ObservableObject {
         decodeImage()
     }
     
+    // Decodes a base64-encoded string into a UIImage if the clothing item references a remote image
     func decodeImage() {
         if !isLocalImage, image == nil, let imageUrl = imageUrl, let imageData = Data(base64Encoded: imageUrl) {
             self.image = UIImage(data: imageData)

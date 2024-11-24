@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import FirebaseFirestore
 
+// Interface for users to add metadata to a selected image they want to upload
 struct ImageInfoView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
@@ -125,6 +126,7 @@ struct ImageInfoView: View {
     }
     
     // convert image to base64 and upload with metadata
+    // Upload to the firestore db on userID
     private func uploadImageToFirestore() {
         guard let userID = UserSession.shared.userID else {
             print("Error: User ID not available")

@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import FirebaseCore
 
+// Manages app-wide configuration and setup, including initializing Firebase and customizing global UI elements
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure Firebase
